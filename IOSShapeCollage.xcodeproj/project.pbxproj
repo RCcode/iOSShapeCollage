@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E87C92E519C021CB00DBA781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92E419C021CB00DBA781 /* Foundation.framework */; };
+		E87C92E719C021CB00DBA781 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92E619C021CB00DBA781 /* CoreGraphics.framework */; };
+		E87C92E919C021CB00DBA781 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92E819C021CB00DBA781 /* UIKit.framework */; };
+		E87C92EF19C021CB00DBA781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E87C92ED19C021CB00DBA781 /* InfoPlist.strings */; };
+		E87C92F119C021CB00DBA781 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E87C92F019C021CB00DBA781 /* main.m */; };
+		E87C92F519C021CB00DBA781 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E87C92F419C021CB00DBA781 /* SCAppDelegate.m */; };
+		E87C92F719C021CB00DBA781 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E87C92F619C021CB00DBA781 /* Images.xcassets */; };
+		E87C92FE19C021CB00DBA781 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92FD19C021CB00DBA781 /* XCTest.framework */; };
+		E87C92FF19C021CB00DBA781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92E419C021CB00DBA781 /* Foundation.framework */; };
+		E87C930019C021CB00DBA781 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C92E819C021CB00DBA781 /* UIKit.framework */; };
+		E87C930819C021CB00DBA781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E87C930619C021CB00DBA781 /* InfoPlist.strings */; };
+		E87C930A19C021CB00DBA781 /* IOSShapeCollageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E87C930919C021CB00DBA781 /* IOSShapeCollageTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E87C930119C021CB00DBA781 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E87C92D919C021CB00DBA781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E87C92E019C021CB00DBA781;
+			remoteInfo = IOSShapeCollage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E87C92E119C021CB00DBA781 /* IOSShapeCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSShapeCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E87C92E419C021CB00DBA781 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E87C92E619C021CB00DBA781 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E87C92E819C021CB00DBA781 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E87C92EC19C021CB00DBA781 /* IOSShapeCollage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IOSShapeCollage-Info.plist"; sourceTree = "<group>"; };
+		E87C92EE19C021CB00DBA781 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E87C92F019C021CB00DBA781 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E87C92F219C021CB00DBA781 /* IOSShapeCollage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOSShapeCollage-Prefix.pch"; sourceTree = "<group>"; };
+		E87C92F319C021CB00DBA781 /* SCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
+		E87C92F419C021CB00DBA781 /* SCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
+		E87C92F619C021CB00DBA781 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E87C92FC19C021CB00DBA781 /* IOSShapeCollageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOSShapeCollageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E87C92FD19C021CB00DBA781 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E87C930519C021CB00DBA781 /* IOSShapeCollageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IOSShapeCollageTests-Info.plist"; sourceTree = "<group>"; };
+		E87C930719C021CB00DBA781 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E87C930919C021CB00DBA781 /* IOSShapeCollageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOSShapeCollageTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E87C92DE19C021CB00DBA781 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C92E719C021CB00DBA781 /* CoreGraphics.framework in Frameworks */,
+				E87C92E919C021CB00DBA781 /* UIKit.framework in Frameworks */,
+				E87C92E519C021CB00DBA781 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E87C92F919C021CB00DBA781 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C92FE19C021CB00DBA781 /* XCTest.framework in Frameworks */,
+				E87C930019C021CB00DBA781 /* UIKit.framework in Frameworks */,
+				E87C92FF19C021CB00DBA781 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E87C92D819C021CB00DBA781 = {
+			isa = PBXGroup;
+			children = (
+				E87C92EA19C021CB00DBA781 /* IOSShapeCollage */,
+				E87C930319C021CB00DBA781 /* IOSShapeCollageTests */,
+				E87C92E319C021CB00DBA781 /* Frameworks */,
+				E87C92E219C021CB00DBA781 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E87C92E219C021CB00DBA781 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E87C92E119C021CB00DBA781 /* IOSShapeCollage.app */,
+				E87C92FC19C021CB00DBA781 /* IOSShapeCollageTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E87C92E319C021CB00DBA781 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E87C92E419C021CB00DBA781 /* Foundation.framework */,
+				E87C92E619C021CB00DBA781 /* CoreGraphics.framework */,
+				E87C92E819C021CB00DBA781 /* UIKit.framework */,
+				E87C92FD19C021CB00DBA781 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E87C92EA19C021CB00DBA781 /* IOSShapeCollage */ = {
+			isa = PBXGroup;
+			children = (
+				E87C92F319C021CB00DBA781 /* SCAppDelegate.h */,
+				E87C92F419C021CB00DBA781 /* SCAppDelegate.m */,
+				E87C92F619C021CB00DBA781 /* Images.xcassets */,
+				E87C92EB19C021CB00DBA781 /* Supporting Files */,
+			);
+			path = IOSShapeCollage;
+			sourceTree = "<group>";
+		};
+		E87C92EB19C021CB00DBA781 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E87C92EC19C021CB00DBA781 /* IOSShapeCollage-Info.plist */,
+				E87C92ED19C021CB00DBA781 /* InfoPlist.strings */,
+				E87C92F019C021CB00DBA781 /* main.m */,
+				E87C92F219C021CB00DBA781 /* IOSShapeCollage-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E87C930319C021CB00DBA781 /* IOSShapeCollageTests */ = {
+			isa = PBXGroup;
+			children = (
+				E87C930919C021CB00DBA781 /* IOSShapeCollageTests.m */,
+				E87C930419C021CB00DBA781 /* Supporting Files */,
+			);
+			path = IOSShapeCollageTests;
+			sourceTree = "<group>";
+		};
+		E87C930419C021CB00DBA781 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E87C930519C021CB00DBA781 /* IOSShapeCollageTests-Info.plist */,
+				E87C930619C021CB00DBA781 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E87C92E019C021CB00DBA781 /* IOSShapeCollage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E87C930D19C021CB00DBA781 /* Build configuration list for PBXNativeTarget "IOSShapeCollage" */;
+			buildPhases = (
+				E87C92DD19C021CB00DBA781 /* Sources */,
+				E87C92DE19C021CB00DBA781 /* Frameworks */,
+				E87C92DF19C021CB00DBA781 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOSShapeCollage;
+			productName = IOSShapeCollage;
+			productReference = E87C92E119C021CB00DBA781 /* IOSShapeCollage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E87C92FB19C021CB00DBA781 /* IOSShapeCollageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E87C931019C021CB00DBA781 /* Build configuration list for PBXNativeTarget "IOSShapeCollageTests" */;
+			buildPhases = (
+				E87C92F819C021CB00DBA781 /* Sources */,
+				E87C92F919C021CB00DBA781 /* Frameworks */,
+				E87C92FA19C021CB00DBA781 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E87C930219C021CB00DBA781 /* PBXTargetDependency */,
+			);
+			name = IOSShapeCollageTests;
+			productName = IOSShapeCollageTests;
+			productReference = E87C92FC19C021CB00DBA781 /* IOSShapeCollageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E87C92D919C021CB00DBA781 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SC;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+				TargetAttributes = {
+					E87C92FB19C021CB00DBA781 = {
+						TestTargetID = E87C92E019C021CB00DBA781;
+					};
+				};
+			};
+			buildConfigurationList = E87C92DC19C021CB00DBA781 /* Build configuration list for PBXProject "IOSShapeCollage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E87C92D819C021CB00DBA781;
+			productRefGroup = E87C92E219C021CB00DBA781 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E87C92E019C021CB00DBA781 /* IOSShapeCollage */,
+				E87C92FB19C021CB00DBA781 /* IOSShapeCollageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E87C92DF19C021CB00DBA781 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C92EF19C021CB00DBA781 /* InfoPlist.strings in Resources */,
+				E87C92F719C021CB00DBA781 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E87C92FA19C021CB00DBA781 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C930819C021CB00DBA781 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E87C92DD19C021CB00DBA781 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C92F519C021CB00DBA781 /* SCAppDelegate.m in Sources */,
+				E87C92F119C021CB00DBA781 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E87C92F819C021CB00DBA781 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E87C930A19C021CB00DBA781 /* IOSShapeCollageTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E87C930219C021CB00DBA781 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E87C92E019C021CB00DBA781 /* IOSShapeCollage */;
+			targetProxy = E87C930119C021CB00DBA781 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E87C92ED19C021CB00DBA781 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E87C92EE19C021CB00DBA781 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E87C930619C021CB00DBA781 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E87C930719C021CB00DBA781 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E87C930B19C021CB00DBA781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E87C930C19C021CB00DBA781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E87C930E19C021CB00DBA781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IOSShapeCollage/IOSShapeCollage-Prefix.pch";
+				INFOPLIST_FILE = "IOSShapeCollage/IOSShapeCollage-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E87C930F19C021CB00DBA781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IOSShapeCollage/IOSShapeCollage-Prefix.pch";
+				INFOPLIST_FILE = "IOSShapeCollage/IOSShapeCollage-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E87C931119C021CB00DBA781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/IOSShapeCollage.app/IOSShapeCollage";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IOSShapeCollage/IOSShapeCollage-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "IOSShapeCollageTests/IOSShapeCollageTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		E87C931219C021CB00DBA781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/IOSShapeCollage.app/IOSShapeCollage";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IOSShapeCollage/IOSShapeCollage-Prefix.pch";
+				INFOPLIST_FILE = "IOSShapeCollageTests/IOSShapeCollageTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E87C92DC19C021CB00DBA781 /* Build configuration list for PBXProject "IOSShapeCollage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E87C930B19C021CB00DBA781 /* Debug */,
+				E87C930C19C021CB00DBA781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E87C930D19C021CB00DBA781 /* Build configuration list for PBXNativeTarget "IOSShapeCollage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E87C930E19C021CB00DBA781 /* Debug */,
+				E87C930F19C021CB00DBA781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E87C931019C021CB00DBA781 /* Build configuration list for PBXNativeTarget "IOSShapeCollageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E87C931119C021CB00DBA781 /* Debug */,
+				E87C931219C021CB00DBA781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E87C92D919C021CB00DBA781 /* Project object */;
+}
