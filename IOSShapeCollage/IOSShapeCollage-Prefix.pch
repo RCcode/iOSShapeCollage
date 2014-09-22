@@ -13,4 +13,8 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    #import "Defines.h"
+    #import "CMethods.h"
+    #import "PRJ_Global.h"
 #endif
