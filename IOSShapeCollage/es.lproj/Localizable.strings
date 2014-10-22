@@ -1,0 +1,108 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Actualizar";
+"rc_rate"="Puntuación";
+"rc_feedback"="Evaluación";
+"rc_share_app"="Compartir App";
+"rc_share"="Compartir";
+"rc_follow"="Siguenos";
+
+"rc_sdcard_miss"="Tarjeta Sd no instalada";
+"rc_custom_positive"="Sí";
+"rc_custom_negitive"="No";
+
+"rc_me_rate_now"="Puntuar ahora";
+"rc_me_rate_later"="Más tarde";
+"rc_me_rate_never"="No volver a recordar";
+"rc_me_rate_msg"="Gracias por usar %d. Por favor, dedícanos unos minutos a puntuarnos con 5 estrellas. Gracias por tu apoyo";
+
+"rc_file_is_invalid"="Formato de foto no soportado";
+"rc_unsupport_image"="Formato de fotografía no compatible";
+"rc_pictures_are_not_saved"="Foto no salvada, ¿quitar de la edición?";
+"rc_image_save_to_album_already"="La foto ha sido guardada en álbum";
+
+"rc_save"="Salvar";
+"rc_more"="Más";
+"rc_no_facebook"="No has instalado Facebook";
+"rc_no_instagram"="No has instalado Instagram";
+"rc_share_failed"="Fallo al compartir";
+"rc_save_failed"="Fallo al guardar foto";
+"rc_showwatermark"="Mostrar el diseño de la aplicación";
+"rc_enospc"="No tienes suficiente espacio para guardar";
+
+"rc_slogan_nocrop"="Publica fotos enteras sin cortar en Instagram.";
+"rc_slogan_instamark"="InstaMark-¡Haz que tus fotos sean únicas!";
+"rc_slogan_shape"="Añadir geniales e interesantes formas a tus fotos de Instagram";
+"rc_slogan_mirror"="Crea bonitas fotos en 2d y 3d con reflejos Mirror Effects.";
+"rc_slogan_beauty"="Beauty Camera es el creador de autorretratos que blanquea mucho mejor que el maquillaje";
+"rc_slogan_font"="añade fuentes y etiquetas a tus fotos";
+"rc_slogan_frameart"="¡Crea tus propias fotos artísticas!";
+"rc_slogan_face"="Haz increibles fotos usando caras!";
+"rc_slogan_collageart"="Un programa de Collage único para hacer que tus fotos llamen la atención.";
+"rc_slogan_picgrid"="Crea con tu colección de fotos una composición increíble";
+
+"rc_load_fail"="Fallo al cargar, por favor, inténtelo más tarde";
+"rc_operation_fail"="Error en la operación";
+"rc_net_error"="Sin conexión a internet";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Etiquetas";
+"rc_sticker_tab_recently"="Etiquetas recientes";
+"rc_sticker_tab_mood"="Estado de ánimo";
+"rc_sticker_tab_festival"="Ocio";
+"rc_sticker_tab_wordart"="Arte";
+"rc_sticker_tab_textbox"="Bocadillos";
+"rc_sticker_tab_stamp"="Sellos";
+"rc_unDownload"="No descargado";
+"rc_download"="Descargado";
+"rc_downloaded_font_none"="No hay fuentes descargadas";
+"rc_recently_sticker_none"="Etiquetas no usadas";
+"rc_no_new_fonts"="De momento no hay fuentes nuevas";
+"rc_font"="Fuente";
+"rc_local_font"="Fuentes";
+"rc_font_download_faild"="Fallo al descargar el modelo";
+"rc_font_cancel_down_dialog_msg "="¿Deseas cancelar la descarga?";
+"rc_delete_font_dialog_msg"="¿Seguro que quieres eliminar esta fuente?";
+"rc_confirm_remove_this"="¿Seguro que quieres eliminar esto?";
+"rc_max_add_text_msg"="Sólo puedes tener hasta %d textos como máximo";
+"rc_max_add_sticker_msg"="Puedes tener hasta %d etiquetas como máximo";
+"rc_max_photos_limit"="Puede seleccionar un máximo de %d fotografías";
+"rc_exit"="Salir";
+"rc_press_again_to_exit"="Pulsa de nuevo para salir (de la aplicación)";
+"rc_home"="Menú principal";
+"rc_reset"="Resetear";
+"rc_delete"="Eliminar";
+"rc_complete"="Finalizado";
+"rc_album"="Galería";
+"rc_camera"="Cámara";
+"rc_rotate"="Girar / Mover";
+"rc_filter"="Filtro";
+"rc_switch"="Cambiar";
+"rc_default"="Permitir";
+"rc_ungrade_now"="Actualizar ahora";
+"rc_pick_photos"="Elija un álbum";
+"rc_need_photo_limit"="Debes seleccionar %d fotos";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="Pulsar para mover la foto otra vez";
+"user_camera_step" = "Por favor, abra la cámara de los permisos CollageShape: Configuración del teléfono -> Privacidad -> Cámara -> CollageShape (abierto)";
+"user_library_step" = "Por favor, abra la cámara de los permisos CollageShape: Configuración del teléfono -> Privacidad -> Fotos -> CollageShape (abierto)";
+
+"newVersion"                  = "Nueva versión disponible";
+"updateNow"                   = "Actualizar ahora";
+"remindLater"                 = "Recordar más tarde";
+
+
+"comment_message_default"="Gracias por usar CollageShape. Por favor, dedícanos unos minutos a puntuarnos con 5 estrellas. Gracias por tu apoyo";
+"rate_now"="Puntuar ahora";
+"attention_later"="Más tarde";
+"share_msg"="Estoy usando collage shape, que tiene todo tipo de plantillas de collage formado por bellas formas que le permiten producir aún más único e interesantes collages";
+"allPhoto"="todos";
+

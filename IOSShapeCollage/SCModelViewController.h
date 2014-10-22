@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "MHImagePickerMutilSelector.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @class SCEditViewController;
 
-@interface SCModelViewController : UIViewController<MHImagePickerMutilSelectorDelegate>
+@interface SCModelViewController : UIViewController<MHImagePickerMutilSelectorDelegate,UINavigationControllerDelegate>
 {
-    NSArray *modelArray;
     MHImagePickerMutilSelector* imagePickerMutilSelector;
     SCEditViewController *editControll;
+    
 }
+
+@property (nonatomic, strong) NSMutableArray *photoGroupArray;
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
 @end

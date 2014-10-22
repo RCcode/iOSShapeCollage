@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCAboutViewController : UIViewController
+@interface SCAboutViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIPageViewControllerDelegate>
 
 @end

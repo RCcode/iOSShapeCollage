@@ -1,0 +1,108 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Aggiornamento";
+"rc_rate"="Punti";
+"rc_feedback"="Recencensioni";
+"rc_share_app"="Condividi App";
+"rc_share"="Condividi";
+"rc_follow"="Seguici";
+
+"rc_sdcard_miss"="Scheds SD non istallata";
+"rc_custom_positive"="Si";
+"rc_custom_negitive"="No";
+
+"rc_me_rate_now"="Vota ora";
+"rc_me_rate_later"="Ricordamelo più tardi";
+"rc_me_rate_never"="No grazie";
+"rc_me_rate_msg"="Grazie per avere usato %d, ti preghiamo di spendere un minuto per votare e dare 5 stelle alla nostra app, grazie ancora per il tuo supporto!";
+
+"rc_file_is_invalid"="Formato foto non supportato";
+"rc_unsupport_image"="Formato foto non supportato";
+"rc_pictures_are_not_saved"="Foto non salvata, vuoi interrompere la modifica?";
+"rc_image_save_to_album_already"="La foto è stata salvata negli album";
+
+"rc_save"="Salva";
+"rc_more"="Altro";
+"rc_no_facebook"="Non hai istallato Facebook";
+"rc_no_instagram"="Non hai istallato Instagram";
+"rc_share_failed"="Condivisione non riuscita";
+"rc_save_failed"="Salvataggio foto non riuscito";
+"rc_showwatermark"="Aggiungi design dell\'applicazione";
+"rc_enospc"="spazio insufficiente";
+
+"rc_slogan_nocrop"="Pubblica delle foto a grandezza naturale su Instagram senza ritagliarle!";
+"rc_slogan_instamark"="InstaMark-Crea delle foto uniche!";
+"rc_slogan_shape"="Aggiungi delle forme speciali alle tue foto su Instagram";
+"rc_slogan_mirror"="Crea delle bellissime foto 2D e 3D con effetto riflesso specchio";
+"rc_slogan_beauty"="Beauty Camera è l\'applicazione che ti permette di nascondere le imperfezioni della pelle e creare delle selfie fantastiche..è molto più efficace del trucco!";
+"rc_slogan_font"="aggiungi font e adesivi alle tue foto";
+"rc_slogan_frameart"="crea delle foto personalizzate con un tocco d\'arte!";
+"rc_slogan_face"="crea foto impressionanti fondendo diversi tipi di faccie";
+"rc_slogan_collageart"="Uno speciale creatore di collage, per creare delle foto più accattivanti. ";
+"rc_slogan_picgrid"="Trasforma la tua collezione foto in un meraviglioso collage ";
+
+"rc_load_fail"="Caricamento non riuscito – riprovare";
+"rc_operation_fail"="operazione non riuscita";
+"rc_net_error"="Connessione di rete assente";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Adesivi";
+"rc_sticker_tab_recently"="Usato di recente";
+"rc_sticker_tab_mood"="Umore";
+"rc_sticker_tab_festival"="Vacanze";
+"rc_sticker_tab_wordart"="Artistico";
+"rc_sticker_tab_textbox"="Vignetta";
+"rc_sticker_tab_stamp"="Timbri";
+"rc_unDownload"="Non scaricato";
+"rc_download"="Scaricato";
+"rc_downloaded_font_none"="Nessun font scaricato";
+"rc_recently_sticker_none"="Nessun adesivo utilizzato di recente";
+"rc_no_new_fonts"="Non ci sono altri font da scaricare";
+"rc_font"="Font";
+"rc_local_font"="Font più diffusi";
+"rc_font_download_faild"="Scaricamento modello non riuscito";
+"rc_font_cancel_down_dialog_msg "="Sei sicuro di voler cancellare lo scaricamento?";
+"rc_delete_font_dialog_msg"="Sei sicuro di voler cancellare questo font?";
+"rc_confirm_remove_this"="Sei sicuro di volerlo cancellare?";
+"rc_max_add_text_msg"="puoi avere al massimo %d caselle di testo";
+"rc_max_add_sticker_msg"="puoi avere al massimo %d adesivi";
+"rc_max_photos_limit"="Si possono scegliere massimo %d foto";
+"rc_exit"="Esci";
+"rc_press_again_to_exit"="Premi di nuovo per uscire dall\'applicazione";
+"rc_home"="Home";
+"rc_reset"="Reset";
+"rc_delete"="Rimuovi";
+"rc_complete"="Fatto";
+"rc_album"="Galleria";
+"rc_camera"="Fotocamera";
+"rc_rotate"="Ruotare/Rovesciare";
+"rc_filter"="Filtri";
+"rc_switch"="Sostituisci";
+"rc_default"="Default";
+"rc_ungrade_now"="Aggiorna ora";
+"rc_pick_photos"="Scegli Album";
+"rc_need_photo_limit"="È necessario selezionare %d foto";
+
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="Cliccare un\'altra foto per scambiare la posizione";
+"user_camera_step" = "Si prega di aprire la fotocamera per le autorizzazioni CollageShape: Impostazioni telefono -> Privacy -> Camera -> CollageShape (aperto)";
+"user_library_step" = "Si prega di aprire la fotocamera per le autorizzazioni CollageShape: Impostazioni telefono -> Privacy -> Foto -> CollageShape (aperto)";
+
+"newVersion"                  = "Nuova versione disponibile";
+"updateNow"                   = "Aggiorna ora";
+"remindLater"                 = "Ricordamelo dopo";
+
+"comment_message_default"="Grazie per avere usato CollageShape, ti preghiamo di spendere un minuto per votare e dare 5 stelle alla nostra app, grazie ancora per il tuo supporto!";
+"rate_now"="Vota ora";
+"attention_later"="Ricordamelo più tardi";
+"share_msg"="Sto usando Collage shape, ha tanti tipi di modelli di collage creati con forme speciali che ti permettono di ideare foto speciali e uniche.";
+"allPhoto"="Tutte le foto";
+

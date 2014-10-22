@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>backGroundImage</key>
+	<string>Type9</string>
+	<key>imageName</key>
+	<array>
+		<string>Type9_1</string>
+		<string>Type9_2</string>
+		<string>Type9_3</string>
+	</array>
+	<key>imageRect</key>
+	<array>
+		<string>{{526, 0}, {674, 592}}</string>
+		<string>{{0, 256}, {576, 700}}</string>
+		<string>{{556, 684}, {600, 516}}</string>
+	</array>
+</dict>
+</plist>

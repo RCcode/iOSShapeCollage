@@ -1,0 +1,106 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="更新";
+"rc_rate"="评分";
+"rc_feedback"="反馈";
+"rc_share_app"="分享应用";
+"rc_share"="分享";
+"rc_follow"="关注我们";
+
+"rc_sdcard_miss"="SD卡丢失";
+"rc_custom_positive"="确定";
+"rc_custom_negitive"="取消";
+
+"rc_me_rate_now"="马上评价";
+"rc_me_rate_later"="稍后再说";
+"rc_me_rate_never"="不再提醒";
+"rc_me_rate_msg"="感谢使用%d，请花点时间给予五星评分，感谢你对我们的支持！";
+
+"rc_file_is_invalid"="图片格式不支持";
+"rc_unsupport_image"="不支持的图片格式";
+"rc_pictures_are_not_saved"="图片未保存，放弃编辑?";
+"rc_image_save_to_album_already"="图片已保存到相册";
+
+"rc_save"="保存";
+"rc_more"="更多";
+"rc_no_facebook"="你没有安装facebook";
+"rc_no_instagram"="你没有安装instagram";
+"rc_share_failed"="分享失败";
+"rc_save_failed"="保存失败";
+"rc_showwatermark"="显示应用水印";
+"rc_enospc"="空间不足";
+
+"rc_slogan_nocrop"="无需裁剪将完整照片发布到Instagram";
+"rc_slogan_instamark"="InstaMark-让照片更加与众不同";
+"rc_slogan_shape"="为Instagram的照片添加漂亮、有趣的形状";
+"rc_slogan_mirror"="创造绚丽的2D,3D镜面反射效果图片。";
+"rc_slogan_beauty"="Beauty Camera 比化妆更神奇的美白自拍相机！";
+"rc_slogan_font"="为你的图片添加文字和艺术字贴纸";
+"rc_slogan_frameart"="制作专属你的艺术照片！";
+"rc_slogan_face"="制作令人惊讶的脸部融合图片";
+"rc_slogan_collageart"="独特的创意拼图，让你的照片获得更多关注。 ";
+"rc_slogan_picgrid"="用照片制作惊人效果的拼图。 ";
+
+
+"rc_load_fail"="加载失败，请重试";
+"rc_operation_fail"="操作失败";
+"rc_net_error"="无网络连接";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="贴纸";
+"rc_sticker_tab_recently"="最近使用";
+"rc_sticker_tab_mood"="心情";
+"rc_sticker_tab_festival"="节日";
+"rc_sticker_tab_wordart"="艺术字";
+"rc_sticker_tab_textbox"="文本框";
+"rc_sticker_tab_stamp"="图章";
+"rc_unDownload"="未下载";
+"rc_download"="已下载";
+"rc_downloaded_font_none"="没有已下载的字体";
+"rc_recently_sticker_none"="没有使用过的贴纸";
+"rc_no_new_fonts"="暂无字体更新";
+"rc_font"="字体";
+"rc_local_font"="本地字体";
+"rc_font_download_faild"="字体下载失败";
+"rc_font_cancel_down_dialog_msg "="你要取消下载当前字体？";
+"rc_delete_font_dialog_msg"="确定删除当前字体？";
+"rc_confirm_remove_this"="你确定要删除它？";
+"rc_max_add_text_msg"="最多只能添加%d个文本框";
+"rc_max_add_sticker_msg"="最多只能添加%d个贴纸";
+"rc_max_photos_limit"="最多选取%d图片";
+"rc_exit"="退出";
+"rc_press_again_to_exit"="再按一次退出应用";
+"rc_home"="首页";
+"rc_reset"="重置";
+"rc_delete"="删除";
+"rc_complete"="完成";
+"rc_album"="相册";
+"rc_camera"="相机";
+"rc_rotate"="旋转";
+"rc_filter"="滤镜";
+"rc_switch"="交换";
+"rc_default"="默认";
+"rc_ungrade_now"="马上升级";
+"rc_pick_photos"="选择照片";
+"rc_need_photo_limit"="需要选择%d张图片";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="点击另外一张照片交换位置";
+"user_camera_step" = "请为CollageShape开放相机权限：手机设置->隐私->相机->CollageShape（打开）";
+"user_library_step" = "请为CollageShape开放相机权限：手机设置->隐私->照片->CollageShape（打开）";
+"newVersion"                  = "有新版本";
+"updateNow"                   = "马上升级";
+"remindLater"                 = "稍后再说";
+"comment_message_default"="感谢使用CollageShape，请花点时间给予五星评分，感谢你对我们的支持！";
+"rate_now"="马上评价";
+"attention_later"="稍后再说";
+"share_msg"="我现在正在使用 Collage Shape ,里面有各种漂亮形状组成的拼图模板，你可以做出很多有意思的拼图";
+"allPhoto"="所有照片";
+

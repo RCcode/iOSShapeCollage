@@ -7,22 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filter_GPU/NCImage/NCVideoCamera.h"
 
-@interface SCMaskView : UIView<UIGestureRecognizerDelegate>
+@interface SCMaskView : UIView<UIGestureRecognizerDelegate,NSCoding>
 {
     CGFloat lastScale;
     CGFloat _lastRotation;
-    CGRect startRect;
-    
 }
 
 @property (nonatomic, strong) UIImageView *editImageView;
 @property (nonatomic, strong) UIImage *filterBeforeImage;
 @property (nonatomic, strong) UIImage *filterAfterImage;
 @property (nonatomic, strong) UIImage *maskImage;
+@property (nonatomic) CGAffineTransform initTransform;
 @property (nonatomic) CGAffineTransform newTransform;
 @property (nonatomic, strong) CALayer *mask;
 @property (nonatomic, strong) UIView *editShowView;
+@property (nonatomic) CGRect startRect;
+
+@property (nonatomic) NCFilterType filterType;
 
 - (void)setMaskImage:(UIImage *)maskImage;
 

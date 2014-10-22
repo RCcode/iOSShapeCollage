@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCImageCollectionViewController.h"
 
 @protocol MHImagePickerMutilSelectorDelegate <NSObject>
 
@@ -15,7 +16,7 @@
 
 @end
 
-@interface MHImagePickerMutilSelector : UIViewController<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MHImagePickerMutilSelector : UIViewController<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UINavigationBarDelegate,scImageCollectionViewDelegate>
 {
     UIView* selectedPan;
     UILabel* textlabel;
@@ -24,11 +25,18 @@
     UITableView*    tbv;
     id<MHImagePickerMutilSelectorDelegate>  delegate;
     
+    BOOL isGroup;
+    
+    UIButton *btn_done;
+    
+    UITableView *photoGroupTable;
 }
 
 @property (nonatomic,retain)UIImagePickerController*    imagePicker;
 @property (nonatomic,retain)id<MHImagePickerMutilSelectorDelegate>   delegate;
 @property (nonatomic) NSInteger maxImageCount;
+
+@property (nonatomic, retain) UIViewController *tempController;
 
 +(id)standardSelector;
 

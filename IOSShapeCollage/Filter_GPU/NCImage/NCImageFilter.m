@@ -1,5 +1,6 @@
-#import "NCImageFilter.h"
 
+
+#import "NCImageFilter.h"
 
 @interface NCImageFilter ()
 {
@@ -21,7 +22,7 @@
 		return nil;
     }
     
-    [GPUImageOpenGLESContext useImageProcessingContext];
+    [GPUImageContext useImageProcessingContext];
     filterProgram = [[GLProgram alloc] initWithVertexShaderString:kGPUImageVertexShaderString fragmentShaderString:fragmentShaderString];
     
     [filterProgram addAttribute:@"position"];
@@ -58,7 +59,7 @@
 
 - (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates;
 {
-    [GPUImageOpenGLESContext useImageProcessingContext];
+    [GPUImageContext useImageProcessingContext];
     [self setFilterFBO];
     
     [filterProgram use];
@@ -67,14 +68,14 @@
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, filterSourceTexture);
+	glBindTexture(GL_TEXTURE_2D, filterInputTextureUniform);
     
 	glUniform1i(filterInputTextureUniform, 2);	
     
-    if (filterSourceTexture2 != 0)
+    if (filterInputTextureUniform2 != 0)
     {
         glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, filterSourceTexture2);
+        glBindTexture(GL_TEXTURE_2D, filterInputTextureUniform2);
         
         glUniform1i(filterInputTextureUniform2, 3);	
     }
@@ -110,8 +111,8 @@
 
     for (id<GPUImageInput> currentTarget in targets)
     {
-        [currentTarget setInputSize:inputTextureSize];
-        [currentTarget newFrameReady];
+        [currentTarget setInputSize:inputTextureSize atIndex:0];
+        [currentTarget newFrameReadyAtTime:firstFrameTime atIndex:0];
     }
     
 //    NSLog(@"renderToTextureWithVertices OK");
@@ -139,9 +140,9 @@
     CGSize currentFBOSize = [self sizeOfFBO];
 
     glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8_OES, (int)currentFBOSize.width, (int)currentFBOSize.height);
-    glBindTexture(GL_TEXTURE_2D, outputTexture);
+    glBindTexture(GL_TEXTURE_2D, [firstInputFramebuffer texture]);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)currentFBOSize.width, (int)currentFBOSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTexture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, [secondInputFramebuffer texture], 0);
 	
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     
@@ -165,11 +166,11 @@
 {
     if (textureIndex == 0)
     {
-        filterSourceTexture = newInputTexture;
+        filterInputTextureUniform = newInputTexture;
     }
-    else if (filterSourceTexture2 == 0)
+    else if (filterInputTextureUniform2 == 0)
     {
-        filterSourceTexture2 = newInputTexture;
+        filterInputTextureUniform2 = newInputTexture;
     } 
     else if (filterSourceTexture3 == 0) {
         filterSourceTexture3 = newInputTexture;
@@ -188,11 +189,7 @@
 
 
 - (void)dealloc{
-    if(filterFramebuffer != 0){
-        glDeleteFramebuffers(1, &filterFramebuffer);
-        filterFramebuffer = 0;
-    }
-    
+    glDeleteFramebuffers(1, &filterFramebuffer);
 }
 
 @end

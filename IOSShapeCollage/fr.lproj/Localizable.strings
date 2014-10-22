@@ -1,0 +1,109 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Mise à jour";
+"rc_rate"="Score";
+"rc_feedback"="Feedback";
+"rc_share_app"="Partagez l\'app";
+"rc_share"="Partager";
+"rc_follow"="Suivez-nous";
+
+"rc_sdcard_miss"="La carte SD n\'est pas installée";
+"rc_custom_positive"="Oui";
+"rc_custom_negitive"="Annuler";
+
+"rc_me_rate_now"="Evaluer maintenant";
+"rc_me_rate_later"="Rappeler plus tard";
+"rc_me_rate_never"="Non merci";
+"rc_me_rate_msg"="Merci d\'utiliser %d,s\'il vous plaît prenez une minute pour nous donner 5 étoiles, merci pour votre soutien.";
+
+"rc_file_is_invalid"="Format de l\'image non pris en charge";
+"rc_unsupport_image"="Format de la photo non pris en charge";
+"rc_pictures_are_not_saved"="Photo non sauvegardée, quittez la modification?";
+"rc_image_save_to_album_already"="Photo sauvegardée dans les albums";
+
+"rc_save"="Sauvegarder";
+"rc_more"="Plus";
+"rc_no_facebook"="Vous n\'avez pas installé Facebook";
+"rc_no_instagram"="Vous n\'avez pas installé Instagram";
+"rc_share_failed"="Echec du partage";
+"rc_save_failed"="La sauvegarde de la photo a echoué";
+"rc_showwatermark"="Ajouter l\'app watermark";
+"rc_enospc"="Espace de stockage insuffisant";
+
+"rc_slogan_nocrop"="Publiez des photos grandeur nature sans recadrage!";
+"rc_slogan_instamark"="InstaMark-Rendez vos photos uniques";
+"rc_slogan_shape"="Ajoutez des formes cool et intéressantes à vos photos Instagram";
+"rc_slogan_mirror"="Créez de superbes photos 2D et 3D avec des effets de miroirs réfléchissants.";
+"rc_slogan_beauty"="Beauty Camera, machine destiné  à blanchir les selfies, est encore plus surprenante que le maquillage";
+"rc_slogan_font"=" ajoutez des polices et des autocollants à vos photos.";
+"rc_slogan_frameart"="Faites vos propres photos d\'art exclusives !";
+"rc_slogan_face"="Faites de superbes photos qui fusionnent les visages.";
+"rc_slogan_collageart"="Un fabricant de collage unique, qui donne plus d\'attention à vos photos.";
+"rc_slogan_picgrid"="Faites de votre collection de photo un magnifique collage.";
+
+"rc_load_fail"="Echec du chargement-réessayez s\'il vous plaît";
+"rc_operation_fail"="L\'opération a échoué";
+"rc_net_error"="Aucune connexion réseau";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Autocollants";
+"rc_sticker_tab_recently"="Recemment utilisé";
+"rc_sticker_tab_mood"="Humeur";
+"rc_sticker_tab_festival"="Vacances";
+"rc_sticker_tab_wordart"="Artistique";
+"rc_sticker_tab_textbox"="Bulles";
+"rc_sticker_tab_stamp"="Timbres";
+"rc_unDownload"="Pas téléchargé";
+"rc_download"="Téléchargé";
+"rc_downloaded_font_none"="Aucunes polices de caractères téléchargée";
+"rc_recently_sticker_none"="Aucuns autocollants recemment utilisés";
+"rc_no_new_fonts"="Plus de polices de caractères à télécharger";
+"rc_font"="Police de caractères";
+"rc_local_font"="Police de caractères";
+"rc_font_download_faild"="Echec du téléchargement du modèle";
+"rc_font_cancel_down_dialog_msg "="Etes-vous sûr de vouloir annuler le téléchargement?";
+"rc_delete_font_dialog_msg"="Etes-vous sûr de vouloir supprimer cette police de caractères?";
+"rc_confirm_remove_this"="Etes-vous sûr de vouloir le supprimer?";
+"rc_max_add_text_msg"="Peut avoir %d autocollants au plus";
+"rc_max_add_sticker_msg"="Peut seulement avoir %d zones de texte au plus";
+"rc_max_photos_limit"="Peut seulement sélectionner jusqu\'à %d photos.";
+"rc_exit"="Quitter";
+"rc_press_again_to_exit"="Rappuyer sur quitter l\'application";
+"rc_home"="Accueil";
+"rc_reset"="Réinitialiser";
+"rc_delete"="Supprimer";
+"rc_complete"="Terminé";
+"rc_album"="Photos";
+"rc_camera"="Appareil photo";
+"rc_rotate"="Pivoter/retourner";
+"rc_filter"="Filtre";
+"rc_switch"="Basculer";
+"rc_default"="Défaut";
+"rc_ungrade_now"="Actualiser maintenant";
+"rc_pick_photos"="Choisir un Album";
+"rc_need_photo_limit"="Vous devez choisir %d photos";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="Cliquer sur une autre photo pour changer la position";
+"user_camera_step" = "S'il vous plaît ouvrir l'appareil photo pour les autorisations de CollageShape: Paramètres du téléphone -> Confidentialité -> Caméra -> CollageShape (ouverte)";
+"user_library_step" = "S'il vous plaît ouvrir l'appareil photo pour les autorisations de CollageShape: Paramètres du téléphone -> Confidentialité -> Photos -> CollageShape (ouverte)";
+
+"newVersion"                  = "Nouvelle version disponible";
+"updateNow"                   = "Actualiser maintenant";
+"remindLater"                 = "Rappeler plus tard";
+
+"comment_message_default"="Merci d\'utiliser CollageShape,s\'il vous plaît prenez une minute pour nous donner 5 étoiles, merci pour votre soutien.";
+"rate_now"="Evaluer maintenant";
+"attention_later"="Rappeler plus tard";
+"share_msg"="J'utilise Collage Shape , il a toutes sortes de modèles de collage constitués de belles formes qui vous permettent de produire des collages encore plus uniques et intéressants";
+"allPhoto"="Toutes les photos";
+
+
+

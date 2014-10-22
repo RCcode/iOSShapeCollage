@@ -3,24 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>backGroundImage</key>
-	<string>Type1_BG</string>
+	<string>Type1</string>
 	<key>imageName</key>
 	<array>
 		<string>Type1_1</string>
 		<string>Type1_2</string>
-		<string>Type1_3</string>
-		<string>Type1_4</string>
-		<string>Type1_5</string>
-		<string>Type1_6</string>
 	</array>
 	<key>imageRect</key>
 	<array>
-		<string>{{130, 58}, {470, 542}}</string>
-		<string>{{600, 58}, {470, 542}}</string>
-		<string>{{640, 326}, {470, 542}}</string>
-		<string>{{600, 600}, {470, 542}}</string>
-		<string>{{130, 600}, {470, 542}}</string>
-		<string>{{130, 329}, {470,542}}</string>
+		<string>{{60, 180}, {480, 960}}</string>
+		<string>{{660, 60}, {480,960}}</string>
 	</array>
 </dict>
 </plist>

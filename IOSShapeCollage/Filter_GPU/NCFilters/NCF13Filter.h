@@ -1,7 +1,7 @@
 
 
-#import "NCImageFilter.h"
+#import "Pic_GPUImageSixInputFilter.h"
 
-@interface NCF13Filter : NCImageFilter
+@interface NCF13Filter : Pic_GPUImageSixInputFilter
 
 @end

@@ -1,6 +1,5 @@
-
-
-#import "GPUImageFilter.h"
+#import "GPUImageTwoInputFilter.h"
+#import "GPUImageContext.h"
 @class NCImageFilter;
 
 @protocol NCImageFilterDelegate <NSObject>
@@ -11,7 +10,7 @@
 @end
 
 
-@interface NCImageFilter : GPUImageFilter {
+@interface NCImageFilter : GPUImageTwoInputFilter {
     GLuint filterSourceTexture3, filterSourceTexture4, filterSourceTexture5, filterSourceTexture6;
 }
 

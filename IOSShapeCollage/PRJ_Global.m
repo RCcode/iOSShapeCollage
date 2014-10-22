@@ -11,7 +11,6 @@
 #import "MobClick.h"
 #import "Flurry.h"
 
-
 //#import "GAI.h"
 //#import "GAIDictionaryBuilder.h"
 
@@ -19,6 +18,8 @@
 
 @synthesize originalImage = _originalImage;
 @synthesize compressionImage = _compressionImage;
+@synthesize MHImagePickerdelegate;
+
 
 + (void)load{
     if(kScreen_Height >= 568){
@@ -96,10 +97,14 @@ static PRJ_Global *_glo = nil;
     }
 }
 
-#pragma mark 事件统计
-- (void)event:(NSString *)eventID label:(NSString *)label;
+- (MHImagePickerMutilSelector *)getSCCollectionViewDelegate
 {
-    
+    return MHImagePickerdelegate;
+}
+
+#pragma mark 事件统计
++ (void)event:(NSString *)eventID label:(NSString *)label;
+{
     //友盟
     [MobClick event:eventID label:label];
     

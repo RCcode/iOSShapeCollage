@@ -20,7 +20,6 @@
 @interface SCMaskTouchView : UIView<NCVideoCameraDelegate>
 {
     NSMutableArray *maskImageArray;
-    UIView *showView;
     
     CGPoint responderCenter;//初始蒙板view的中点
     CGPoint currentCenter;//编辑图居中后蒙板view的中点
@@ -29,14 +28,18 @@
     CGAffineTransform responderStartTransform;
     CGAffineTransform responderEditStartTransform;
     CGRect responderStartRect;
+    CGRect responderEditImageRect;
     
     SCMaskView *tempResponderView;
     
-    UIView *actionBar;
-    UIView *modelChooseBar;
+    UIView *willShowBar;
+    UIView *willHideBar;
     
     BOOL isScaleImage;
     BOOL isFilterImage;
+    BOOL isExchangeImage;
+    
+    BOOL ishit_test;
     
     NCVideoCamera *_videoCamera;
 }
@@ -45,15 +48,18 @@
 @property (nonatomic, assign) id<maskTouchViewDelegate>delegate;
 @property (nonatomic) BOOL isScaleImage;
 @property (nonatomic) BOOL isFilterImage;
+@property (nonatomic, strong) UIImageView *showView;
 
 
 - (void)sendResponderViewToEdit;
 - (void)maskViewOriginEdit;
 - (void)maskViewCancelEdit;
 - (void)maskViewEndEdit;
+- (void)exchangeEditImagebegan;
+- (void)exchangeEditImageEnd;
+- (void)changeEditImage:(UIImage *)img;
 
-- (void)setBarView:(UIView *)barView;
-- (void)setModelChooseBarView:(UIView *)chooseBar;
+- (void)setwillShowBar:(UIView *)willShow andWillHideBar:(UIView *)willHide;
 
 - (void)changeFilterWithType:(NCFilterType)type;
 

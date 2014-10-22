@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MHImagePickerMutilSelector.h"
+
 //全局共用 banner高度
 int kBannerViewH;
 
@@ -39,8 +41,12 @@ int kBannerViewH;
 //压缩比例 根据小块个数定
 @property (nonatomic, assign) float compScale;
 
-+ (PRJ_Global *)shareStance;
+@property (nonatomic, strong) MHImagePickerMutilSelector *MHImagePickerdelegate;
 
+@property (nonatomic, strong) NSArray *modelArray;
+
++ (PRJ_Global *)shareStance;
+- (MHImagePickerMutilSelector *)getSCCollectionViewDelegate;
 /**
  *  全局公用统计分析方法
  */

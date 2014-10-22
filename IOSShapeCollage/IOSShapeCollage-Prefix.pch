@@ -17,4 +17,6 @@
     #import "Defines.h"
     #import "CMethods.h"
     #import "PRJ_Global.h"
+    #import "MobClick.h"
+    #import "Flurry.h"
 #endif

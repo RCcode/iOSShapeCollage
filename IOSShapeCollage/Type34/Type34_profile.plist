@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>backGroundImage</key>
+	<string>Type34</string>
+	<key>imageName</key>
+	<array>
+		<string>Type34_1</string>
+		<string>Type34_2</string>
+		<string>Type34_3</string>
+		<string>Type34_4</string>
+		<string>Type34_5</string>
+	</array>
+	<key>imageRect</key>
+	<array>
+		<string>{{10, 388}, {340, 368}}</string>
+		<string>{{252, 76}, {320, 420}}</string>
+		<string>{{638, 90}, {320, 420}}</string>
+		<string>{{840, 424}, {350, 370}}</string>
+		<string>{{200, 600}, {748, 562}}</string>
+	</array>
+</dict>
+</plist>

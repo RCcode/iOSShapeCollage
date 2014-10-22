@@ -1,0 +1,104 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Perbarui";
+"rc_rate"="Nilai aplikasi ini";
+"rc_feedback"="Tanggapan";
+"rc_share_app"="Berbagi";
+"rc_share"="Berbagi";
+"rc_follow"="Ikuti kami";
+
+"rc_sdcard_miss"="Kartu SD tidak terinstal";
+"rc_custom_positive"="Ya";
+"rc_custom_negitive"="Tidak";
+
+"rc_me_rate_now"="Nilai sekarang";
+"rc_me_rate_later"="Ingatkan lagi nanti";
+"rc_me_rate_never"="Tidak terima kasih";
+"rc_me_rate_msg"="Terima kasih telah menggunakan %d, silakan luangkan waktu sebentar untuk memberi kami 5 bintang, terima kasih atas dukungan Anda.";
+
+"rc_file_is_invalid"="Format gambar yang tidak didukung";
+"rc_unsupport_image"="Format gambar yang tidak didukung";
+"rc_pictures_are_not_saved"="Anda belum menyimpan perubahan Anda, apakah Anda yakin?";
+"rc_image_save_to_album_already"="gambar disimpan";
+
+"rc_save"="Simpan";
+"rc_more"="Lebih";
+"rc_no_facebook"="Anda belum menginstal facebook";
+"rc_no_instagram"="Anda belum menginstal instagram";
+"rc_share_failed"="Berbagi gagal";
+"rc_save_failed"="Simpan foto gagal";
+"rc_showwatermark"="Tambahkan watermark aplikasi";
+"rc_enospc"="Tidak cukup ruang";
+"rc_slogan_frameart"="Membuat foto seni eksklusif Anda sendiri!";
+"rc_slogan_face"="Membuat foto menakjubkan yang memadukan wajah";
+"rc_slogan_collageart"="Pembuat kolase unik, yang membuat foto Anda mendapat perhatian lebih. ";
+"rc_slogan_picgrid"="Membuat koleksi foto Anda menjadi kolase yang menakjubkan ";
+
+//<!-- 欠缺slogan -->
+"rc_slogan_font"=" tambahkan fon dan stiker ke foto Anda";
+"rc_load_fail"="Gagal memuat - silakan coba lagi";
+"rc_operation_fail"="Pengoperasian gagal";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Stiker";
+"rc_sticker_tab_recently"="Terakhir digunakan";
+"rc_sticker_tab_mood"="Mood";
+"rc_sticker_tab_festival"="Liburan";
+"rc_sticker_tab_wordart"="Artistik";
+"rc_sticker_tab_textbox"="Seranta";
+"rc_sticker_tab_stamp"="Stempel";
+"rc_unDownload"="Tidak terunduh";
+"rc_download"="Terunduh";
+"rc_downloaded_font_none"="Tidak ada fon yang diunduh";
+"rc_recently_sticker_none"="Tidak ada stiker yang terakhir digunakan";
+"rc_no_new_fonts"="Tidak ada lagi fon untuk diunduh";
+"rc_font"="Fon";
+"rc_local_font"="Fon";
+"rc_font_download_faild"="Gagal untuk mengunduh fon";
+"rc_font_cancel_down_dialog_msg "="Apa Anda yakin Anda ingin membatalkan unduhan?";
+"rc_delete_font_dialog_msg"="Apa Anda yakin Anda ingin menghapus fon ini?";
+"rc_confirm_remove_this"="Apa Anda yakin Anda ingin menghapus ini?";
+"rc_max_add_text_msg"="Hanya bisa memiliki paling banyak %d kotak teks";
+"rc_max_add_sticker_msg"="Hanya dapat memiliki paling banyak %d stiker";
+"rc_max_photos_limit"="Hanya dapat memilih sampai dengan %d foto";
+"rc_exit"="Keluar";
+"rc_press_again_to_exit"="Tekan lagi untuk keluar aplikasi";
+"rc_home"="Beranda";
+"rc_reset"="Ulang";
+"rc_delete"="Hapus";
+"rc_complete"="Selesai";
+"rc_album"="Galeri";
+"rc_camera"="Kamera";
+"rc_rotate"="Memutar/Membalik";
+"rc_filter"="Filter";
+"rc_switch"="Beralih";
+"rc_default"="standar";
+"rc_ungrade_now"="Perbarui sekarang";
+"rc_pick_photos"="Pilih Album";
+"rc_need_photo_limit"="Anda perlu memilih %d foto";
+
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="Klik foto lain untuk menukar posisi";
+"user_camera_step" = "Silakan memungkinkan izin kamera untuk CollageShape : Pengaturan telepon -> Privasi -> Kamera -> CollageShape (Buka)";
+"user_library_step" = "Silakan memungkinkan izin album untuk  CollageShape : Pengaturan telepon -> Privasi -> Foto ->  CollageShape (Buka)";
+
+"newVersion"                  = "Versi baru tersedia";
+"updateNow"                   = "Perbarui sekarang";
+"remindLater"                 = "Ingatkan lagi nanti";
+
+"comment_message_default"="Terima kasih telah menggunakan CollageShape, silakan luangkan waktu sebentar untuk memberi kami 5 bintang, terima kasih atas dukungan Anda.";
+"rate_now"="Nilai sekarang";
+"attention_later"="Ingatkan lagi nanti";
+"share_msg"="Saya menggunakan CollageShape, ini memiliki segala macam templat kolase terdiri dari bentuk yang indah yang memungkinkan Anda menghasilkan kolase yang lebih unik dan menarik.";
+"allPhoto"="Semua foto";
+
+
+

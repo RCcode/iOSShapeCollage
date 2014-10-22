@@ -8,8 +8,8 @@
 
 #import "MHImagePickerMutilSelector.h"
 #import <QuartzCore/QuartzCore.h>
-
 #import "UIImage+SubImage.h"
+
 
 @interface MHImagePickerMutilSelector ()
 
@@ -20,26 +20,24 @@
 @synthesize imagePicker;
 @synthesize delegate;
 @synthesize maxImageCount;
+@synthesize tempController;
 
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
         pics=[[NSMutableArray alloc] init];
         //[pics addObject:@""];
         [self.view setBackgroundColor:[UIColor blackColor]];
-        
-        //if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            
-        //}
     }
     return self;
 }
 
 +(id)standardSelector
 {
-    return [[MHImagePickerMutilSelector alloc] init];
+    return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,34 +48,76 @@
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    if (navigationController.viewControllers.count>=2)
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    viewController.navigationItem.leftBarButtonItem = nil;
+    viewController.navigationItem.rightBarButtonItem = nil;
+    viewController.title = @"Gallery";
+    [navigationController.navigationBar setBarTintColor:colorWithHexString(@"#2d2d2d")];
+    navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: colorWithHexString(@"#28d8c9"),NSFontAttributeName:[UIFont fontWithName:FONTNAMESTRING size:17]};
+    tempController = viewController;
+    
+    if (navigationController.viewControllers.count > 0)
     {
-        [[viewController.view.subviews objectAtIndex:0] setFrame:CGRectMake(0, 0, 320, 480-131)];
+        if ([viewController.view.subviews.firstObject isKindOfClass:[UITableView class]])
+        {
+            isGroup = YES;
+            
+            viewController.navigationItem.rightBarButtonItem = nil;
+            UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [leftItemButton setFrame:CGRectMake(0, 0, 30, 30)];
+            [leftItemButton setImage:[UIImage imageNamed:@"gallery_back"] forState:UIControlStateNormal];
+            [leftItemButton addTarget:self action:@selector(leftItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            leftItemButton.imageView.contentMode = UIViewContentModeLeft;
+            
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                               target:nil action:nil];
+            negativeSpacer.width = -15;
+            
+            UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftItemButton];
+            viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
+
+        }
+        if ([viewController.view.subviews.firstObject isKindOfClass:[UICollectionView class]])
+        {
+            isGroup = NO;
+            
+            viewController.navigationItem.rightBarButtonItem = nil;
+            UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [leftItemButton setFrame:CGRectMake(0, 0, 30, 30)];
+            [leftItemButton setImage:[UIImage imageNamed:@"gallery_back"] forState:UIControlStateNormal];
+            [leftItemButton addTarget:self action:@selector(leftItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            leftItemButton.imageView.contentMode = UIViewContentModeCenter;
+            
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                               target:nil action:nil];
+            negativeSpacer.width = -15;
+            
+            UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftItemButton];
+            viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
+        }
         
-        selectedPan=[[UIView alloc] initWithFrame:CGRectMake(0, 480-131, 320, 131)];
-        selectedPan.backgroundColor = [UIColor grayColor];
+        selectedPan=[[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-135, 320, 135)];
+        selectedPan.backgroundColor = colorWithHexString(@"#2d2d2d");
         
-        UIImageView* imv=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 131)];
-        [imv setImage:[UIImage imageNamed:@"img_imagepicker_mutilselectbg"]];
-        [selectedPan addSubview:imv];
-        
-        textlabel=[[UILabel alloc] initWithFrame:CGRectMake(10, 13, 300, 14)];
+        textlabel=[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 44)];
         [textlabel setBackgroundColor:[UIColor clearColor]];
-        [textlabel setFont:[UIFont systemFontOfSize:14.0f]];
-        [textlabel setTextColor:[UIColor blackColor]];
-        [textlabel setText:[NSString stringWithFormat:@"当前选中0张(最多%d张)",maxImageCount]];
+        [textlabel setFont:[UIFont fontWithName:FONTNAMESTRING size:14]];
+        [textlabel setTextColor:[UIColor whiteColor]];
+        [textlabel setText:[NSString stringWithFormat:@"%lu/%ld",(unsigned long)pics.count,(long)maxImageCount]];
         [selectedPan addSubview:textlabel];
         
-        UIButton*   btn_done=[UIButton buttonWithType:UIButtonTypeCustom];
-        [btn_done setFrame:CGRectMake(530/2, 5, 47, 31)];
-        [btn_done setTitle:@"完成" forState:UIControlStateNormal];
+        btn_done=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn_done.frame = CGRectMake(self.view.frame.size.width-60-10, 0, 60, 30);
+        btn_done.center = CGPointMake(btn_done.center.x, textlabel.center.y);
+        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK_not-available"] forState:UIControlStateNormal];
+        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK"] forState:UIControlStateSelected];
         [btn_done addTarget:self action:@selector(doneHandler) forControlEvents:UIControlEventTouchUpInside];
-        
         [selectedPan addSubview:btn_done];
         
         
         tbv=[[UITableView alloc] initWithFrame:CGRectMake(0, 50, 90, 320) style:UITableViewStylePlain];
-        
         tbv.transform=CGAffineTransformMakeRotation(M_PI * -90 / 180);
         tbv.center=CGPointMake(160, 131-90/2);
         [tbv setRowHeight:100];
@@ -96,10 +136,21 @@
         
         [selectedPan addSubview:tbv];
         
-        [viewController.view addSubview:selectedPan];
+        [viewController.navigationController.view addSubview:selectedPan];
     }else{
         [pics removeAllObjects];
         
+    }
+}
+- (void)leftItemButtonPressed:(id)sender
+{
+    if (isGroup)
+    {
+        [tempController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        [tempController.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -111,8 +162,7 @@
     }
     else
     {
-        
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请选择%d张图片",maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请选择%ld张图片",(long)maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
         [alert show];
     }
@@ -121,7 +171,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return pics.count;
+    return maxImageCount;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -133,53 +183,72 @@
     UITableViewCell* cell=[tableView cellForRowAtIndexPath:indexPath];
     
     NSInteger row=indexPath.row;
-    if (cell==nil)
-    {
-        cell=[[UITableViewCell alloc] initWithFrame:CGRectZero];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor clearColor];
-        
-        UIView* rotateView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 80 , 80)];
-        [rotateView setBackgroundColor:[UIColor redColor]];
-        rotateView.transform=CGAffineTransformMakeRotation(M_PI * 90 / 180);
-        rotateView.center=CGPointMake(45, 45);
-        [cell.contentView addSubview:rotateView];
-        
-        UIImageView* imv=[[UIImageView alloc] initWithImage:[pics objectAtIndex:row]];
-        [imv setFrame:CGRectMake(0, 0, 80, 80)];
-        [imv setClipsToBounds:YES];
-        [imv setContentMode:UIViewContentModeScaleAspectFill];
-        
-        [imv.layer setBorderColor:[UIColor whiteColor].CGColor];
-        [imv.layer setBorderWidth:2.0f];
-        
-        [rotateView addSubview:imv];
-        
-        UIButton*   btn_delete=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [btn_delete setFrame:CGRectMake(0, 0, 22, 22)];
-//        [btn_delete setImage:[UIImage imageNamed:@"btn_myjiazi_griditem_delete"] forState:UIControlStateNormal];
-        [btn_delete setTitle:@"删除" forState:UIControlStateNormal];
-        btn_delete.titleLabel.font = [UIFont fontWithName:@"Arial" size:10];
-        [btn_delete setCenter:CGPointMake(70, 10)];
-        [btn_delete addTarget:self action:@selector(deletePicHandler:) forControlEvents:UIControlEventTouchUpInside];
-        [btn_delete setTag:row];
-        
-        [rotateView addSubview:btn_delete];
-    }
-    
+
+        if (cell==nil)
+        {
+            cell=[[UITableViewCell alloc] initWithFrame:CGRectZero];
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor clearColor];
+            
+            UIView* rotateView=[[UIView alloc] initWithFrame:CGRectMake(10, 0, 80 , 80)];
+            [rotateView setBackgroundColor:[UIColor clearColor]];
+            rotateView.transform=CGAffineTransformMakeRotation(M_PI * 90 / 180);
+            rotateView.center=CGPointMake(45, 45);
+            [cell.contentView addSubview:rotateView];
+            
+            UIImageView* imv=[[UIImageView alloc] init];
+            [imv setFrame:CGRectMake(10, 0, 80, 80)];
+            imv.tag = indexPath.row+10;
+            [imv setClipsToBounds:YES];
+            [imv setContentMode:UIViewContentModeScaleAspectFill];
+            
+            [imv.layer setBorderColor:colorWithHexString(@"#28d8c9").CGColor];
+            [imv.layer setBorderWidth:2.0f];
+            [rotateView addSubview:imv];
+            
+        }
+        if (pics.count > 0)
+        {
+            if (indexPath.row < pics.count)
+            {
+                UIImageView *tempImageView = (UIImageView *)[cell viewWithTag:indexPath.row+10];
+                tempImageView.userInteractionEnabled = YES;
+                tempImageView.contentMode = UIViewContentModeScaleAspectFit;
+                tempImageView.image = [pics objectAtIndex:indexPath.row];
+                
+                UIButton*   btn_delete=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [btn_delete setFrame:CGRectMake(tempImageView.frame.size.width-15, 5, 30, 30)];
+                [btn_delete setBackgroundImage:[UIImage imageNamed:@"gallery_cancel"] forState:UIControlStateNormal];
+//                [btn_delete setTitle:@"删除" forState:UIControlStateNormal];
+//                btn_delete.titleLabel.font = [UIFont fontWithName:@"Arial" size:10];
+                [btn_delete addTarget:self action:@selector(deletePicHandler:) forControlEvents:UIControlEventTouchUpInside];
+                [btn_delete setTag:row];
+                
+                [cell addSubview:btn_delete];
+            }
+            
+        }    
     return cell;
 }
 
 -(void)deletePicHandler:(UIButton*)btn
 {
     [pics removeObjectAtIndex:btn.tag];
+    [btn removeFromSuperview];
     [self updateTableView];
 }
 
 -(void)updateTableView
 {
-    textlabel.text=[NSString stringWithFormat:@"当前选中%i张(最多%d张)",pics.count,maxImageCount];
-    
+    textlabel.text=[NSString stringWithFormat:@"%lu/%ld",(unsigned long)pics.count,(long)maxImageCount];
+    if (pics.count == maxImageCount)
+    {
+        btn_done.selected = YES;
+    }
+    if (pics.count < maxImageCount)
+    {
+        btn_done.selected = NO;
+    }
     [tbv reloadData];
     
     if (pics.count>3) {
@@ -191,23 +260,42 @@
     
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+//{
+//    //[btn_addCover.imageView setImage:image forState:UIControlStateNormal];
+//    
+//    //[picker dismissModalViewControllerAnimated:YES];
+//    if (pics.count>=10) {
+//        return;
+//    }
+//    
+//    image = [image rescaleImageToPX:320 * 1.4];
+//    
+//    if (pics.count == maxImageCount)
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%d张图片",maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        
+//        [alert show];
+//
+//    }
+//    else
+//    {
+//        [pics addObject:image];
+//        [self updateTableView];
+//    }
+//}
+
+-(void)getChoosePhoto:(UIImage *)image
 {
-    //[btn_addCover.imageView setImage:image forState:UIControlStateNormal];
-    
-    //[picker dismissModalViewControllerAnimated:YES];
-    if (pics.count>=10) {
-        return;
-    }
-    
-    image = [image rescaleImageToPX:320 * 1.4];
-    
+    NSLog(@"原图");
+    image = [image rescaleImageToPX:1200];
+    NSLog(@"压缩图");
     if (pics.count == maxImageCount)
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%d张图片",maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
         [alert show];
-
+        
     }
     else
     {
@@ -216,14 +304,15 @@
     }
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+- (void)getChoosePhotoURL:(NSURL *)url
 {
-    [self close];
+//    UIImage *image = [UIImage imageWith]
 }
+
 
 -(void)close
 {
-    [imagePicker dismissViewControllerAnimated:YES completion:^
+    [tempController dismissViewControllerAnimated:YES completion:^
     {
         if (delegate && [delegate respondsToSelector:@selector(imagePickerMutilSelectorDidGetImages:)])
         {
@@ -236,8 +325,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    photoGroupTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-135) style:UITableViewStylePlain];
+//    photoGroupTable.delegate = self;
+//    photoGroupTable.dataSource = self;
+//    photoGroupTable.backgroundColor = colorWithHexString(@"#202020");
+//    photoGroupTable.tag = 100;
+//    [photoGroupTable setRowHeight:100];
+//    [photoGroupTable setShowsVerticalScrollIndicator:NO];
+//    [photoGroupTable setPagingEnabled:YES];
+//    [self.view addSubview:photoGroupTable];
+    
 	// Do any additional setup after loading the view.
 }
+
 
 - (void)viewDidUnload
 {

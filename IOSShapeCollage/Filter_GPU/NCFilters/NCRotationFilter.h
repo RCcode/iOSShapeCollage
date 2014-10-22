@@ -1,7 +1,7 @@
 
 
-#import "GPUImageRotationFilter.h"
+#import "GPUImageFilter.h"
 
-@interface NCRotationFilter : GPUImageRotationFilter
+@interface NCRotationFilter : GPUImageFilter
 
 @end

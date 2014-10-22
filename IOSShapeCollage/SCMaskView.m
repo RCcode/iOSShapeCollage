@@ -14,7 +14,9 @@
 @synthesize maskImage = _maskImage;
 @synthesize mask;
 @synthesize newTransform = _newTransform;
+@synthesize initTransform;
 @synthesize editShowView;
+@synthesize startRect;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,7 +28,40 @@
     }
     return self;
 }
-
+////将对象编码(即:序列化)
+//-(void) encodeWithCoder:(NSCoder *)aCoder
+//{
+//    [aCoder encodeCGRect:self.frame forKey:@"frame"];
+//    [aCoder encodeObject:editImageView forKey:@"editImageView"];
+//    [aCoder encodeObject:_filterBeforeImage forKey:@"filterBefore"];
+//    [aCoder encodeObject:_filterAfterImage forKey:@"filterAfter"];
+//    [aCoder encodeObject:_maskImage forKey:@"maskImage"];
+//    [aCoder encodeObject:mask forKey:@"maskLayer"];
+//    [aCoder encodeObject:editShowView forKey:@"editShowView"];
+//    [aCoder encodeCGAffineTransform:initTransform forKey:@"initTransform"];
+//    [aCoder encodeCGAffineTransform:_newTransform forKey:@"newTransform"];
+//    
+//}
+//
+////将对象解码(反序列化)
+//-(id) initWithCoder:(NSCoder *)aDecoder
+//{
+//    if (self=[super init])
+//    {
+//        self.frame = [aDecoder decodeCGRectForKey:@"frame"];
+////        [self setUp];
+////        self.editImageView = [aDecoder decodeObjectForKey:@"editImageView"];
+////        self.filterBeforeImage = [aDecoder decodeObjectForKey:@"filterBefore"];
+////        self.filterAfterImage = [aDecoder decodeObjectForKey:@"filterAfter"];
+//        self.maskImage = [aDecoder decodeObjectForKey:@"maskImage"];
+//        self.mask = [aDecoder decodeObjectForKey:@"maskLayer"];
+////        self.editShowView = [aDecoder decodeObjectForKey:@"editShowView"];
+////        self.initTransform = [aDecoder decodeCGAffineTransformForKey:@"initTransform"];
+////        self.newTransform = [aDecoder decodeCGAffineTransformForKey:@"newTransform"];
+//    }
+//    return (self);
+//    
+//}
 - (void)setUp
 {
     mask = [CALayer layer];
@@ -37,14 +72,14 @@
     self.layer.masksToBounds = YES;
     
     editShowView = [[UIView alloc]initWithFrame:self.frame];
-    editShowView.backgroundColor = [UIColor clearColor];
+    editShowView.backgroundColor = [UIColor grayColor];
     [self addSubview:editShowView];
     
     editImageView = [[UIImageView alloc]initWithFrame:self.frame];
     editImageView.userInteractionEnabled = YES;
     [self addSubview:editImageView];
     
-    
+    self.filterType = NC_NORMAL_FILTER;
     
     //缩放手势
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
@@ -56,7 +91,6 @@
     rotationRecognizer.delegate = self;
     [self addGestureRecognizer:rotationRecognizer];
 
-
 }
 
 - (void)setMaskImage:(UIImage *)maskImage
@@ -65,9 +99,20 @@
     mask.contents = (id)maskImage.CGImage;
 }
 
+- (void)setFilterAfterImage:(UIImage *)filterAfterImage
+{
+    _filterAfterImage = filterAfterImage;
+    editImageView.image = filterAfterImage;
+}
+- (void)setFilterBeforeImage:(UIImage *)filterBeforeImage
+{
+    _filterBeforeImage = filterBeforeImage;
+}
+
 - (void)setEditImage:(UIImage *)picture
 {
     _filterBeforeImage = picture;
+    _filterAfterImage = picture;
     float scalePicture = picture.size.width/picture.size.height;
 
     CGSize tempEditImageViewSize = CGSizeMake(editShowView.frame.size.width, editShowView.frame.size.width/scalePicture);
@@ -81,6 +126,7 @@
     editImageView.image = picture;
     startRect = editImageView.frame;
     _newTransform = editImageView.transform;
+    initTransform = editImageView.transform;
 }
 
 - (void)setNewTransform:(CGAffineTransform)newTransform
@@ -97,6 +143,7 @@
     CGPoint point1 = [touch previousLocationInView:self];
     
     editImageView.center = CGPointMake(editImageView.center.x + (point2.x-point1.x), editImageView.center.y + (point2.y-point1.y));
+    NSLog(@"%f---%f",editImageView.center.x,editImageView.center.y);
 //
 }
 
@@ -184,7 +231,6 @@
 {
     return YES;
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

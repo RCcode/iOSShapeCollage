@@ -1,7 +1,7 @@
 
 
-#import "NCImageFilter.h"
+#import "GPUImageFilter.h"
 
-@interface NCNormalFilter : NCImageFilter
+@interface NCNormalFilter : GPUImageFilter
 
 @end

@@ -1,0 +1,109 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Обновить";
+"rc_rate"="Оценить";
+"rc_feedback"="Отзыв";
+"rc_share_app"="Поделиться приложением";
+"rc_share"="Поделиться";
+"rc_follow"="Следуйте за нами";
+
+"rc_sdcard_miss"="SD-карта не установлена";
+"rc_custom_positive"="Да";
+"rc_custom_negitive"="Отмена";
+
+"rc_me_rate_now"="Оценить";
+"rc_me_rate_later"="Напомнить позже";
+"rc_me_rate_never"="Больше не напоминать";
+"rc_me_rate_msg"="Благодарим за использование приложения %d. Пожалуйста, уделите немного времени, чтобы поставить нам 5 звезд. Спасибо за поддержку!";
+
+"rc_file_is_invalid"="Неподдерживаемый формат изображения";
+"rc_unsupport_image"="Неподдерживаемый формат изображения";
+"rc_pictures_are_not_saved"="Изображение не сохранено. Завершить редактирование?";
+"rc_image_save_to_album_already"="Изображение сохранено в галерее";
+
+"rc_save"="Сохранить";
+"rc_more"="Еще";
+"rc_no_facebook"="Вы не установили Facebook";
+"rc_no_instagram"="Вы не установили Instagram";
+"rc_share_failed"="Не удалось опубликовать";
+"rc_save_failed"="Не удалось сохранить изображение";
+"rc_showwatermark"="Добавить название приложения";
+"rc_enospc"="Недостаточно памяти";
+
+"rc_slogan_nocrop"="Публикуйте в Instagram полноразмерные фотографии, не обрезая их!";
+"rc_slogan_instamark"="InstaMark-Сделайте свои фотографии уникальными!";
+"rc_slogan_shape"="Добавляйте красивые и интересные формы на свои фото в Instagram";
+"rc_slogan_mirror"="Создавайте красивые 2D и 3D фотографии с зеркальными эффектами";
+"rc_slogan_beauty"="\"Красивые снимки\"\" - создатель отбеливаемых селфи, красивее, чем с макияжем \"";
+"rc_slogan_font"=" Добавляйте на свои фотографии текст и стикеры с красивыми надписями";
+"rc_slogan_frameart"="Создайте свои собственные эксклюзивные произведения искусства!";
+"rc_slogan_face"="Создавайте удивительные фотографии со смешанными лицами";
+"rc_slogan_collageart"="Оригинальный создатель коллажей, который прибавит внимания к вашим фотографиям.  ";
+"rc_slogan_picgrid"="Превратите коллекцию своих фотографий в потрясающий коллаж";
+
+"rc_load_fail"="Загрузка не удалась. Повторите попытку";
+"rc_operation_fail"="Операция не";
+"rc_net_error"="Нет соединения с Интернетом";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Стикеры";
+"rc_sticker_tab_recently"="Недавно использованные";
+"rc_sticker_tab_mood"="Настроение";
+"rc_sticker_tab_festival"="Праздники";
+"rc_sticker_tab_wordart"="Красивые надписи";
+"rc_sticker_tab_textbox"="Текстовое поле";
+"rc_sticker_tab_stamp"="Печать";
+"rc_unDownload"="Не загружено";
+"rc_download"="Загружено";
+"rc_downloaded_font_none"="Нет загруженных шрифтов";
+"rc_recently_sticker_none"="Неиспользованные стикеры";
+"rc_no_new_fonts"="Нет новых шрифтов";
+"rc_font"="Шрифт";
+"rc_local_font"="Русские шрифты";
+"rc_font_download_faild"="Не удалось загрузить изображение";
+"rc_font_cancel_down_dialog_msg "="Подтверждаете отмену загрузки шрифта?";
+"rc_delete_font_dialog_msg"="Подтверждаете удаление данного шрифта?";
+"rc_confirm_remove_this"="Подтверждаете удаление?";
+"rc_max_add_text_msg"="Максимум %d стикера";
+"rc_max_add_sticker_msg"="Максимум %d текстовых поля";
+"rc_max_photos_limit"="Можно выбрать максимум %d фотографий";
+"rc_exit"="Выйти";
+"rc_press_again_to_exit"="Нажмите еще раз для выхода из приложения";
+"rc_home"="Главная";
+"rc_reset"="Сброс";
+"rc_delete"="Удалить";
+"rc_complete"="Готово";
+"rc_album"="Галерея";
+"rc_camera"="Камера";
+"rc_rotate"="Повернуть/перевернуть";
+"rc_filter"="Фильтры";
+"rc_switch"="Переставить";
+"rc_default"="По умолчанию";
+"rc_ungrade_now"="Обновить";
+"rc_pick_photos"="Выбрать альбом";
+"rc_need_photo_limit"="Вы павінны абраць %d фатаграфіі";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="Нажмите на другую фотографию, чтобы поменять их местами";
+"user_camera_step" = "Пожалуйста открыть камеру для разрешений CollageShape: Настройки телефона -> Безопасность -> Камера -> CollageShape (открытый)";
+"user_library_step" = "Пожалуйста открыть камеру для разрешений CollageShape: Настройки телефона -> Безопасность -> Фото -> CollageShape (открытый)";
+
+"newVersion"                  = "Есть новая версия";
+"updateNow"                   = "Обновить";
+"remindLater"                 = "Напомнить позже";
+
+
+"comment_message_default"="Благодарим за использование приложения CollageShape. Пожалуйста, уделите немного времени, чтобы поставить нам 5 звезд. Спасибо за поддержку!";
+"rate_now"="Оценить";
+"attention_later"="Напомнить позже";
+"share_msg"="Я пользуюсь приложением Collage Shape для создания уникальных и интересных коллажей с помощью его красивых графических шаблонов";
+"allPhoto"="Все фото";
+
+

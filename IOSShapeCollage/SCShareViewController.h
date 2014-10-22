@@ -8,6 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCShareViewController : UIViewController
+@class SLComposeViewController;
 
+@interface SCShareViewController : UIViewController<UIDocumentInteractionControllerDelegate, UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate,UIPageViewControllerDelegate>
+{
+    UIDocumentInteractionController *_documetnInteractionController;
+    UIImage *theBestImage;
+    UIImage *saveImage;
+    SLComposeViewController *slComposerSheet;
+    BOOL isSaved;
+    
+    NSArray *cellTitleArray;
+    NSArray *cellImagesArray;
+    UITableView *appMoretableView;
+    
+    UIView *saveView;
+    CGAffineTransform originTransform;
+}
+
+@property (nonatomic) BOOL isSaved;
+- (void)getImage:(UIImage *)image;
+- (void)getImageFromView:(UIView *)tempView;
 @end

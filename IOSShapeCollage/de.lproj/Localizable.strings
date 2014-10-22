@@ -1,0 +1,107 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="Update";
+"rc_rate"="Punktestand";
+"rc_feedback"="Feedback";
+"rc_share_app"="App teilen";
+"rc_share"="Teilen";
+"rc_follow"="Folge uns";
+
+"rc_sdcard_miss"="SD Karte nicht vorhanden";
+"rc_custom_positive"="Ja";
+"rc_custom_negitive"="Abrechen";
+
+"rc_me_rate_now"="Jetzt bewerten";
+"rc_me_rate_later"="Später erinnern";
+"rc_me_rate_never"="Nicht mehr erinnern";
+"rc_me_rate_msg"="Danke für dein Vertrauen in %d, bitte nihm dir einen Moment Zeit und gib eine Bewertung ab.";
+
+"rc_file_is_invalid"="Dieses Bildformat wird nicht unterstützt";
+"rc_unsupport_image"="Nicht unterstütztes Bildformat";
+"rc_pictures_are_not_saved"="Das Bild wurde nicht gespeichert, trotzdem verlassen?";
+"rc_image_save_to_album_already"="Bild wurde in Alben gespeichert";
+
+"rc_save"="Speichern";
+"rc_more"="Mehr";
+"rc_no_facebook"="Facebook ist nicht installiert!";
+"rc_no_instagram"="Instagram ist nicht instaliert!";
+"rc_share_failed"="Teilen fehlgeschlagen";
+"rc_save_failed"="Speichern des Bildes fehlgeschlagen";
+"rc_showwatermark"="App Wasseryeichen hinzufügen";
+"rc_enospc"="Unzureichender Speicherplatz";
+
+"rc_slogan_nocrop"="Poste unbeschnittene Photos in voller Größe auf Instagram";
+"rc_slogan_instamark"="InstaMark-Mach deine Photos einzigartig!";
+"rc_slogan_shape"="Füge interessante Formen zu deinen Instagram Photos hinzu";
+"rc_slogan_mirror"="Erstelle schöne 2D und 3D Photos mit reflektierenden Spiegel Efekten";
+"rc_slogan_beauty"="Beauty Kamera ist der \" besser als Make-up Selfies Maker\"";
+"rc_slogan_font"="Füge deinen Photos Schriften und Sticker hinzu";
+"rc_slogan_frameart"="Mach deine Photos zu Kunstwerken";
+"rc_slogan_face"="Mach tolle Photos und verschmelze Gesichter!";
+"rc_slogan_collageart"="Ein einzigartiger Collagen Generator der deinen Photos die nötige Aufmerksamkeit verschaft.Ein einzigartiger Collagen Generator der deinen Photos die nötige Aufmerksamkeit verschaft. ";
+"rc_slogan_picgrid"="Mach faszinierende Collagen aus deinen Photos ";
+
+"rc_load_fail"="Lade Fehler -Bitte nochmal versuchen";
+"rc_operation_fail"="Operation fehlgeschlagen";
+"rc_net_error"="Keine Netzwerk Verbindung ";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="Stickers";
+"rc_sticker_tab_recently"="bereits benutzt";
+"rc_sticker_tab_mood"="Stimmung";
+"rc_sticker_tab_festival"="Feiertage";
+"rc_sticker_tab_wordart"="künstlerisch";
+"rc_sticker_tab_textbox"="Sprechblasen";
+"rc_sticker_tab_stamp"="Stempel";
+"rc_unDownload"="Nicht heruntergeladen";
+"rc_download"="Fertige Downloads";
+"rc_downloaded_font_none"="Noch keine Schriftarten herunter geladen";
+"rc_recently_sticker_none"="noch nicht benutzte Sticker";
+"rc_no_new_fonts"="Alle Schriftarten runterladen!";
+"rc_font"="Schriftarten";
+"rc_local_font"="Lokale Schriftarten";
+"rc_font_download_faild"="Download Lade Fehler";
+"rc_font_cancel_down_dialog_msg "="Bist du sicher, dass du den Download abrechen willst?";
+"rc_delete_font_dialog_msg"="Bist du sicher, dass du den Download abrechen willst?";
+"rc_confirm_remove_this"="Bist du sicher, dass du dies löschen willst";
+"rc_max_add_text_msg"="Du kannst maximal %d Textfelder benutzen";
+"rc_max_add_sticker_msg"="Du kannst maximal %d Sticker benutzen";
+"rc_max_photos_limit"="Du kannst nur%d Fotos auswählen";
+"rc_exit"="Verlassen";
+"rc_press_again_to_exit"="Zum Beenden der App nochmal drücken.";
+"rc_home"="Home";
+"rc_reset"="Zurücksetzen";
+"rc_delete"="Entfernen";
+"rc_complete"="Fertig";
+"rc_album"="Galerie";
+"rc_camera"="Kamera";
+"rc_rotate"="Drehen/Wenden";
+"rc_filter"="Filter";
+"rc_switch"="Switch";
+"rc_default"="Voreinstellungen";
+"rc_ungrade_now"="jetzt upgraden";
+"rc_pick_photos"="Wähle Alben";
+"rc_need_photo_limit"="Sie müssen %d Fotos auswählen";
+
+//ShapeCollage新增
+
+"switch_hint_string"="Klick auf ein anderes Photo um die Position zu tauschen";
+"user_camera_step" = "Bitte öffnen Sie die Kamera für die CollageShape Berechtigungen: Telefon-Einstellungen -> Datenschutz -> Kamera -> CollageShape (offen)";
+"user_library_step" = "Bitte öffnen Sie die Kamera für die CollageShape Berechtigungen: Telefon-Einstellungen -> Datenschutz -> Fotos -> CollageShape (offen)";
+
+"newVersion"                  = "neues Update";
+"updateNow"                   = "jetzt upgraden";
+"remindLater"                 = "später erinnern";
+
+"comment_message_default"="Danke für dein Vertrauen in CollageShape, bitte nihm dir einen Moment Zeit und gib eine Bewertung ab.";
+"rate_now"="Jetzt bewerten";
+"attention_later"="Später erinnern";
+"share_msg"="Ich hab Collage Shape. Aus einer Vielzahl von wunderschönen Vorlagen kannst du einzigartige und interessante Collagen erzeugen.";
+"allPhoto"="Alle Fotos";
+
+

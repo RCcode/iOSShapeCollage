@@ -15,6 +15,7 @@
 @synthesize delegate;
 @synthesize isFilterImage;
 @synthesize isScaleImage;
+@synthesize showView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,6 +27,26 @@
     }
     return self;
 }
+
+////将对象解码(反序列化)
+//-(id) initWithCoder:(NSCoder *)aDecoder
+//{
+//    if (self=[super init])
+//    {
+//        self.frame = [aDecoder decodeCGRectForKey:@"frame"];
+////        [self initSubViews];
+//        showView = [aDecoder decodeObjectForKey:@"showView"];
+//        
+//    }
+//    return (self);
+//}
+//
+////将对象编码(即:序列化)
+//-(void) encodeWithCoder:(NSCoder *)aCoder
+//{
+//    [aCoder encodeCGRect:self.frame forKey:@"frame"];
+//    [aCoder encodeObject:showView forKey:@"showView"];
+//}
 
 - (void)setupWithMaskImageArray:(NSArray *)maskArray andRectArray:(NSArray *)rectArray andEditImageArray:(NSArray *)editArray
 {
@@ -42,6 +63,7 @@
     
     for (int i = 0; i < [maskArray count]; i ++)
     {
+        NSLog(@"%@",editArray);
         SCMaskView *mask = [[SCMaskView alloc]initWithFrame:self.frame];
         mask.editShowView.frame = CGRectFromString([rectArray objectAtIndex:i]);
         mask.editImageView.frame = mask.editShowView.frame;
@@ -56,7 +78,7 @@
 {
 //    CGPoint point = [tap locationInView:self.view];
     
-    showView = [[UIView alloc]initWithFrame:self.frame];
+    showView = [[UIImageView alloc]initWithFrame:self.frame];
     showView.backgroundColor = [UIColor clearColor];
     [self addSubview:showView];
     
@@ -74,7 +96,7 @@
 
 - (void)actionBarViewTapAction:(UITapGestureRecognizer *)tap
 {
-    if (isScaleImage || isFilterImage)
+    if (isScaleImage || isFilterImage || isExchangeImage)
     {
         return;
     }
@@ -91,19 +113,18 @@
     }
 }
 
-- (void)setBarView:(UIView *)barView
+- (void)setwillShowBar:(UIView *)willShow andWillHideBar:(UIView *)willHide
 {
-    actionBar = barView;
-}
-- (void)setModelChooseBarView:(UIView *)chooseBar
-{
-    modelChooseBar = chooseBar;
+    willShowBar = willShow;
+    willHideBar = willHide;
 }
 
 - (void)changeFilterWithType:(NCFilterType)type
 {
+    _responderView.filterType = type;
+    
     if(_videoCamera == nil){
-        _videoCamera = [NCVideoCamera videoCamera];
+        _videoCamera = [[NCVideoCamera alloc]init];
         _videoCamera.delegate = self;
     }
     if ([[NSRunLoop mainRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate date]]) {
@@ -122,14 +143,17 @@
         _responderView.editImageView.image = image;
         _responderView.filterAfterImage = image;
     }
+//    hideMBProgressHUD();
 }
 
 
+#pragma mark editImage编辑区显示及结束方法
 - (void)sendResponderViewToEdit
 {
     isScaleImage = YES;
     [self addSubview:_responderView];
     responderCenter = _responderView.center;
+    responderEditImageRect = _responderView.editImageView.frame;
     
     CGPoint editAreaCenter = CGPointMake(_responderView.editShowView.frame.origin.x+_responderView.editShowView.frame.size.width/2, _responderView.editShowView.frame.origin.y+_responderView.editShowView.frame.size.height/2);
     
@@ -157,7 +181,7 @@
     
     [UIView animateWithDuration:ANIMATIONDURATION animations:
     ^{
-        modelChooseBar.frame = CGRectMake(modelChooseBar.frame.origin.x, modelChooseBar.frame.origin.y+modelChooseBar.frame.size.height, modelChooseBar.frame.size.width, modelChooseBar.frame.size.height);
+        willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y+willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
         _responderView.center = currentCenter;
         responderTransform = _responderView.transform;
         
@@ -177,7 +201,7 @@
                 CGAffineTransform currentTransform = CGAffineTransformScale(_responderView.transform, scale, scale);
                 _responderView.transform = currentTransform;
                 
-                actionBar.frame = CGRectMake(actionBar.frame.origin.x, actionBar.frame.origin.y-actionBar.frame.size.height, actionBar.frame.size.width, actionBar.frame.size.height);
+                willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y-willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
                 
             }completion:^(BOOL finished)
              {
@@ -194,7 +218,7 @@
          CGAffineTransform currentTransform = CGAffineTransformScale(responderTransform, 1, 1);
          _responderView.transform = currentTransform;
          
-         actionBar.frame = CGRectMake(actionBar.frame.origin.x, actionBar.frame.origin.y+actionBar.frame.size.height, actionBar.frame.size.width, actionBar.frame.size.height);
+         willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y+willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
          
      }completion:^(BOOL finished)
      {
@@ -205,14 +229,12 @@
               showView.transform = currentTransform;
               _responderView.transform = responderStartTransform;
               _responderView.frame = responderStartRect;
-              modelChooseBar.frame = CGRectMake(modelChooseBar.frame.origin.x, modelChooseBar.frame.origin.y-modelChooseBar.frame.size.height, modelChooseBar.frame.size.width, modelChooseBar.frame.size.height);
+              willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y-willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
               
           } completion:^(BOOL finishec)
           {
               _responderView.layer.anchorPoint = CGPointMake(0.5, 0.5);
               _responderView.layer.position = responderCenter;
-              //              tempResponderView.hidden = NO;
-              //              _responderView.hidden = YES;
               [showView addSubview:_responderView];
               _responderView = nil;
               isScaleImage = NO;
@@ -225,7 +247,8 @@
 - (void)maskViewOriginEdit
 {
     [UIView animateWithDuration:ANIMATIONDURATION animations:^{
-        _responderView.newTransform = responderEditStartTransform;
+        _responderView.newTransform = _responderView.initTransform;
+        _responderView.editImageView.frame = _responderView.startRect;
     }];
 }
 - (void)maskViewCancelEdit
@@ -234,27 +257,29 @@
      ^{
          CGAffineTransform currentTransform = CGAffineTransformScale(responderTransform, 1, 1);
          _responderView.transform = currentTransform;
+//         _responderView.newTransform = responderEditStartTransform;
+//         _responderView.editImageView.frame = responderEditImageRect;
 
-         actionBar.frame = CGRectMake(actionBar.frame.origin.x, actionBar.frame.origin.y+actionBar.frame.size.height, actionBar.frame.size.width, actionBar.frame.size.height);
+         willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y+willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
          
      }completion:^(BOOL finished)
      {
          [UIView animateWithDuration:ANIMATIONDURATION animations:
           ^{
               
-              CGAffineTransform currentTransform = CGAffineTransformScale(showTransform, 1, 1);
-              showView.transform = currentTransform;
+              _responderView.newTransform = responderEditStartTransform;
+              _responderView.editImageView.frame = responderEditImageRect;
               _responderView.transform = responderStartTransform;
               _responderView.frame = responderStartRect;
-              _responderView.newTransform = responderEditStartTransform;
-              modelChooseBar.frame = CGRectMake(modelChooseBar.frame.origin.x, modelChooseBar.frame.origin.y-modelChooseBar.frame.size.height, modelChooseBar.frame.size.width, modelChooseBar.frame.size.height);
+              CGAffineTransform currentTransform = CGAffineTransformScale(showTransform, 1, 1);
+              showView.transform = currentTransform;
+              
+              willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y-willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
               
           } completion:^(BOOL finishec)
           {
               _responderView.layer.anchorPoint = CGPointMake(0.5, 0.5);
               _responderView.layer.position = responderCenter;
-              //              tempResponderView.hidden = NO;
-              //              _responderView.hidden = YES;
               [showView addSubview:_responderView];
               _responderView = nil;
               isScaleImage = NO;
@@ -262,25 +287,47 @@
           }];
      }];
 }
-//
+#pragma mark - 图片互换方法
+- (void)exchangeEditImagebegan
+{
+    UIView *shapeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _responderView.frame.size.width, _responderView.frame.size.height)];
+    shapeView.alpha = 0.6;
+    shapeView.backgroundColor = [UIColor blackColor];
+    [_responderView addSubview:shapeView];
+    isExchangeImage = YES;
+    
+    [UIView animateWithDuration:ANIMATIONDURATION animations:^
+     {
+         willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y+willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
+     }completion:^(BOOL finished){
+         [UIView animateWithDuration:ANIMATIONDURATION animations:^
+          {
+              willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y-willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
+          }];
+    }];
+}
+
+- (void)exchangeEditImageEnd
+{
+    [UIView animateWithDuration:ANIMATIONDURATION animations:^
+     {
+         willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y+willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
+     }completion:^(BOOL finished){
+         [UIView animateWithDuration:ANIMATIONDURATION animations:^
+          {
+              willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y-willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
+              isExchangeImage = NO;
+          }];
+     }];
+}
+#pragma mark -  替换图片方法
+- (void)changeEditImage:(UIImage *)img
+{
+    [_responderView setEditImage:img];
+}
+
 - (void)setResponderView:(SCMaskView *)responderView
 {
-//    tempResponderView = responderView;
-//    _responderView.frame = responderView.frame;
-//    responderStartRect = responderView.frame;
-//    _responderView.maskImage = responderView.maskImage;
-//    
-//    _responderView.editImageView.frame = responderView.editImageView.frame;
-//    _responderView.editShowView.frame = responderView.editShowView.frame;
-//    
-//    _responderView.newTransform = responderView.newTransform;
-//    _responderView.maskImage = responderView.maskImage;
-//    [_responderView setEditImage:responderView.editImageView.image];
-//    
-//    _responderView.transform = responderView.transform;
-//    _responderView.hidden = YES;
-//    _responderView.tag = responderView.tag;
-    
     _responderView = responderView;
     responderStartRect = responderView.frame;
     responderEditStartTransform = responderView.newTransform;
@@ -288,8 +335,13 @@
 
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    NSLog(@"%@",event);
     NSLog(@"hittest");
+    if (!ishit_test)
+    {
+        ishit_test = YES;
+        return nil;
+    }
+    ishit_test = NO;
     if (isScaleImage)
     {
         return _responderView;
@@ -304,7 +356,32 @@
         
         if (alpha == 1)
         {
+            if (isExchangeImage)
+            {
+                UIImage *tempImage = _responderView.editImageView.image;
+                _responderView.newTransform = _responderView.initTransform;
+                tempView.newTransform = tempView.initTransform;
+                [_responderView.subviews.lastObject removeFromSuperview];
+                [_responderView setEditImage:tempView.editImageView.image];
+                [tempView setEditImage:tempImage];
+                [self exchangeEditImageEnd];
+                return nil;
+            }
             self.responderView = tempView;
+            if (isFilterImage)
+            {
+                UIView *blackTipView = [[UIView alloc]initWithFrame:self.responderView.frame];
+                blackTipView.backgroundColor = [UIColor blackColor];
+                blackTipView.alpha = 0.7;
+                [_responderView addSubview:blackTipView];
+                
+                [UIView animateWithDuration:0.1 animations:^{blackTipView.alpha = 0;} completion:^(BOOL finished) {
+                    if (finished)
+                    {
+                        [blackTipView removeFromSuperview];
+                    }
+                }];
+            }
             return tempView;
         }
         else

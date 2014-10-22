@@ -10,8 +10,9 @@
 
 #import "SCMaskTouchView.h"
 
+@class SCCustomScrollView;
 
-@interface SCEditViewController : UIViewController<maskTouchViewDelegate,UIGestureRecognizerDelegate>
+@interface SCEditViewController : UIViewController<maskTouchViewDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     NSArray *maskImageArray;
     NSArray *imageRectArray;
@@ -22,14 +23,30 @@
     UIView *modelBarView;
     UIView *actionBarView;
     UIView *actionBar;
+    UIView *tipBarView;
     UIView *scaleViewActionBar;
     UIView *filterBarView;
     
     NSArray *filterIconArray;
-    NSArray *modelChooseIconArray;
+    NSMutableArray *modelChooseIconArray;
+    SCCustomScrollView *filterScrollView;
+    
+    UIButton *leftItemButton;
+    UIButton *rightItemButton;
+    UIBarButtonItem *leftItem;
+    UIBarButtonItem *rightItem;
+    
+    NSDictionary *infoDictionary;
+    
+    UIImageView *modelChangeSelected;
+    NSString *modelChangeSelectedName;
+    NSInteger selectedTag;
+    SCCustomScrollView *modelChooseScroll;
 }
 
-@property (nonatomic, strong) UIImageView *backGroundImageView;
+@property (nonatomic) NSInteger modelPieces;
+
+- (id)initWithPieces:(NSInteger)pieces andType:(NSString *)type;
 
 - (void)setInfoDictionary:(NSDictionary *)infoDic;
 - (void)setEditImageArray:(NSArray *)imageArray;

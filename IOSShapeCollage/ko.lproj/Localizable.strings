@@ -1,0 +1,107 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="업데이트";
+"rc_rate"="평점";
+"rc_feedback"="피드백";
+"rc_share_app"="공유하기";
+"rc_share"="공유";
+"rc_follow"="팔로우";
+
+"rc_sdcard_miss"="SD 카드가 없습니다";
+"rc_custom_positive"="확인";
+"rc_custom_negitive"="취소";
+
+"rc_me_rate_now"="평가하기";
+"rc_me_rate_later"="나중에 하기";
+"rc_me_rate_never"="다시 보지 않기";
+"rc_me_rate_msg"="%d를 사용해 주시고 지원해 주심을 감사합니다. 앞으로도 꾸준한 발전을 위해 노력하겠습니다. 좋은 평점 부탁 드려요! ";
+
+"rc_file_is_invalid"="지원하지 않는 형식의 파일입니다";
+"rc_unsupport_image"="지원되지 않은 파일입니다.";
+"rc_pictures_are_not_saved"="변경된 내용을 저장하지 않고 종료하시겠습니까?";
+"rc_image_save_to_album_already"="갤러리에 사진이 저장되었습니다";
+"rc_save"="저장";
+"rc_more"="더보기";
+"rc_no_facebook"="Facebook 이 설치되어 있지 않습니다";
+"rc_no_instagram"="Instagram 이 설치되어 있지 않습니다";
+"rc_share_failed"="공유 실패";
+"rc_save_failed"="저장 실패";
+"rc_showwatermark"="사진에 로고 표시";
+"rc_enospc"="저장 공간 부족";
+
+"rc_slogan_nocrop"="Instagram에 사진 자를 필요 없이 전체 그대로 올리기!";
+"rc_slogan_instamark"="InstaMark-내 사진을 특별하게 꾸며보세요!";
+"rc_slogan_shape"="Instagram 사진을 위한 예쁘고 재미있는 사진 모양 제공";
+"rc_slogan_mirror"="2D, 3D 사진 반사 효과 적용";
+"rc_slogan_beauty"="Beauty Camera 편집기능을 통해서 사진에 마치 화장한 듯한 효과주기!";
+"rc_slogan_font"="120+ 글씨체—사진에 문자";
+"rc_slogan_frameart"="사진을 원하는 스타일로 연출하기!";
+"rc_slogan_face"="재미있고 놀라운 얼굴 합성 어플";
+"rc_slogan_collageart"="자유 제작 사진 합치기 편집 기능을 제공하는 콜라주 아트를 내 사진을 좀 더 느낌있게!";
+"rc_slogan_picgrid"="여러 장의 사진을 한장의 콜라주 사진으로 간직하기 ";
+
+"rc_load_fail"="로딩을 실패했습니다. 다시 시도해 주세요.";
+"rc_operation_fail"="작업이 실패";
+"rc_net_error"="네트워크가 연결되지 않았습니다.";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="스티커";
+"rc_sticker_tab_recently"="최근";
+"rc_sticker_tab_mood"="기분";
+"rc_sticker_tab_festival"="휴일";
+"rc_sticker_tab_wordart"="손글씨";
+"rc_sticker_tab_textbox"="말풍선";
+"rc_sticker_tab_stamp"="스탬프";
+"rc_unDownload"="다운받기";
+"rc_download"="다운됨";
+"rc_downloaded_font_none"="다운된 글씨체가 없습니다.";
+"rc_recently_sticker_none"="미사용";
+"rc_no_new_fonts"="현재 업데이트된 글씨체가 없습니다.";
+"rc_font"="글씨체";
+"rc_local_font"="글씨체";
+"rc_font_download_faild"="다운을 실패하였습니다.";
+"rc_font_cancel_down_dialog_msg "="다운로드를 중단시키겠습니까?";
+"rc_delete_font_dialog_msg"="정말로 삭제하시겠습니까?";
+"rc_confirm_remove_this"="정말로 삭제하시겠습니까?";
+"rc_max_add_text_msg"="최대 %d개 텍스트 상자 추가 가능";
+"rc_max_add_sticker_msg"="최대 %d개 스티커";
+"rc_max_photos_limit"="%d장 까지만 선택 할 수 있습니다.";
+"rc_exit"="종료";
+"rc_press_again_to_exit"="한번 더 누르시면 종료됩니다";
+"rc_home"="홈";
+"rc_reset"="리셋";
+"rc_delete"="삭제";
+"rc_complete"="완료";
+"rc_album"="갤러리";
+"rc_camera"="카메라";
+"rc_rotate"="회전/뒤집기";
+"rc_filter"="필터";
+"rc_switch"="위치 바꾸기";
+"rc_default"="기본";
+"rc_ungrade_now"="업데이트";
+"rc_pick_photos"="앨범 선택하기";
+"rc_need_photo_limit"="너 선택 %d 장의 사진 이 필요하다";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="다른 사진을 터치하여 사진의 위치 변경하기";
+"user_camera_step" = "CollageShape 권한 카메라를여십시오 : 전화 설정 -> 개인 정보 보호 -> 카메라 -> CollageShape (오픈)";
+"user_library_step" = "CollageShape 권한 카메라를여십시오 : 전화 설정 -> 개인 정보 보호 -> 사진 -> CollageShape (오픈)";
+
+"newVersion"                  = "최신 버전이 있습니다";
+"updateNow"                   = "업데이트";
+"remindLater"                 = "나중에";
+
+
+"comment_message_default"="CollageShape를 사용해 주시고 지원해 주심을 감사합니다. 앞으로도 꾸준한 발전을 위해 노력하겠습니다. 좋은 평점 부탁 드려요!";
+"rate_now"="평가하기";
+"attention_later"="나중에 하기";
+"share_msg"="다양한 콜라주 템플릿을 제공하는 Collage Shape 어플입니다. 색다른 모양으로 콜라주를 만들어 보세요!";
+"allPhoto"="모든 사진";
+

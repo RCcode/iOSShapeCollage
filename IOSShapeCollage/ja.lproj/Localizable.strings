@@ -1,0 +1,108 @@
+/* 
+  Localizable.strings
+  IOSShapeCollage
+
+  Created by wsq-wlq on 14-9-29.
+  Copyright (c) 2014年 wsq-wlq. All rights reserved.
+*/
+"rc_update"="アップデート";
+"rc_rate"="評価";
+"rc_feedback"="フィードバック";
+"rc_share_app"="アプリをシェアする";
+"rc_share"="シェア";
+"rc_follow"="フォローする";
+
+"rc_sdcard_miss"="SDカードが入っていません";
+"rc_custom_positive"="はい";
+"rc_custom_negitive"="キャンセル";
+
+"rc_me_rate_now"="今すぐ評価";
+"rc_me_rate_later"="また後で";
+"rc_me_rate_never"="再通知しない";
+"rc_me_rate_msg"="%dをご使用頂きありがとうございます。アプリ向上のため評価をお願いします";
+
+"rc_file_is_invalid"="この写真のフォーマットはサポートしていません";
+"rc_unsupport_image"="この写真のフォーマットには対応していません";
+"rc_pictures_are_not_saved"="写真を保存していません。編集をやめますか？";
+"rc_image_save_to_album_already"="アルバムに保存されました";
+
+"rc_save"="保存";
+"rc_more"="そのほか";
+"rc_no_facebook"="facebookがインストールされていません";
+"rc_no_instagram"="instagramがインストールされていません";
+"rc_share_failed"="シェアに失敗しました";
+"rc_save_failed"="写真の保存に失敗しました";
+"rc_showwatermark"="使用可能なスタンプの表示";
+"rc_enospc"="保存する容量がたりません";
+
+"rc_slogan_nocrop"="トリミングなしで写真をInstagramへ";
+"rc_slogan_instamark"="InstaMark-写真をもっと個性的に";
+"rc_slogan_shape"="Instagramへの写真をもっとキレイに！もっとおもしろく！";
+"rc_slogan_mirror"="ミラーエフェクトで美しい立体感のある写真を";
+"rc_slogan_beauty"="Beauty Camera　お化粧よりもキレイになれる自撮り用カメラ！";
+"rc_slogan_font"="あなたの写真を文字入れとシールで飾ろう";
+"rc_slogan_frameart"="あなただけのオリジナルフォトを作ろう！";
+"rc_slogan_face"="顔融合アプリで楽しい・おもしろい・驚きの1枚を作ろう";
+"rc_slogan_collageart"="かわいくコラージュしてみんなからもっと注目されちゃおう！";
+"rc_slogan_picgrid"="写真を可愛くオシャレに組み合わせ！ ";
+
+"rc_load_fail"="ロードに失敗しました。もう一度お試しください";
+"rc_operation_fail"="操作に失敗しました";
+"rc_net_error"="インターネットに接続されていません";
+
+//<!-- 2014-9-25新增 -->
+"rc_sticker"="シール";
+"rc_sticker_tab_recently"="履歴";
+"rc_sticker_tab_mood"="ムード";
+"rc_sticker_tab_festival"="イベント";
+"rc_sticker_tab_wordart"="メッセージ";
+"rc_sticker_tab_textbox"="フキダシ";
+"rc_sticker_tab_stamp"="スタンプ";
+"rc_unDownload"="未ダウンロード";
+"rc_download"="ダウンロード済み";
+"rc_downloaded_font_none"="ダウンロード済みのフォントはありません";
+"rc_recently_sticker_none"="まだ使ってないシール";
+"rc_no_new_fonts"="更新されたフォントはありません";
+"rc_font"="フォント";
+"rc_local_font"="ローカルフォント";
+"rc_font_download_faild"="スタンプのダウンロードに失敗しました";
+"rc_font_cancel_down_dialog_msg "="フォントのダウンロードを中止しますか？";
+"rc_delete_font_dialog_msg"="本当にフォントを削除しますか？";
+"rc_confirm_remove_this"="本当に削除しますか？";
+"rc_max_add_text_msg"="テキストボックスは%dつまで追加できます";
+"rc_max_add_sticker_msg"="シールは%d枚まで使えます";
+"rc_max_photos_limit"="%d枚まで写真を選択できます";
+"rc_exit"="閉じる";
+"rc_press_again_to_exit"="もう一度タップで閉じる";
+"rc_home"="ホーム";
+"rc_reset"="リセット";
+"rc_delete"="削除";
+"rc_complete"="完成";
+"rc_album"="アルバム";
+"rc_camera"="カメラ";
+"rc_rotate"="回転・反転";
+"rc_filter"="フィルター";
+"rc_switch"="写真の位置交換";
+"rc_default"="デフォルト";
+"rc_ungrade_now"="今すぐアップデード";
+"rc_pick_photos"="アルバムを選択";
+"rc_need_photo_limit"="%d 写真を選択する必要があります。";
+
+
+//ShapeCollage新增
+
+"switch_hint_string"="位置を交換したい写真をタップ";
+"user_camera_step" = "CollageShapeアクセス権のためのカメラを開いてください：電話の設定 - >プライバシー - >カメラ - > CollageShape（オープン）";
+"user_library_step" = "CollageShapeアクセス権のためのカメラを開いてください：電話の設定 - >プライバシー - >写真 ​​- > CollageShape（オープン）";
+
+"newVersion"                  = "新しいバージョンがあります";
+"updateNow"                   = "今すぐアップデード";
+"remindLater"                 = "また後で";
+
+"comment_message_default"="CollageShapeをご使用頂きありがとうございます。アプリ向上のため評価をお願いします";
+"rate_now"="今すぐ評価";
+"attention_later"="また後で";
+"share_msg"="今使ってるCollage Shapeはいろんなシェイプフレームがあるフォトコラージュアプリ。これで一緒にたのしい・かわいい写真をつくろう！";
+"allPhoto"="全ての写真";
+
+

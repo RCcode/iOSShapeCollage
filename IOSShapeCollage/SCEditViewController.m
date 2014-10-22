@@ -8,26 +8,59 @@
 
 #import "SCEditViewController.h"
 #import "SCAppDelegate.h"
+#import "UIImage+SubImage.h"
+#import "SCShareViewController.h"
+#import "SCCustomScrollView.h"
+#import "SCMaskView.h"
 
-#define ACTIONBARINITRECT (CGRectMake(0, self.view.frame.size.height-64, kScreen_Width, self.view.frame.size.height-64-(maskTouchView.frame.origin.y+maskTouchView.frame.size.height)))
+#define ACTIONBARINITRECT (CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, self.view.frame.size.height-44-(maskTouchView.frame.origin.y+maskTouchView.frame.size.height)))
 #define ALPHACOLOR colorWithHexString(@"#2d2d2d")
 
+#define kToMorePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.jpg"]
+
+
 @interface SCEditViewController ()
+
+@property (nonatomic, strong) UIView *filterSelectedView;
 
 @end
 
 @implementation SCEditViewController
+@synthesize filterSelectedView = _filterSelectedView;
+@synthesize modelPieces;
 
-@synthesize backGroundImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        
+        // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithPieces:(NSInteger)pieces andType:(NSString *)type
+{
+    self = [super init];
+    if (self)
+    {
+        self.modelPieces = pieces;
+        modelChangeSelectedName = type;
+        modelChooseIconArray = [[NSMutableArray alloc]init];
+
+        for (NSString *tempString in [PRJ_Global shareStance].modelArray)
+        {
+            NSInteger pieces = [[[[[tempString lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:1] integerValue];
+            if (pieces == self.modelPieces)
+            {
+                [modelChooseIconArray addObject:tempString];
+            }
+        }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                        {
-                           filterIconArray = [getImagesArray(@"滤纸图标", @"png") mutableCopy];;
+                           filterIconArray = [getImagesArray(@"滤纸图标", @"png") mutableCopy];
                        });
         
         [self initSubViews];
@@ -38,13 +71,20 @@
 
 - (void)setInfoDictionary:(NSDictionary *)infoDic
 {
+    infoDictionary = [NSDictionary dictionaryWithDictionary:infoDic];
+    NSString *directory = [infoDictionary objectForKey:@"backGroundImage"];
+    modelChangeSelectedName = directory;
+    maskTouchView.showView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[infoDictionary objectForKey:@"backGroundImage"] ofType:@"jpg" inDirectory:directory]];
+    
     maskImageArray = [self getMaskResourceWithNames:[NSArray arrayWithArray:[infoDic objectForKey:@"imageName"]]];
     imageRectArray = [self transitionImageRectToEditRect:[NSArray arrayWithArray:[infoDic objectForKey:@"imageRect"]]];
+    
 }
 
 - (void)setEditImageArray:(NSArray *)imageArray
 {
     editImageArray = [NSArray arrayWithArray:imageArray];
+    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
 }
 
 #pragma mark - 转换坐标原图至显示区大小
@@ -52,8 +92,8 @@
 {
     CGSize editSize = KEditArea(1, 1);
     
-    CGFloat scaleW = editSize.width/backGroundImageView.image.size.width;
-    CGFloat scaleH = editSize.height/backGroundImageView.image.size.height;
+    CGFloat scaleW = editSize.width/maskTouchView.showView.image.size.width;
+    CGFloat scaleH = editSize.height/maskTouchView.showView.image.size.height;
     
     NSMutableArray *tempArray = [[NSMutableArray alloc]init];
     
@@ -83,12 +123,12 @@
 - (void)initSubViews
 {
     
-    
     CGSize editSize = KEditArea(1, 1);
-    backGroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, editSize.width, editSize.height)];
     
-    maskTouchView = [[SCMaskTouchView alloc]initWithFrame:CGRectMake(0, 0, editSize.width, editSize.height)];
-    maskTouchView.delegate = self;
+    SCMaskTouchView *maskTouch = [[SCMaskTouchView alloc]initWithFrame:CGRectMake(0, 0, editSize.width, editSize.height)];
+    maskTouch.delegate = self;
+    
+    maskTouchView = maskTouch;
     
     modelBarView = [[UIView alloc]initWithFrame:CGRectZero];
     modelBarView.backgroundColor = [UIColor clearColor];
@@ -99,13 +139,14 @@
     filterBarView = [[UIView alloc]initWithFrame:CGRectZero];
     filterBarView.backgroundColor = [UIColor clearColor];
     
+    tipBarView = [[UIView alloc]initWithFrame:CGRectZero];
+    tipBarView.backgroundColor = [UIColor clearColor];
     
-    
-    [self.view addSubview:backGroundImageView];
     [self.view addSubview:maskTouchView];
     [self.view addSubview:scaleViewActionBar];
     [self.view addSubview:filterBarView];
     [self.view addSubview:modelBarView];
+    [self.view addSubview:tipBarView];
 
     
 }
@@ -120,21 +161,61 @@
     [actionBarView removeFromSuperview];
 }
 
-
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = colorWithHexString(@"#202020");
+    self.title = @"CollageShape";
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: colorWithHexString(@"#28d8c9"),NSFontAttributeName:[UIFont fontWithName:FONTNAMESTRING size:17]};
     
-    modelBarView.frame = CGRectMake(0, maskTouchView.frame.origin.y+maskTouchView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-maskTouchView.frame.origin.y-maskTouchView.frame.size.height);
+    leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftItemButton setFrame:CGRectMake(0, 0, 30, 30)];
+    //    [backButton setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [leftItemButton setBackgroundImage:[UIImage imageNamed:@"edit_back.png"] forState:UIControlStateNormal];
+    [leftItemButton addTarget:self action:@selector(leftItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    leftItemButton.imageView.contentMode = UIViewContentModeCenter;
+    
+    rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightItemButton.frame = CGRectMake(kScreen_Width-44, 0, 30, 30);
+    [rightItemButton setBackgroundImage:[UIImage imageNamed:@"edit_share.png"] forState:UIControlStateNormal];
+    [rightItemButton addTarget:self action:@selector(rightItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                       target:nil action:nil];
+    negativeSpacer.width = -5;
+    
+    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftItemButton];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
+    
+    rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightItemButton];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,rightItem, nil];
+    
+    modelBarView.frame = CGRectMake(0, maskTouchView.frame.origin.y+maskTouchView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-44-maskTouchView.frame.origin.y-maskTouchView.frame.size.height);
     UIView *modelBarViewAlpha = [[UIView alloc]initWithFrame:CGRectMake(0, 0, modelBarView.frame.size.width, modelBarView.frame.size.height)];
     modelBarViewAlpha.backgroundColor = ALPHACOLOR;
     modelBarViewAlpha.alpha = 0.9;
     [modelBarView addSubview:modelBarViewAlpha];
+    
+    modelChooseScroll = [[SCCustomScrollView alloc]initWithFrame:CGRectMake(0, 0, modelBarView.frame.size.width, modelBarView.frame.size.height)];
+    [modelBarView addSubview:modelChooseScroll];
+    
+    modelChangeSelected = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 90, 90)];
+    modelChangeSelected.image = [UIImage imageNamed:@"Edit_chosen-frame"];
+    [modelChooseScroll addSubview:modelChangeSelected];
     
     @autoreleasepool {
         for (int i = 0; i < [modelChooseIconArray count]; i++)
@@ -142,7 +223,17 @@
             UIButton *modelChooseButton = [UIButton buttonWithType:UIButtonTypeCustom];
             modelChooseButton.frame = CGRectMake(5+15*i+80*i, 0, 80, 80);
             [modelChooseButton addTarget:self action:@selector(modelChooseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            [modelBarView addSubview:modelChooseButton];
+            modelChooseButton.tag = i+10;
+            modelChooseButton.center = CGPointMake(modelChooseButton.center.x, modelChooseScroll.frame.size.height/2);
+            [modelChooseButton setBackgroundImage:[UIImage imageWithContentsOfFile:[modelChooseIconArray objectAtIndex:i]] forState:UIControlStateNormal];
+            if ([modelChangeSelectedName isEqualToString:[[[[[modelChooseIconArray objectAtIndex:i] lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0]])
+            {
+                modelChooseButton.frame = CGRectMake(modelChooseButton.frame.origin.x-5, modelChooseButton.frame.origin.y-5, 86, 86);
+                modelChangeSelected.center = modelChooseButton.center;
+                selectedTag = modelChooseButton.tag;
+            }
+            [modelChooseScroll addSubview:modelChooseButton];
+            modelChooseScroll.contentSize = CGSizeMake(modelChooseButton.frame.size.width+modelChooseButton.frame.origin.x, modelChooseScroll.frame.size.height);
         }
     }
     
@@ -179,21 +270,35 @@
     filterBarViewAlpha.alpha = 0.9;
     [filterBarView addSubview:filterBarViewAlpha];
     
+    filterScrollView = [[SCCustomScrollView alloc]initWithFrame:CGRectMake(0, 0, filterBarView.frame.size.width, filterBarView.frame.size.height-36)];
+    filterScrollView.backgroundColor = [UIColor clearColor];
+    [filterBarView addSubview:filterScrollView];
+    
+    self.filterSelectedView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
+    self.filterSelectedView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"edit_filter_chosen-frame"]];
+    [filterScrollView addSubview:self.filterSelectedView];
+    
     @autoreleasepool {
         for (int i = 0; i < [filterIconArray count] ; i++)
         {
             UIButton *filterChooseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            filterChooseButton.frame = CGRectMake(60*i, 0, 60, 60);
-            filterChooseButton.center = CGPointMake(filterChooseButton.center.x, filterBarView.frame.size.height/2);
+            filterChooseButton.frame = CGRectMake(10+60*i+10*i, 0, 60, 60);
+            filterChooseButton.center = CGPointMake(filterChooseButton.center.x, filterScrollView.frame.size.height/2);
+            if (i == 0)
+            {
+                self.filterSelectedView.center = filterChooseButton.center;
+            }
             filterChooseButton.tag = i+10;
             [filterChooseButton addTarget:self action:@selector(filterChooseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [filterChooseButton setBackgroundImage:[UIImage imageWithContentsOfFile:[filterIconArray objectAtIndex:i]] forState:UIControlStateNormal];
-            [filterBarView addSubview:filterChooseButton];
+            [filterScrollView addSubview:filterChooseButton];
+            filterScrollView.contentSize = CGSizeMake(filterChooseButton.frame.size.width+filterChooseButton.frame.origin.x, filterScrollView.frame.size.height);
         }
     }
     
     UIButton *hideFilterBarViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    hideFilterBarViewButton.frame = CGRectMake(0, filterBarView.frame.size.height-30, filterBarView.frame.size.width, 30);
+    hideFilterBarViewButton.frame = CGRectMake(0, filterBarView.frame.size.height-36, filterBarView.frame.size.width, 36);
+    [hideFilterBarViewButton setBackgroundImage:[UIImage imageNamed:@"edit_filter_back"] forState:UIControlStateNormal];
     [hideFilterBarViewButton addTarget:self action:@selector(hideFilterBarViewButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [filterBarView addSubview:hideFilterBarViewButton];
     
@@ -226,7 +331,22 @@
         [actionBar addSubview:actionButton];
     }
     
-    [hideButton addSubview:actionBar];    
+    [hideButton addSubview:actionBar];
+    
+    tipBarView.frame = CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, 44);
+    UIView *tipViewBarAlpha = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tipBarView.frame.size.width, tipBarView.frame.size.height)];
+    tipViewBarAlpha.backgroundColor = ALPHACOLOR;
+    tipViewBarAlpha.alpha = 0.9;
+    [tipBarView addSubview:tipViewBarAlpha];
+    
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, tipBarView.frame.size.width, tipBarView.frame.size.height)];
+//    tipLabel.text = LocalizedString(@"", @"");
+    tipLabel.text = LocalizedString(@"switch_hint_string", nil);
+    tipLabel.textColor = [UIColor whiteColor];
+    tipLabel.font = [UIFont fontWithName:FONTNAMESTRING size:14];
+    tipLabel.backgroundColor = [UIColor clearColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    [tipBarView addSubview:tipLabel];
     
     // Do any additional setup after loading the view.
 }
@@ -234,7 +354,37 @@
 #pragma mark - 更换模板
 - (void)modelChooseButtonPressed:(id)sender
 {
+    UIButton *tempselecedButton = (UIButton *)[modelChooseScroll viewWithTag:selectedTag];
+    tempselecedButton.frame = CGRectMake(tempselecedButton.frame.origin.x+5, tempselecedButton.frame.origin.y+5, 80, 80);
     
+    CGRect maskTouchViewRect = maskTouchView.frame;
+    [maskTouchView removeFromSuperview];
+    
+    UIButton *tempButton = (UIButton *)sender;
+    tempButton.frame = CGRectMake(tempButton.frame.origin.x-5, tempButton.frame.origin.y-5, 86, 86);
+    modelChangeSelected.center = tempButton.center;
+    selectedTag = tempButton.tag;
+    
+    NSString *tempString = [modelChooseIconArray objectAtIndex:tempButton.tag-10];
+    
+    NSString *directory = [[[[tempString lastPathComponent]stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
+    modelChangeSelectedName = directory;
+    NSDictionary *infoDic = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_profile",directory] ofType:@"plist" inDirectory:directory]];
+    
+    [self event:@"edit" label:[NSString stringWithFormat:@"home_template_%@",directory]];
+    
+    SCMaskTouchView *maskTouch = [[SCMaskTouchView alloc]initWithFrame:maskTouchViewRect];
+    maskTouch.delegate = self;
+    [self.view insertSubview:maskTouch atIndex:0];
+    maskTouchView = maskTouch;
+
+    maskTouchView.showView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[infoDic objectForKey:@"backGroundImage"] ofType:@"jpg" inDirectory:directory]];
+    
+    maskImageArray = [self getMaskResourceWithNames:[NSArray arrayWithArray:[infoDic objectForKey:@"imageName"]]];
+    imageRectArray = [self transitionImageRectToEditRect:[NSArray arrayWithArray:[infoDic objectForKey:@"imageRect"]]];
+    
+    
+    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
 }
 
 #pragma mark - maskViewDelegate
@@ -269,12 +419,22 @@
         case 0:
         {
             //相册
+            [self event:@"edit" label:@"edit_gallery"];
+            UIImagePickerController *sigleImagePicker = [[UIImagePickerController alloc]init];
+            sigleImagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            sigleImagePicker.delegate = self;
+            [self presentViewController:sigleImagePicker animated:YES completion:nil];
         }
             break;
         case 1:
         {
             //滤镜
+            [self event:@"edit" label:@"edit_filter"];
             maskTouchView.isFilterImage = YES;
+            SCMaskView *tempMaskView = (SCMaskView *)maskTouchView.responderView;
+            UIButton *tempButton = (UIButton *)[filterScrollView viewWithTag:tempMaskView.filterType+10];
+            self.filterSelectedView.center = tempButton.center;
+            
             [UIView animateWithDuration:ANIMATIONDURATION animations:^{
                 modelBarView.frame = CGRectMake(modelBarView.frame.origin.x, modelBarView.frame.origin.y+modelBarView.frame.size.height, modelBarView.frame.size.width, modelBarView.frame.size.height);
             } completion:^(BOOL finished){
@@ -291,14 +451,21 @@
         case 2:
         {
             //编辑
-            [maskTouchView setBarView:scaleViewActionBar];
-            [maskTouchView setModelChooseBarView:modelBarView];
+            [self event:@"edit" label:@"edit_revolved"];
+            self.title = @"Rotation";
+            self.navigationItem.hidesBackButton = YES;
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItem = nil;
+            
+            [maskTouchView setwillShowBar:scaleViewActionBar andWillHideBar:modelBarView];
             [maskTouchView sendResponderViewToEdit];
         }
             break;
         case 3:
         {
             //交换位置
+            [self event:@"edit" label:@"edit_replace"];
+            [self exchangeMethodAction];
         }
             break;
             
@@ -311,8 +478,13 @@
 #pragma mark - 滤镜bar按扭方法
 - (void)filterChooseButtonPressed:(id)sender
 {
+    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     UIButton *tempButton = (UIButton *)sender;
+    self.filterSelectedView.center = tempButton.center;
     [maskTouchView changeFilterWithType:(NCFilterType)tempButton.tag-10];
+    
+    [self event:@"edit" label:[NSString stringWithFormat:@"edit_filter_%d",tempButton.tag-10]];
+    
 }
 - (void)hideFilterBarViewButtonPressed:(id)sender
 {
@@ -333,6 +505,13 @@
 - (void)scaleViewBackButtonPressed:(id)sender
 {
     [maskTouchView maskViewCancelEdit];
+    self.title = @"ShapeCollage";
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                       target:nil action:nil];
+    negativeSpacer.width = -5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,rightItem, nil];
 }
 - (void)scaleViewOriginButton:(id)sender
 {
@@ -341,7 +520,64 @@
 - (void)scaleViewSureButton:(id)sender
 {
     [maskTouchView maskViewEndEdit];
+    self.title = @"ShapeCollage";
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                       target:nil action:nil];
+    negativeSpacer.width = - 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,rightItem, nil];
 }
+#pragma mark - 交换位置按扭方法
+- (void)exchangeMethodAction
+{
+    [maskTouchView setwillShowBar:tipBarView andWillHideBar:modelBarView];
+    [maskTouchView exchangeEditImagebegan];
+}
+
+#pragma mark - 导航按扭方法
+- (void)leftItemButtonPressed:(id)sender
+{
+    [self event:@"edit" label:@"edit_back"];
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)rightItemButtonPressed:(id)sender
+{
+    SCShareViewController *shareCV = [[SCShareViewController alloc]init];
+    [shareCV getImageFromView:maskTouchView];
+    [self.navigationController pushViewController:shareCV animated:YES];
+    
+}
+
+#pragma mark - imagePickerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    [maskTouchView changeEditImage:image];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+
+#pragma mark 事件统计
+- (void)event:(NSString *)eventID label:(NSString *)label;
+{
+    //友盟
+    [MobClick event:eventID label:label];
+    
+    //Flurry
+    [Flurry logEvent:eventID];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

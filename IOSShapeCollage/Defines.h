@@ -177,6 +177,7 @@ typedef id  (^IDBlock_id)  (id);
 #define isAfterIOS6 ([[[UIDevice currentDevice] systemVersion] intValue]>6)
 
 #define iOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define iOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define TOPORIGIN_Y          (iOS7 ? 20 : 0)
 #define KADHEIGHT   50
 
@@ -196,10 +197,10 @@ typedef id  (^IDBlock_id)  (id);
 
 
 //admobKey
-#define AdmobAPPKey       @"ca-app-pub-3747943735238482/2770552255"
+#define AdmobAPPKey       @"ca-app-pub-3747943735238482/7320648656"
 #define appleID           @"901756337"
-#define flurryAPPKey      @"C3MKPQJV9PZBFBWKC6YF"
-#define umengAPPKey       @"53c5fc0c56240bda180cf268"
+#define flurryAPPKey      @"H7MC7J8TYC25BW4P2ZCQ"
+#define umengAPPKey       @"541f9517fd98c518cc083d1f"
 
 #define LANCHCOUNT        @"lanchcount"
 #define MODELCHOOSECOUNT  @"modleChooseCount"
@@ -210,7 +211,7 @@ typedef id  (^IDBlock_id)  (id);
 
 #define kPushURL @"http://iospush.rcplatformhk.net/IOSPushWeb/userinfo/regiUserInfo.do"
 
-#define kAppStoreURL [NSString stringWithFormat:@"%@%@", @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appleID]
+#define kAppStoreURL [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appleID]
 
 #define FONTMAXIDPILIST(A)  [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",A]]
 
@@ -220,16 +221,16 @@ typedef id  (^IDBlock_id)  (id);
 #define ANIMATIONDURATION 0.5
 
 
-static NSString *FONTNAMESTRING = @"HelveticaNeue-Light";
+static NSString *FONTNAMESTRING = @"HelveticaNeue-Medium";
 
 static NSString *SELECT_PHOTOMARK = @"selectPhotoMark";
 static NSString *IMAGE_CHANGED = @"changeImage";
 static NSString *TOUCH_PHOTOMARK = @"touchPhotoMark";
 
-static NSString *kFollwUsURL = @"http://www.instagram.com/fontstudio_rc";
+static NSString *kFollwUsURL = @"http://www.instagram.com/CollageShape_rc";
 static NSString *kFeedbackEmail = @"rcplatform.help@gmail.com";
-static NSString *kShareHotTags = @"（Made with @fontstudio_rc) #fontstudio";
-static NSString *instagramFollowString = @"instagram://user?username=fontstudio_rc";
+static NSString *kShareHotTags = @"（Made with @CollageShape_rc) #CollageShape";
+static NSString *instagramFollowString = @"instagram://user?username=CollageShape_rc";
 static int moreAppID = 20059;
 
 static NSString *DEVICE_TOKEN = @"deviceToken";
