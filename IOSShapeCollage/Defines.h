@@ -198,7 +198,7 @@ typedef id  (^IDBlock_id)  (id);
 
 //admobKey
 #define AdmobAPPKey       @"ca-app-pub-3747943735238482/7320648656"
-#define appleID           @"901756337"
+#define appleID           @"932278349"
 #define flurryAPPKey      @"H7MC7J8TYC25BW4P2ZCQ"
 #define umengAPPKey       @"541f9517fd98c518cc083d1f"
 
@@ -227,11 +227,11 @@ static NSString *SELECT_PHOTOMARK = @"selectPhotoMark";
 static NSString *IMAGE_CHANGED = @"changeImage";
 static NSString *TOUCH_PHOTOMARK = @"touchPhotoMark";
 
-static NSString *kFollwUsURL = @"http://www.instagram.com/CollageShape_rc";
+static NSString *kFollwUsURL = @"http://www.instagram.com/CollageShape";
 static NSString *kFeedbackEmail = @"rcplatform.help@gmail.com";
-static NSString *kShareHotTags = @"（Made with @CollageShape_rc) #CollageShape";
-static NSString *instagramFollowString = @"instagram://user?username=CollageShape_rc";
-static int moreAppID = 20059;
+static NSString *kShareHotTags = @"（Made with @CollageShape) #CollageShape";
+static NSString *instagramFollowString = @"instagram://user?username=CollageShape";
+static int moreAppID = 20073;
 
 static NSString *DEVICE_TOKEN = @"deviceToken";
 
