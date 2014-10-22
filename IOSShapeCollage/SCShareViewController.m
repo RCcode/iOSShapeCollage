@@ -71,8 +71,8 @@
     
     UIGraphicsBeginImageContextWithOptions(saveViewSize, NO, [UIScreen mainScreen].scale);
     
-    [saveView drawViewHierarchyInRect:CGRectMake(0, 0, saveViewSize.width, saveViewSize.height) afterScreenUpdates:YES];
-    
+//    [saveView drawViewHierarchyInRect:CGRectMake(0, 0, saveViewSize.width, saveViewSize.height) afterScreenUpdates:YES];
+    [saveView.layer renderInContext:UIGraphicsGetCurrentContext()];
     saveImage = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();

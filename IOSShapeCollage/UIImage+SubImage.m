@@ -155,9 +155,9 @@
     {
         UIGraphicsBeginImageContext(size);
     }
-    CGSize newSize = size;
     
-    [backView drawViewHierarchyInRect:CGRectMake(0, 0, newSize.width, newSize.height) afterScreenUpdates:YES];
+    [backView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
     UIImage *newImage =UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
