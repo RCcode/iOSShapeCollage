@@ -66,46 +66,29 @@ static CGSize AssetGridThumbnailSize;
         for (int i = 0 ; i < [smartAlbums count]; i++)
         {
             PHCollection *collection = [smartAlbums objectAtIndex:i];
-            PHFetchResult *tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            NSLog(@"%@-%lu",collection.localizedTitle,(unsigned long)tempResult.count);
-            if (tempResult.count > 0 )
+            PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
+            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+            if (assetCollection.assetCollectionSubtype != (202|205|208) && tempResult.count != 0)
             {
-                PHAsset *asset = [tempResult objectAtIndex:0];
-                if (asset.mediaType == PHAssetMediaTypeImage)
-                {
-                    [tempPhototGroupArray addObject:collection];
-                }
-                
+                [tempPhototGroupArray addObject:collection];
             }
         }
         for (int j = 0; j < [topLevelUserCollections count]; j++)
         {
             PHCollection *collection = [topLevelUserCollections objectAtIndex:j];
-            PHFetchResult *tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            NSLog(@"%@-%lu",collection.localizedTitle,(unsigned long)tempResult.count);
-            if (tempResult.count > 0 )
+            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+            if (tempResult.count != 0)
             {
-                PHAsset *asset = [tempResult objectAtIndex:0];
-                if (asset.mediaType == PHAssetMediaTypeImage)
-                {
-                    [tempPhototGroupArray addObject:collection];
-                }
-                
+                [tempPhototGroupArray addObject:collection];
             }
         }
         for (int k = 0; k < [shareAlbums count]; k++)
         {
             PHCollection *collection = [shareAlbums objectAtIndex:k];
-            PHFetchResult *tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            NSLog(@"%@-%lu",collection.localizedTitle,(unsigned long)tempResult.count);
-            if (tempResult.count > 0 )
+            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+            if (tempResult.count != 0)
             {
-                PHAsset *asset = [tempResult objectAtIndex:0];
-                if (asset.mediaType == PHAssetMediaTypeImage)
-                {
-                    [tempPhototGroupArray addObject:collection];
-                }
-                
+                [tempPhototGroupArray addObject:collection];
             }
         }
         self.photoGroupArray = tempPhototGroupArray;

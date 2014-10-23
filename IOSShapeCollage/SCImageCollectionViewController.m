@@ -121,6 +121,7 @@ static CGSize AssetGridThumbnailSize;
     if (iOS8)
     {
         UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
+        cellImage.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:cellImage];
         PHAsset *asset = [assetsArray objectAtIndex:indexPath.row];
         
