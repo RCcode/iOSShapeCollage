@@ -67,12 +67,15 @@ void hideMBProgressHUD();
 NSString *exchangeTime(NSString *time);
 //设略版本号
 NSString *appVersion();
-
+void cancleAllRequests();
 //根据内容和字体获得标签大小
 CGRect getTextLabelRectWithContentAndFont(NSString *content,UIFont *font);
 
 CGSize sizeWithContentAndFont(NSString *content,CGSize size,float fontSize);
 
 NSString *doDevicePlatform();
+
+NSMutableArray *changeTurnArray(NSArray *array);
+NSMutableArray *changeMoreTurnArray(NSArray *array);
 
 @end

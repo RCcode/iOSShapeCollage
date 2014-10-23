@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPRequestOperationManager.h"
+#import "RC_ShareTableViewCell.h"
+
+
+#define kRequestMoreAppDateKey @"kRequestMoreAppDateKey"
+
 
 @protocol AdMobShowManagerDelegate <NSObject>
 @optional
@@ -16,12 +21,23 @@
 @end
 @interface Pic_AdMobShowTimesManager : NSObject
 @property (nonatomic, assign) id<AdMobShowManagerDelegate>delegate;
+
 - (id)init;
 
 - (void)requestAdMobTimesForMoreAppId:(NSInteger)appId andRequestTag:(NSInteger)tag;
 
-+ (BOOL)canShowAds;
++ (void)presentViewCompletion:(void (^)(void))completion;
 
-+ (void)showSeccess;
++ (BOOL)canShowCustomAds;
++ (BOOL)canShowAdmobAds;
+
++ (void)showCustomSeccess;
++ (void)showAdmobSeccess;
+
+/** 判断是否可以发请求 */
++ (BOOL)canRequstDataWithKey:(NSString *)key;
+
+/** 对应请求成功后，必须调此方法更新状态 */
++ (void)updateStateWithKey:(NSString *)key;
 
 @end

@@ -12,6 +12,8 @@
 #import "SCAppDelegate.h"
 #import "sys/sysctl.h"
 #include <mach/mach.h>
+#import "ME_AppInfo.h"
+
 //用户当前的语言环境
 #define CURR_LANG   ([[NSLocale preferredLanguages] objectAtIndex:0])
 
@@ -73,6 +75,13 @@ NSString* stringForInteger(int value)
 {
     NSString *str = [NSString stringWithFormat:@"%d",value];
     return str;
+}
+
+void cancleAllRequests()
+{
+    hideMBProgressHUD();
+    SCAppDelegate *appDelegate = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.manager.operationQueue cancelAllOperations];
 }
 
 NSString *doDevicePlatform()
@@ -321,5 +330,47 @@ CGSize sizeWithContentAndFont(NSString *content,CGSize size,float fontSize)
     return labelsize;
 }
 
-
+NSMutableArray *changeTurnArray(NSArray *array)
+{
+    NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:array];
+    int hasAppCount = 0;
+    for (ME_AppInfo *info in array)
+    {
+        NSLog(@"%@",info.openUrl);
+        if (info.openUrl)
+        {
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:info.openUrl]])
+            {
+                [tempArray removeObject:info];
+                [tempArray insertObject:info atIndex:tempArray.count];
+                hasAppCount = hasAppCount+1;
+            }
+        }
+    }
+    if (tempArray.count - hasAppCount > 0)
+    {
+        ME_AppInfo *tempInfo = [tempArray objectAtIndex:0];
+        [tempArray insertObject:tempInfo atIndex:tempArray.count-hasAppCount];
+        [tempArray removeObjectAtIndex:0];
+        
+    }
+    return [NSMutableArray arrayWithArray:tempArray];
+}
+NSMutableArray *changeMoreTurnArray(NSArray *array)
+{
+    NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:array];
+    for (ME_AppInfo *info in array)
+    {
+        NSLog(@"%@",info.openUrl);
+        if (info.openUrl)
+        {
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:info.openUrl]])
+            {
+                [tempArray removeObject:info];
+                [tempArray insertObject:info atIndex:tempArray.count];
+            }
+        }
+    }
+    return [NSMutableArray arrayWithArray:tempArray];
+}
 @end

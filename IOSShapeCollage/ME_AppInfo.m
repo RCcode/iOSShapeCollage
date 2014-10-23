@@ -10,6 +10,8 @@
 
 @implementation ME_AppInfo
 
+@synthesize stuff;
+
 - (id)initWithDictionary:(NSDictionary *)dic
 {
     self = [super init];
@@ -17,6 +19,28 @@
     [self setValuesForKeysWithDictionary:dic];
     
     return self;
+}
+//- (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues
+//{
+//    for (NSString *key in [keyedValues allKeys])
+//    {
+//        [self setValue:[keyedValues objectForKey:key] forUndefinedKey:key];
+//    }
+//}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if (stuff == nil)
+    {
+        stuff = [[NSMutableDictionary alloc]init];
+    }
+    [stuff setObject:value forKey:key];
+}
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    id value = [stuff objectForKey:key];
+    return (value);
 }
 
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues

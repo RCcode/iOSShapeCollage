@@ -13,6 +13,8 @@
 #import "SCCustomScrollView.h"
 #import "ME_MoreAppViewController.h"
 #import "SliderViewController.h"
+#import "SCAppDelegate.h"
+#import "Pic_AdMobShowTimesManager.h"
 
 @import Photos;
 
@@ -81,6 +83,25 @@
     NSUInteger groupTypes = ALAssetsGroupAll/*ALAssetsGroupLibrary|ALAssetsGroupAlbum|ALAssetsGroupSavedPhotos*/;
     [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (app.isbecomeActivity)
+    {
+        if ([Pic_AdMobShowTimesManager canShowCustomAds])
+        {
+            [Pic_AdMobShowTimesManager presentViewCompletion:^
+             {
+                 [Pic_AdMobShowTimesManager showCustomSeccess];
+                 app.isbecomeActivity = NO;
+             }];
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -148,12 +169,13 @@
 - (void)rightItemButtonPressed:(id)sender
 {
     [self event:@"home" label:@"home_more"];
-    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]initWithNibName:@"ME_MoreAppViewController" bundle:nil];
+//    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]initWithNibName:@"ME_MoreAppViewController" bundle:nil];
+    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:moreApp];
     [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
     nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     nav.navigationBar.backgroundColor = [UIColor clearColor];
-    [self presentViewController:nav animated:YES completion:nil];
+    [[SliderViewController sharedSliderController] presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)modelChooseButtonPressed:(id)sender

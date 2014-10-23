@@ -198,6 +198,8 @@ typedef id  (^IDBlock_id)  (id);
 
 //admobKey
 #define AdmobAPPKey       @"ca-app-pub-3747943735238482/7320648656"
+#define AdmobFullScreenKey @"ca-app-pub-3747943735238482/7320648656"
+
 #define appleID           @"932278349"
 #define flurryAPPKey      @"H7MC7J8TYC25BW4P2ZCQ"
 #define umengAPPKey       @"541f9517fd98c518cc083d1f"

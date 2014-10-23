@@ -16,13 +16,18 @@
 #import "UIDevice+DeviceInfo.h"
 #import <Accounts/Accounts.h>
 #import <MessageUI/MessageUI.h>
+#import "Pic_AdMobShowTimesManager.h"
+#import "GADInterstitial.h"
+#import "GADRequest.h"
 
 @implementation SCAppDelegate
+
+@synthesize intersitial;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    self.isbecomeActivity = YES;
     NSArray *modelsArray = [[NSBundle mainBundle]pathsForResourcesOfType:@"jpg" inDirectory:@"Type"];
     modelsArray = [modelsArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
                   {
@@ -115,15 +120,32 @@
     
     //初始化网络管理
     [self netWorkingSeting];
-    [self downLoadAppsInfo];
+    
+    
+    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    [PRJ_Global shareStance].appsArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+    self.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+    if ([PRJ_Global shareStance].appsArray)
+    {
+        [PRJ_Global shareStance].appsArray = changeMoreTurnArray([PRJ_Global shareStance].appsArray);
+        self.moreAPPSArray = changeMoreTurnArray(self.moreAPPSArray);
+    }
+    //加载moreApp数据
+    if([Pic_AdMobShowTimesManager canRequstDataWithKey:kRequestMoreAppDateKey] || [PRJ_Global shareStance].appsArray.count == 0)
+    {
+        [self downLoadAppsInfo];
+    }
     
     //注册通知
     [self registNotification];
     //配置统计
     [self umengSetting];
     
+    //初始化全屏广告管理
+    [self initAdmobManager];
+    
     //检测更新
-//    [self checkVersion];
+    [self checkVersion];
     
     return YES;
 }
@@ -134,6 +156,37 @@
 {
     self.manager = [AFHTTPRequestOperationManager manager];
     self.manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
+}
+
+#pragma mark -
+#pragma mark 配置广告条
+- (void)adMobSetting
+{
+    intersitial = [[GADInterstitial alloc] init];
+    intersitial.delegate = self;
+    //    NSLog(@"%@",AdmobFullScreenKey);
+    intersitial.adUnitID = AdmobFullScreenKey;
+    [intersitial loadRequest:[GADRequest request]];
+}
+
+- (void)initAdmobManager
+{
+    [self adMobSetting];
+    Pic_AdMobShowTimesManager *manager = [[Pic_AdMobShowTimesManager alloc]init];
+    [manager requestAdMobTimesForMoreAppId:moreAppID andRequestTag:15];
+}
+
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    NSLog(@"ads is ready");
+}
+- (void)interstitialWillDismissScreen:(GADInterstitial *)ad
+{
+    [self adMobSetting];
+}
+- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
+{
+    NSLog(@"ads is not ready");
 }
 
 - (void)downLoadAppsInfo
@@ -403,56 +456,42 @@ void uncaughtExceptionHandler(NSException *exception)
         {
             NSLog(@"dic.......%@",dic);
             NSArray *infoArray = [dic objectForKey:@"list"];
-            NSMutableArray *isDownArray = [NSMutableArray arrayWithCapacity:0];
-            NSMutableArray *noDownArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *infoDic in infoArray)
+            NSMutableArray *sqlArray = [[NSMutableArray alloc]init];
+            for (NSMutableDictionary *infoDic in infoArray)
             {
                 ME_AppInfo *appInfo = [[ME_AppInfo alloc]initWithDictionary:infoDic];
-                if (appInfo.isHave)
-                {
-                    [isDownArray addObject:appInfo];
-                }
-                else
-                {
-                    [noDownArray addObject:appInfo];
-                }
+                [sqlArray addObject:appInfo];
             }
-            NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:0];
-            [dataArray addObjectsFromArray:noDownArray];
-            [dataArray addObjectsFromArray:isDownArray];
-            [PRJ_Global shareStance].appsArray = dataArray;
-            
             //判断是否有新应用
-            if ([PRJ_Global shareStance].appsArray.count > 0)
+            [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+            NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+            
+            for (ME_AppInfo *app in sqlArray)
             {
-                [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-                NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
-                NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-                
-                for (ME_AppInfo *app in [PRJ_Global shareStance].appsArray)
+                BOOL isHave = NO;
+                for (ME_AppInfo *appInfo in dataArray)
                 {
-                    BOOL isHave = NO;
-                    for (ME_AppInfo *appInfo in dataArray)
+                    if (app.appId == appInfo.appId)
                     {
-                        if (app.appId == appInfo.appId)
-                        {
-                            isHave = YES;
-                        }
-                    }
-                    if (!isHave) {
-                        [array addObject:app];
+                        isHave = YES;
                     }
                 }
-                
-                //插入新数据
-                if (array.count > 0)
+                if (!isHave)
                 {
                     [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"MoreAPP"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addMoreImage" object:nil];
-                    [[PRJ_SQLiteMassager shareStance] insertAppInfo:array];
                     [[NSUserDefaults standardUserDefaults] synchronize];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addMoreImage" object:nil];
+                    break;
                 }
             }
+            [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+            [[PRJ_SQLiteMassager shareStance] deleteAllAppInfoData];
+            [[PRJ_SQLiteMassager shareStance] insertAppInfo:sqlArray];
+            
+            self.moreAPPSArray = changeMoreTurnArray(sqlArray);
+            [PRJ_Global shareStance].appsArray = changeMoreTurnArray(sqlArray);
+            
+            [Pic_AdMobShowTimesManager updateStateWithKey:kRequestMoreAppDateKey];
         }
             break;
         case 12:
@@ -560,6 +599,22 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    self.isbecomeActivity = YES;
+    UINavigationController *rootNav = (UINavigationController *)self.window.rootViewController;
+    UIViewController *presentVC = [self.window.rootViewController presentedViewController];
+    if (self.isbecomeActivity && [rootNav.topViewController isKindOfClass:[SliderViewController class]] && presentVC == nil)
+    {
+        
+        if ([Pic_AdMobShowTimesManager canShowCustomAds])
+        {
+            [Pic_AdMobShowTimesManager presentViewCompletion:^
+             {
+                 [Pic_AdMobShowTimesManager showCustomSeccess];
+                 self.isbecomeActivity = NO;
+             }];
+        }
+    }
+    
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 

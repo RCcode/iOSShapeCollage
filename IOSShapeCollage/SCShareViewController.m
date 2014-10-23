@@ -16,7 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "Pic_AdMobShowTimesManager.h"
 #import "GADInterstitial.h"
-
+#import "RC_ShareTableViewCell.h"
 
 #define kTheBestImagePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.igo"]
 #define kToMorePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.jpg"]
@@ -234,6 +234,7 @@
         else
         {
             [PRJ_Global shareStance].appsArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+            [PRJ_Global shareStance].appsArray = changeMoreTurnArray([PRJ_Global shareStance].appsArray);
         }
     }
     
@@ -453,7 +454,7 @@
 #pragma mark UITableViewDelegate And UITableDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 170.f;
+    return appMoretableView.frame.size.height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -463,34 +464,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
-    
-    for (UIView *subView in [cell.contentView subviews])
+    RC_ShareTableViewCell *cell = (RC_ShareTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (cell == nil)
     {
-        [subView removeFromSuperview];
+        cell = [[RC_ShareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell" withCellHeight:tableView.bounds.size.height+10];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
     }
-    
     ME_AppInfo *appInfo = [[PRJ_Global shareStance].appsArray objectAtIndex:indexPath.row];
     
-    
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-    titleLabel.numberOfLines = 0;
-    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    CGSize labelsize = sizeWithContentAndFont(appInfo.appDesc, CGSizeMake(300, 100), 12);
-    
-    [titleLabel setFrame:CGRectMake(20, 0, labelsize.width, labelsize.height)];
-    titleLabel.text = appInfo.appDesc;
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:12.f];
-    titleLabel.textAlignment = NSTextAlignmentLeft;
-    [cell.contentView addSubview:titleLabel];
-    
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, labelsize.height + 10, 290, 120)];
-    [imageView setImageWithURL:[NSURL URLWithString:appInfo.bannerUrl] placeholderImage:nil];
-    [cell.contentView addSubview:imageView];
+    [cell.app_logo_imageView sd_setImageWithURL:[NSURL URLWithString:appInfo.iconUrl] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    cell.app_title_label.text = appInfo.appName;
+    cell.app_detail_label.text = appInfo.appDesc;
+    [cell.app_bander_imageView sd_setImageWithURL:[NSURL URLWithString:appInfo.bannerUrl] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
     
     return cell;
 }
@@ -516,55 +502,45 @@
 #pragma mark WebRequestDelegate
 - (void)didReceivedData:(NSDictionary *)dic withTag:(NSInteger)tag
 {
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     NSArray *infoArray = [dic objectForKey:@"list"];
-    NSMutableArray *isDownArray = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *noDownArray = [NSMutableArray arrayWithCapacity:0];
-    for (NSDictionary *infoDic in infoArray)
+    //判断是否有新应用
+    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    
+    NSMutableArray *sqlArray = [[NSMutableArray alloc]init];
+    for (NSMutableDictionary *infoDic in infoArray)
     {
         ME_AppInfo *appInfo = [[ME_AppInfo alloc]initWithDictionary:infoDic];
-        if (appInfo.isHave)
-        {
-            [isDownArray addObject:appInfo];
-        }
-        else
-        {
-            [noDownArray addObject:appInfo];
-        }
+        [sqlArray addObject:appInfo];
     }
-    NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:0];
-    [dataArray addObjectsFromArray:noDownArray];
-    [dataArray addObjectsFromArray:isDownArray];
-    [PRJ_Global shareStance].appsArray = dataArray;
     
     //判断是否有新应用
-    if ([PRJ_Global shareStance].appsArray.count > 0)
+    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+    for (ME_AppInfo *app in sqlArray)
     {
-        [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-        NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-        
-        for (ME_AppInfo *app in [PRJ_Global shareStance].appsArray)
+        BOOL isHave = NO;
+        for (ME_AppInfo *appInfo in dataArray)
         {
-            BOOL isHave = NO;
-            for (ME_AppInfo *appInfo in dataArray)
+            if (app.appId == appInfo.appId)
             {
-                if (app.appId == appInfo.appId)
-                {
-                    isHave = YES;
-                }
-            }
-            if (!isHave) {
-                [array addObject:app];
+                isHave = YES;
             }
         }
-        
-        //插入新数据
-        if (array.count > 0)
+        if (!isHave)
         {
-            [[PRJ_SQLiteMassager shareStance] insertAppInfo:array];
+            [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"MoreAPP"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"addMoreImage" object:nil];
+            break;
         }
     }
+    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    [[PRJ_SQLiteMassager shareStance] deleteAllAppInfoData];
+    [[PRJ_SQLiteMassager shareStance] insertAppInfo:sqlArray];
+    
+    app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
     [appMoretableView reloadData];
 }
 

@@ -704,6 +704,34 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
 //
 //}
 
+- (BOOL)deleteAllAppInfoData
+{
+    if ([self openDB])
+    {
+        sqlite3_stmt *statement;
+        char *sql = "delete from appsInfoTable";
+        
+        //将SQL语句放入sqlite3_stmt中
+        int success = sqlite3_prepare_v2(_database, sql, -1, &statement, NULL);
+        if (success != SQLITE_OK) {
+            sqlite3_close(_database);
+            return NO;
+        }
+        
+        success = sqlite3_step(statement);
+        sqlite3_finalize(statement);
+        
+        if (success == SQLITE_ERROR) {
+            sqlite3_close(_database);
+            return NO;
+        }
+        sqlite3_close(_database);
+        return YES;
+    }
+    
+    return NO;
+}
+
 //查询最大ID
 - (NSInteger)selectMaxId
 {

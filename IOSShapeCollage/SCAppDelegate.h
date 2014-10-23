@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AFHTTPRequestOperationManager.h"
+#import "GADInterstitialDelegate.h"
 
-@interface SCAppDelegate : UIResponder <UIApplicationDelegate,UIPageViewControllerDelegate>
+@class GADRequest;
+
+@interface SCAppDelegate : UIResponder <UIApplicationDelegate,UIPageViewControllerDelegate,GADInterstitialDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -19,5 +22,9 @@
 @property (nonatomic ,assign) BOOL isOn;//水印开关
 @property (nonatomic ,strong) UIImage *bigImage;//水印图
 
+@property (nonatomic ,strong) NSMutableArray *appsArray;
+@property (nonatomic ,strong) NSMutableArray *moreAPPSArray;
+@property (nonatomic, assign) BOOL isbecomeActivity;
+@property (nonatomic, strong) GADInterstitial *intersitial;
 
 @end

@@ -63,5 +63,6 @@ enum SqliteType
 
 - (NSMutableArray *)getAllAppsInfoData;
 - (BOOL)updagteAppInfo:(int)appId withIsHaveDownLoad:(int)haveDownload;
+- (BOOL)deleteAllAppInfoData;
 
 @end
