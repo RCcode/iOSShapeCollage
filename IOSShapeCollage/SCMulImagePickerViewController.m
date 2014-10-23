@@ -68,7 +68,7 @@ static CGSize AssetGridThumbnailSize;
             PHCollection *collection = [smartAlbums objectAtIndex:i];
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
             PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-            if (assetCollection.assetCollectionSubtype != (202|205|208) && tempResult.count != 0)
+            if ((assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumSlomoVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumAllHidden) && [tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
             {
                 [tempPhototGroupArray addObject:collection];
             }
@@ -77,7 +77,7 @@ static CGSize AssetGridThumbnailSize;
         {
             PHCollection *collection = [topLevelUserCollections objectAtIndex:j];
             PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            if (tempResult.count != 0)
+            if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
             {
                 [tempPhototGroupArray addObject:collection];
             }
@@ -86,7 +86,7 @@ static CGSize AssetGridThumbnailSize;
         {
             PHCollection *collection = [shareAlbums objectAtIndex:k];
             PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            if (tempResult.count != 0)
+            if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
             {
                 [tempPhototGroupArray addObject:collection];
             }

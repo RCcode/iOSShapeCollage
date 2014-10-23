@@ -118,34 +118,39 @@ static CGSize AssetGridThumbnailSize;
     if (!cell) {
         
     }
-    if (iOS8)
-    {
-        UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
-        cellImage.contentMode = UIViewContentModeScaleAspectFit;
-        [cell addSubview:cellImage];
-        PHAsset *asset = [assetsArray objectAtIndex:indexPath.row];
-        
-        [[PHImageManager defaultManager] requestImageForAsset:asset
-                                     targetSize:AssetGridThumbnailSize
-                                    contentMode:PHImageContentModeAspectFill
-                                        options:nil
-                                  resultHandler:^(UIImage *result, NSDictionary *info) {
-                                      
-                                      // Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
-                                      cellImage.image = result;
-                                  }];
-
-    }
     else
     {
-        UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
-        ALAsset *asset = [photosArray objectAtIndex:indexPath.row];
-        CGImageRef ref = [asset thumbnail];
-        UIImage *image = [UIImage imageWithCGImage:ref];
-        
-        cellImage.image = image;
-        [cell addSubview:cellImage];
+        if (iOS8)
+        {
+            UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
+            cellImage.contentMode = UIViewContentModeScaleAspectFit;
+            [cell addSubview:cellImage];
+                        
+            PHAsset *asset = [assetsArray objectAtIndex:indexPath.row];
+            
+            [[PHImageManager defaultManager] requestImageForAsset:asset
+                                                       targetSize:AssetGridThumbnailSize
+                                                      contentMode:PHImageContentModeAspectFill
+                                                          options:nil
+                                                    resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                        
+                                                        // Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
+                                                        cellImage.image = result;
+                                                    }];
+            
+        }
+        else
+        {
+            UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
+            ALAsset *asset = [photosArray objectAtIndex:indexPath.row];
+            CGImageRef ref = [asset thumbnail];
+            UIImage *image = [UIImage imageWithCGImage:ref];
+            
+            cellImage.image = image;
+            [cell addSubview:cellImage];
+        }
     }
+    
     
     return cell;
 }
