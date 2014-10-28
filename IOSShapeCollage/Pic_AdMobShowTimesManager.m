@@ -22,6 +22,7 @@
 
 #define kCustomAdAppInfo @"popAppInfo"
 #define kCustomAdAppCount @"popAppCount"
+#define kLastPopupAppId @"lastPopUpAppId"
 
 UIView *customADView;
 ME_AppInfo *tempAppInfo;
@@ -139,6 +140,8 @@ NSInteger popAppInfoCount;
 + (BOOL)canShowCustomAds
 {
     popAppInfoCount = ((NSNumber *)([[NSUserDefaults standardUserDefaults] objectForKey:kCustomAdAppCount])).integerValue;
+    NSInteger lastPopUpId = ((NSNumber *)([[NSUserDefaults standardUserDefaults] objectForKey:kLastPopupAppId])).integerValue;
+    
     if (!popAppInfoCount)
     {
         popAppInfoCount = 0;
@@ -175,6 +178,11 @@ NSInteger popAppInfoCount;
         if (canPopUpArray.count > 0)
         {
             tempAppInfo = (ME_AppInfo *)[canPopUpArray objectAtIndex:popAppInfoCount%canPopUpArray.count];
+            if (tempAppInfo.appId == lastPopUpId)
+            {
+                popAppInfoCount = popAppInfoCount+1;
+                tempAppInfo = (ME_AppInfo *)[canPopUpArray objectAtIndex:popAppInfoCount%canPopUpArray.count];
+            }
       
             customADView = [[UIView alloc]init];
             customADView.frame = CGRectMake(kcutomAdRect.origin.x, kcutomAdRect.size.height, kcutomAdRect.size.width, kcutomAdRect.size.height);
@@ -227,7 +235,7 @@ NSInteger popAppInfoCount;
     NSNumber *times = [[NSUserDefaults standardUserDefaults] objectForKey:kCustomCanShowTimesKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:popAppInfoCount+1] forKey:kCustomAdAppCount];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:times.integerValue - 1] forKey:kCustomCanShowTimesKey];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:@(tempAppInfo.appId) forKey:kLastPopupAppId];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"canShowTimes = %ld",(long)((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kCustomCanShowTimesKey]).integerValue);
 

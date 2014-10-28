@@ -12,6 +12,9 @@
 #import "SCShareViewController.h"
 #import "SCCustomScrollView.h"
 #import "SCMaskView.h"
+#import "Pic_AdMobShowTimesManager.h"
+#import "GADInterstitial.h"
+
 
 #define ACTIONBARINITRECT (CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, self.view.frame.size.height-44-(maskTouchView.frame.origin.y+maskTouchView.frame.size.height)))
 #define ALPHACOLOR colorWithHexString(@"#2d2d2d")
@@ -171,6 +174,29 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (isShare)
+    {
+        isShare = NO;
+        if ([Pic_AdMobShowTimesManager canShowAdmobAds])
+        {
+            SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+            NSLog(@"ad.isReady = %d",app.intersitial.isReady);
+            
+            if(app.intersitial.isReady && !app.intersitial.hasBeenUsed)
+            {
+                [Pic_AdMobShowTimesManager showAdmobSeccess];
+                
+                [app.intersitial presentFromRootViewController:self];
+            }
+            //            [Pic_AdMobShowTimesManager presentViewCompletion:^{
+            //                [Pic_AdMobShowTimesManager showCustomSeccess];
+            //            }];
+        }
+    }
 }
 
 - (void)viewDidLoad
@@ -548,6 +574,7 @@
     SCShareViewController *shareCV = [[SCShareViewController alloc]init];
     [shareCV getImageFromView:maskTouchView];
     [self.navigationController pushViewController:shareCV animated:YES];
+    isShare = YES;
     
 }
 

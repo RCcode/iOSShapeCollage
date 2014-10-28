@@ -42,6 +42,8 @@
     NSString *modelChangeSelectedName;
     NSInteger selectedTag;
     SCCustomScrollView *modelChooseScroll;
+    
+    BOOL isShare;
 }
 
 @property (nonatomic) NSInteger modelPieces;
