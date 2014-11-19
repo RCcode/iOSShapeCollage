@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ME_AppInfo.h"
+#import "PopUpADView.h"
 
 @class SLComposeViewController;
 
@@ -24,6 +26,12 @@
     
     UIView *saveView;
     CGAffineTransform originTransform;
+    
+    NSInteger count;
+    UIScrollView *scrollView;
+    ME_AppInfo *tempAppInfo;
+    PopUpADView *popCell;
+
 }
 
 @property (nonatomic) BOOL isSaved;

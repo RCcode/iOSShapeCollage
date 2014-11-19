@@ -232,6 +232,17 @@
     return YES;
 }
 
+- (void)dealloc
+{
+    NSLog(@"fhullaiekl");
+    editImageView = nil;
+    editShowView = nil;
+    _filterBeforeImage = nil;
+    _filterAfterImage = nil;
+    _maskImage = nil;
+
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

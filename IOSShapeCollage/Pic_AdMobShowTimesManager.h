@@ -34,6 +34,11 @@
 + (void)showCustomSeccess;
 + (void)showAdmobSeccess;
 
++ (void)setTitleColor:(UIColor *)color;
++ (void)setBackGroundColor:(UIColor *)color;
+
++ (void)PrefetcherURLs:(NSArray *)array;
+
 /** 判断是否可以发请求 */
 + (BOOL)canRequstDataWithKey:(NSString *)key;
 

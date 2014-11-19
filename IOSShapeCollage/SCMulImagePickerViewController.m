@@ -33,75 +33,109 @@ static CGSize AssetGridThumbnailSize;
     }
     return self;
 }
-- (void)resetCachedAssets
-{
-    [self.imageManager stopCachingImagesForAllAssets];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if (iOS8)
     {
-        AssetGridThumbnailSize = CGSizeMake(77, 77);
-        self.imageManager = [[PHCachingImageManager alloc] init];
-        [self resetCachedAssets];
+        _photoResultArray = [[NSMutableArray alloc]init];
         
-        NSMutableArray *tempPhototGroupArray = [[NSMutableArray alloc]init];
-        
-        
-        
-        PHFetchResult *smartRecently = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded options:nil];
-        
-        PHCollection *collectionRecently = [smartRecently objectAtIndex:0];
-        [tempPhototGroupArray addObject:collectionRecently];
-        
+        PHFetchOptions *options = [[PHFetchOptions alloc] init];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
+        [_photoResultArray addObject:fetchResult];
         PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
-        
+        [_photoResultArray addObject:smartAlbums];
         PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
-
-        PHFetchResult *shareAlbums= [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumCloudShared options:nil];
+        [_photoResultArray addObject:topLevelUserCollections];
         
+        PHFetchResult *shareAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumCloudShared options:nil];
+        [_photoResultArray addObject:shareAlbums];
         
-        for (int i = 0 ; i < [smartAlbums count]; i++)
-        {
-            PHCollection *collection = [smartAlbums objectAtIndex:i];
-            PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
-            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-            if ((assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumSlomoVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumAllHidden) && [tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
-            {
-                [tempPhototGroupArray addObject:collection];
-            }
-        }
-        for (int j = 0; j < [topLevelUserCollections count]; j++)
-        {
-            PHCollection *collection = [topLevelUserCollections objectAtIndex:j];
-            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
-            {
-                [tempPhototGroupArray addObject:collection];
-            }
-        }
-        for (int k = 0; k < [shareAlbums count]; k++)
-        {
-            PHCollection *collection = [shareAlbums objectAtIndex:k];
-            PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
-            {
-                [tempPhototGroupArray addObject:collection];
-            }
-        }
-        self.photoGroupArray = tempPhototGroupArray;
-        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+        PHFetchResult *shareStream = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumMyPhotoStream options:nil];
+        [_photoResultArray addObject:shareStream];
+        
+        [self refreshalbums];
     }
 }
+
+- (void)refreshalbums
+{
+    PHFetchResult *fetchResult = [_photoResultArray objectAtIndex:0];
+    
+    PHFetchResult *smartAlbums = [_photoResultArray objectAtIndex:1];
+    
+    PHFetchResult *topLevelUserCollections = [_photoResultArray objectAtIndex:2];
+    
+    PHFetchResult *shareAlbums = [_photoResultArray objectAtIndex:3];
+    
+    PHFetchResult *shareStream = [_photoResultArray objectAtIndex:4];
+    
+    NSMutableArray *tempPhototGroupArray = [[NSMutableArray alloc]init];
+    
+    [tempPhototGroupArray addObject:fetchResult];
+    
+    for (int i = 0 ; i < [smartAlbums count]; i++)
+    {
+        PHCollection *collection = [smartAlbums objectAtIndex:i];
+        PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
+        PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        if ((assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumSlomoVideos || assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumAllHidden) && [tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
+        {
+            [tempPhototGroupArray addObject:collection];
+        }
+    }
+    for (int j = 0; j < [topLevelUserCollections count]; j++)
+    {
+        PHCollection *collection = [topLevelUserCollections objectAtIndex:j];
+        PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+        if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
+        {
+            [tempPhototGroupArray addObject:collection];
+        }
+    }
+    for (int k = 0; k < [shareAlbums count]; k++)
+    {
+        PHCollection *collection = [shareAlbums objectAtIndex:k];
+        PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+        if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
+        {
+            [tempPhototGroupArray addObject:collection];
+        }
+    }
+    for (int m = 0; m < [shareStream count]; m++)
+    {
+        PHCollection *collection = [shareStream objectAtIndex:m];
+        PHFetchResult *tempResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+        if ([tempResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] != 0)
+        {
+            [tempPhototGroupArray addObject:collection];
+        }
+    }
+    self.photoGroupArray = tempPhototGroupArray;
+//    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    [photoGroupTable reloadData];
+}
+
+//- (void)resetCachedAssets
+//{
+//    [self.imageManager stopCachingImagesForAllAssets];
+//}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    photosArray = [[NSMutableArray alloc]init];
+//    self.imageManager = [[PHCachingImageManager alloc] init];
+//    [self resetCachedAssets];
     
+    CGFloat scale = [UIScreen mainScreen].scale;
+    AssetGridThumbnailSize = CGSizeMake(77*scale, 77*scale);
+
+    photosArray = [[NSMutableArray alloc]init];
+
     photoGroupTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-135) style:UITableViewStylePlain];
     photoGroupTable.delegate = self;
     photoGroupTable.dataSource = self;
@@ -138,30 +172,28 @@ static CGSize AssetGridThumbnailSize;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.backgroundColor = colorWithHexString(@"#141414");
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        
         if (iOS8)
         {
             PHCollection *tempCollection = nil;
             PHFetchResult *tempResult = nil;
-            
+            PHAsset *asset = nil;
             if (indexPath.row == 0)
             {
-                PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                
-                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-                tempCollection = (PHCollection *)[self.photoGroupArray objectAtIndex:indexPath.row];
-                tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)tempCollection options:options];
-                
+                tempResult = (PHFetchResult *)[self.photoGroupArray objectAtIndex:indexPath.row];
                 cell.textLabel.text = LocalizedString(@"allPhoto", nil);
+                asset = [tempResult objectAtIndex:0];
             }
             else
             {
                 tempCollection = (PHCollection *)[self.photoGroupArray objectAtIndex:indexPath.row];
                 tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)tempCollection options:nil];
                 cell.textLabel.text = tempCollection.localizedTitle;
+                asset = [tempResult lastObject];
             }
             
-            PHAsset *asset = [tempResult lastObject];
-            [self.imageManager requestImageForAsset:asset
+            [[PHImageManager defaultManager] requestImageForAsset:asset
                                          targetSize:AssetGridThumbnailSize
                                         contentMode:PHImageContentModeAspectFill
                                             options:nil
@@ -206,31 +238,24 @@ static CGSize AssetGridThumbnailSize;
     if (iOS8)
     {
         
-        PHCollection *collection = [self.photoGroupArray objectAtIndex:indexPath.row];;
-        if ([collection isKindOfClass:[PHAssetCollection class]])
+        PHCollection *collection = nil;
+        PHFetchResult *assetsFetchResult = nil;
+        SCImageCollectionViewController *collectionView = [[SCImageCollectionViewController alloc]init];
+        collectionView.delegate = [[PRJ_Global shareStance] getSCCollectionViewDelegate];
+
+        if (indexPath.row == 0)
         {
-            PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
-            PHFetchResult *assetsFetchResult = nil;
-            if (indexPath.row == 0)
-            {
-                PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                
-                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-                
-                assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
-            }
-            else
-            {
-                assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-            }
-            
-            
-            SCImageCollectionViewController *collectionView = [[SCImageCollectionViewController alloc]init];
-            collectionView.assetsFetchResults = assetsFetchResult;
-            collectionView.assetCollection = assetCollection;
-            collectionView.delegate = [[PRJ_Global shareStance] getSCCollectionViewDelegate];
-            [self.navigationController pushViewController:collectionView animated:YES];
+            assetsFetchResult = [photoGroupArray objectAtIndex:0];
         }
+        else
+        {
+            collection = [photoGroupArray objectAtIndex:indexPath.row];
+            assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
+        }
+        
+        collectionView.assetsFetchResults = assetsFetchResult;
+        
+        [self.navigationController pushViewController:collectionView animated:YES];
     }
     else
     {
@@ -253,6 +278,31 @@ static CGSize AssetGridThumbnailSize;
         [[self.photoGroupArray objectAtIndex:indexPath.row] enumerateAssetsUsingBlock:assetsEnumerationBlock];
     }
     
+}
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    // Call might come on any background queue. Re-dispatch to the main queue to handle it.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *updatedCollectionsFetchResults = nil;
+        
+        for (PHFetchResult *collectionsFetchResult in _photoResultArray) {
+            PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:collectionsFetchResult];
+            if (changeDetails) {
+                if (!updatedCollectionsFetchResults) {
+                    updatedCollectionsFetchResults = [_photoResultArray mutableCopy];
+                }
+                [updatedCollectionsFetchResults replaceObjectAtIndex:[_photoResultArray indexOfObject:collectionsFetchResult] withObject:[changeDetails fetchResultAfterChanges]];
+            }
+        }
+        
+        if (updatedCollectionsFetchResults) {
+            _photoResultArray = updatedCollectionsFetchResults;
+            [self refreshalbums];
+        }
+        
+    });
 }
 
 - (void)didReceiveMemoryWarning

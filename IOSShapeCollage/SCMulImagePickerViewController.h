@@ -14,10 +14,12 @@
     UITableView *photoGroupTable;
     NSMutableArray *photosArray;
     
+    
 }
 
 
 @property (nonatomic, strong) NSArray *photoGroupArray;
+@property (nonatomic, strong) NSMutableArray *photoResultArray;
 @property (strong) PHCachingImageManager *imageManager;
 
 

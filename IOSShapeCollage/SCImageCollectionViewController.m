@@ -46,8 +46,6 @@ static CGSize AssetGridThumbnailSize;
     
     notImageCount = 0;
     
-    
-    
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     
@@ -62,7 +60,9 @@ static CGSize AssetGridThumbnailSize;
     flowLayout.minimumLineSpacing = 4;
     flowLayout.minimumInteritemSpacing = 4;
     
-    AssetGridThumbnailSize = CGSizeMake(77, 77);
+    CGFloat scale = [UIScreen mainScreen].scale;
+    AssetGridThumbnailSize = CGSizeMake(77*scale, 77*scale);
+    
     
     collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-135) collectionViewLayout:flowLayout];
     
@@ -122,18 +122,23 @@ static CGSize AssetGridThumbnailSize;
     {
         if (iOS8)
         {
+            
             UIImageView *cellImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 77, 77)];
-            cellImage.contentMode = UIViewContentModeScaleAspectFit;
-            [cell addSubview:cellImage];
+            cellImage.contentMode = UIViewContentModeScaleAspectFill;
+            cellImage.clipsToBounds = YES;
+            cell.backgroundView = cellImage;
                         
             PHAsset *asset = [assetsArray objectAtIndex:indexPath.row];
-            
+            PHImageRequestOptions *options = [[PHImageRequestOptions alloc]init];
+//            options.resizeMode = PHImageRequestOptionsResizeModeExact;
+//            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+//            options.normalizedCropRect = CGRectMake(0, 0, 77, 77);
             [[PHImageManager defaultManager] requestImageForAsset:asset
                                                        targetSize:AssetGridThumbnailSize
                                                       contentMode:PHImageContentModeAspectFill
-                                                          options:nil
+                                                          options:options
                                                     resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                        
+//
                                                         // Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
                                                         cellImage.image = result;
                                                     }];
@@ -214,6 +219,48 @@ static CGSize AssetGridThumbnailSize;
         [delegate getChoosePhoto:image];
     }
     
+}
+
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    // Call might come on any background queue. Re-dispatch to the main queue to handle it.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // check if there are changes to the assets (insertions, deletions, updates)
+        PHFetchResultChangeDetails *collectionChanges = [changeInstance changeDetailsForFetchResult:self.assetsFetchResults];
+        if (collectionChanges) {
+            
+            // get the new fetch result
+            self.assetsFetchResults = [collectionChanges fetchResultAfterChanges];
+            
+            [collectionView reloadData];
+//            UICollectionView *collectionView = self.collectionView;
+            
+//            if (![collectionChanges hasIncrementalChanges] || [collectionChanges hasMoves]) {
+//                // we need to reload all if the incremental diffs are not available
+//                [collectionView reloadData];
+//                
+//            } else {
+//                // if we have incremental diffs, tell the collection view to animate insertions and deletions
+//                [collectionView performBatchUpdates:^{
+//                    NSIndexSet *removedIndexes = [collectionChanges removedIndexes];
+//                    if ([removedIndexes count]) {
+//                        [collectionView deleteItemsAtIndexPaths:[removedIndexes aapl_indexPathsFromIndexesWithSection:0]];
+//                    }
+//                    NSIndexSet *insertedIndexes = [collectionChanges insertedIndexes];
+//                    if ([insertedIndexes count]) {
+//                        [collectionView insertItemsAtIndexPaths:[insertedIndexes aapl_indexPathsFromIndexesWithSection:0]];
+//                    }
+//                    NSIndexSet *changedIndexes = [collectionChanges changedIndexes];
+//                    if ([changedIndexes count]) {
+//                        [collectionView reloadItemsAtIndexPaths:[changedIndexes aapl_indexPathsFromIndexesWithSection:0]];
+//                    }
+//                } completion:NULL];
+//            }
+//            [self resetCachedAssets];
+        }
+    });
 }
 
 - (void)didReceiveMemoryWarning

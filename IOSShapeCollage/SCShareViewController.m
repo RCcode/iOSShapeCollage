@@ -17,6 +17,7 @@
 #import "Pic_AdMobShowTimesManager.h"
 #import "GADInterstitial.h"
 #import "RC_ShareTableViewCell.h"
+#import "SCMaskTouchView.h"
 
 #define kTheBestImagePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.igo"]
 #define kToMorePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.jpg"]
@@ -26,6 +27,9 @@
 
 #define labelWidth 75.f
 #define labelHeight 20.f
+
+#define showCount @"showShareAppCount"
+
 
 @interface SCShareViewController ()
 
@@ -65,15 +69,20 @@
 - (void)getImage
 {
     
-    CGFloat scale = saveViewSize.width/self.view.frame.size.height;
+    CGFloat scale = saveViewSize.width/self.view.frame.size.width;
     
-    saveView.transform = CGAffineTransformScale(saveView.transform, scale, scale);
+    SCMaskTouchView *tempSaveView = (SCMaskTouchView *)saveView;
     
-    UIGraphicsBeginImageContextWithOptions(saveViewSize, NO, [UIScreen mainScreen].scale);
+    CGSize size = tempSaveView.frame.size;
+    size = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
+    UIGraphicsBeginImageContext(size);
     
-//    [saveView drawViewHierarchyInRect:CGRectMake(0, 0, saveViewSize.width, saveViewSize.height) afterScreenUpdates:YES];
-    [saveView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextScaleCTM(context, scale, scale);
+    [tempSaveView.layer renderInContext:context];
     saveImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
     
     UIGraphicsEndImageContext();
     
@@ -82,24 +91,6 @@
     NSLog(@"%@",kToMorePath);
     
     [imageData writeToFile:kToMorePath atomically:YES];
-//    theBestImage = image;
-//    
-//    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
-//    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-//    
-//    if (app.isOn)
-//    {
-//        [userDefault setObject:[NSNumber numberWithBool:YES] forKey:@"waterMark"];
-//        saveImage = [UIImage addwaterMarkOrnotWithImage:theBestImage];
-//    }
-//    else
-//    {
-//        saveImage = theBestImage;
-//        [userDefault setObject:[NSNumber numberWithBool:NO] forKey:@"waterMark"];
-//    }
-//    
-//    [userDefault synchronize];
-//    isSaved = NO;
 }
 
 - (void)getImageFromView:(UIView *)tempView
@@ -114,6 +105,11 @@
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     [self.navigationController setNavigationBarHidden:YES];
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:[NSNumber numberWithInt:count+1] forKey:showCount];
+    [userDefault synchronize];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -187,8 +183,8 @@
         }
     }
     
-//    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
-//    
+    
+//
 //    UILabel *markLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 155, 240, 40)];
 //    markLabel.text = LocalizedString(@"showwatermark", nil);
 //    markLabel.textColor = [UIColor whiteColor];
@@ -238,29 +234,101 @@
         }
     }
     
-    appMoretableView = [[UITableView alloc]initWithFrame:CGRectZero];
+//    appMoretableView = [[UITableView alloc]initWithFrame:CGRectZero];
+//    if (iPhone5)
+//    {
+//        appMoretableView.frame = CGRectMake(0, 135, 320, kScreen_Height-210);
+//    }
+//    else
+//    {
+//        appMoretableView.frame = CGRectMake(0, 135, 320, kScreen_Height-210);
+//    }
+//    
+//    appMoretableView.delegate = self;
+//    appMoretableView.dataSource = self;
+//    appMoretableView.backgroundColor = [UIColor clearColor];
+//    appMoretableView.backgroundView = nil;
+//    appMoretableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.view addSubview:appMoretableView];
+    
+    scrollView = [[UIScrollView alloc]initWithFrame:CGRectZero];
     if (iPhone5)
     {
-        appMoretableView.frame = CGRectMake(0, 135, 320, kScreen_Height-210);
+        scrollView.frame = CGRectMake(0, 135, kScreen_Width, kScreen_Height-210-10);
     }
     else
     {
-        appMoretableView.frame = CGRectMake(0, 135, 320, kScreen_Height-210);
+        scrollView.frame = CGRectMake(0, 135, kScreen_Width, kScreen_Height-210);
     }
+    [self.view addSubview:scrollView];
     
-    [appMoretableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    appMoretableView.delegate = self;
-    appMoretableView.dataSource = self;
-    appMoretableView.backgroundColor = [UIColor clearColor];
-    appMoretableView.backgroundView = nil;
-    appMoretableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:appMoretableView];
-    
-    
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (app.moreAPPSArray.count > 0)
+    {
+        [self reloadAppInfo];
+    }
     
     // Do any additional setup after loading the view.
 }
 
+- (void)reloadAppInfo
+{
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefault objectForKey:showCount] == nil)
+    {
+        [userDefault setObject:[NSNumber numberWithInt:0] forKey:showCount];
+        [userDefault synchronize];
+    }
+    
+    count = [(NSNumber *)[userDefault objectForKey:showCount] integerValue];
+    
+    
+    BOOL canPopUp = NO;
+    for (int i = 0; i < app.moreAPPSArray.count; i++)
+    {
+        count = count%app.moreAPPSArray.count;
+        ME_AppInfo *appInfo = [app.moreAPPSArray objectAtIndex:count];
+        NSString *string = appInfo.openUrl;
+        NSURL *url = nil;
+        
+        if (![string isKindOfClass:[NSNull class]] && string != nil ) {
+            url = [NSURL URLWithString:string];
+        }else{
+            url = nil;
+        }
+        if (![[UIApplication sharedApplication] canOpenURL:url])
+        {
+            canPopUp = YES;
+            tempAppInfo = appInfo;
+            break;
+        }
+        count = count+1;
+    }
+    if (canPopUp == NO)
+    {
+        tempAppInfo = [app.moreAPPSArray objectAtIndex:0];
+        popCell = [[[NSBundle mainBundle] loadNibNamed:@"PopUpADView" owner:self options:nil] objectAtIndex:0];
+        popCell.viewName = @"share";
+        popCell.center = CGPointMake(scrollView.center.x, scrollView.frame.size.height/2);
+        scrollView.contentSize = popCell.frame.size;
+        popCell.center = CGPointMake(self.view.center.x, popCell.center.y);
+        popCell.appInfo = tempAppInfo;
+        [scrollView addSubview:popCell];
+    }
+    if (canPopUp == YES)
+    {
+        popCell = [[[NSBundle mainBundle] loadNibNamed:@"PopUpADView" owner:self options:nil] objectAtIndex:0];
+        popCell.viewName = @"share";
+        popCell.center = CGPointMake(scrollView.center.x, scrollView.frame.size.height/2);
+        scrollView.contentSize = popCell.frame.size;
+        popCell.center = CGPointMake(self.view.center.x, popCell.center.y);
+        popCell.appInfo = tempAppInfo;
+        [scrollView addSubview:popCell];
+    }
+}
 - (void)switchChanged:(UISwitch *)switchBtn
 {
 //    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;

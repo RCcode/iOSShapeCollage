@@ -869,8 +869,10 @@
     
     @autoreleasepool {
         for (UIImage *image in images) {
-            if(![image isKindOfClass:[UIImage class]]){
-                if([self.delegate respondsToSelector:@selector(videoCameraDidFinishFilter:Index:)]){
+            if(![image isKindOfClass:[UIImage class]])
+            {
+                if([self.delegate respondsToSelector:@selector(videoCameraDidFinishFilter:Index:)])
+                {
                     [self.delegate videoCameraDidFinishFilter:image Index:_imagesIndex++];
                 }
                 continue;

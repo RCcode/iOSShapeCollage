@@ -9,6 +9,7 @@
 #import "SCMaskTouchView.h"
 #import "SCMaskView.h"
 #import "UIImage+SubImage.h"
+#import "SCAppDelegate.h"
 
 @implementation SCMaskTouchView
 
@@ -52,6 +53,7 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
+                       maskImageArray = nil;
                        maskImageArray = [[NSMutableArray alloc]init];
                        for (NSString *path in maskArray)
                        {
@@ -59,18 +61,25 @@
                            tempImage = [tempImage rescaleImageToSize:self.frame.size];
                            [maskImageArray addObject:tempImage];
                        }
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+                           [MBProgressHUD hideAllHUDsForView:app.window animated:YES];
+                       });
                    });
     
     for (int i = 0; i < [maskArray count]; i ++)
     {
-        NSLog(@"%@",editArray);
-        SCMaskView *mask = [[SCMaskView alloc]initWithFrame:self.frame];
-        mask.editShowView.frame = CGRectFromString([rectArray objectAtIndex:i]);
-        mask.editImageView.frame = mask.editShowView.frame;
-        [mask setMaskImage:[UIImage imageWithContentsOfFile:[maskArray objectAtIndex:i]]];
-        [mask setEditImage:[editArray objectAtIndex:i]];
-        mask.tag = i+10;
-        [showView addSubview:mask];
+        @autoreleasepool
+        {
+            SCMaskView *mask = [[SCMaskView alloc]initWithFrame:self.frame];
+            mask.editShowView.frame = CGRectFromString([rectArray objectAtIndex:i]);
+            mask.editImageView.frame = mask.editShowView.frame;
+            [mask setMaskImage:[UIImage imageWithContentsOfFile:[maskArray objectAtIndex:i]]];
+            [mask setEditImage:[editArray objectAtIndex:i]];
+            mask.tag = i+10;
+            [showView addSubview:mask];
+        }
+        
     }
 }
 
@@ -432,6 +441,13 @@
     CGFloat blue  = (CGFloat)pixelData[2] / 255.0f;
     CGFloat alpha = (CGFloat)pixelData[3] / 255.0f;
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+
+- (void)dealloc
+{
+    NSLog(@".....");
+    maskImageArray = nil;
+    showView = nil;
 }
 
 /*

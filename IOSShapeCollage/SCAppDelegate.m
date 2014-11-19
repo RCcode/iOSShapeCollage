@@ -7,7 +7,7 @@
 //
 
 #import "SCAppDelegate.h"
-#import "SCModelViewController.h"
+#import "SCHomeViewController.h"
 #import "PRJ_DataRequest.h"
 #import "PRJ_SQLiteMassager.h"
 #import "ME_AppInfo.h"
@@ -19,6 +19,7 @@
 #import "Pic_AdMobShowTimesManager.h"
 #import "GADInterstitial.h"
 #import "GADRequest.h"
+#import "SDWebImage/SDWebImagePrefetcher.h"
 
 @implementation SCAppDelegate
 
@@ -28,95 +29,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.isbecomeActivity = YES;
-    NSArray *modelsArray = [[NSBundle mainBundle]pathsForResourcesOfType:@"jpg" inDirectory:@"Type"];
-    modelsArray = [modelsArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
-                  {
-                      NSString *obj1String = [[[[obj1 lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
-                      NSString *obj2String = [[[[obj2 lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
-                      NSInteger obj1Num = [[obj1String substringFromIndex:4] integerValue];
-                      NSInteger obj2Num = [[obj2String substringFromIndex:4] integerValue];
-                      
-                      if (obj1Num > obj2Num)
-                      {
-                          return NSOrderedDescending;
-                      }
-                      if (obj1Num < obj2Num) {
-                          return NSOrderedAscending;
-                      }
-                      return NSOrderedSame;
-                  }];
+    //初始化全屏广告管理
+    [self initAdmobManager];
     
-    [PRJ_Global shareStance].modelArray = modelsArray;
-    // Override point for customization after application launch.
-    
-    SCModelViewController *modelVc = [[SCModelViewController alloc]init];
-    UINavigationController *modelNav = [[UINavigationController alloc]initWithRootViewController:modelVc];
-    modelNav.navigationBar.translucent = NO;
-    
-    [SliderViewController sharedSliderController].LeftVC = [[SCAboutViewController alloc]init];
-    [SliderViewController sharedSliderController].MainVC = modelVc;
-    [SliderViewController sharedSliderController].RightVC = nil;
-    [SliderViewController sharedSliderController].LeftSContentOffset=270;
-    //    [SliderViewController sharedSliderController].RightSContentScale=0.68;
-    [SliderViewController sharedSliderController].LeftSJudgeOffset=270;
-    
-    
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[SliderViewController sharedSliderController]];
-    [nav setNavigationBarHidden:YES animated:NO];
-    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
-    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    nav.navigationBar.backgroundColor = [UIColor clearColor];
-    self.window.rootViewController = nav;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    
-    
-    UIView *defaultView = [[UIView alloc]initWithFrame:self.window.frame];
-    if (iPhone5)
-    {
-        defaultView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-568h"]];
-    }
-    else
-    {
-        defaultView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default"]];
-    }
-    [self.window addSubview:defaultView];
-    
-    [UIView animateWithDuration:2
-                     animations:^{
-                         defaultView.transform = CGAffineTransformScale(defaultView.transform, 2.0, 2.0);
-                     }completion:nil];
-    
-    [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{defaultView.alpha = 0;} completion:^(BOOL finished)
-    {
-        if (finished)
-        {
-            [defaultView removeFromSuperview];
-        }
-    }];
-
-    
-    //4次启动弹窗评价
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    int lanchCount = [[userDefault objectForKey:LANCHCOUNT] intValue];
-    if (lanchCount != -1)
-    {
-        lanchCount++;
-        if((lanchCount >= 4) && lanchCount % 2 == 0)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:LocalizedString(@"comment_message_default", nil)
-                                                           delegate:self
-                                                  cancelButtonTitle:LocalizedString(@"rc_feedback", @"")
-                                                  otherButtonTitles:LocalizedString(@"rate_now", nil), LocalizedString(@"attention_later", nil), nil];
-            alert.tag = 11;
-            [alert show];
-        }
-        
-        [userDefault setObject:@(lanchCount) forKey:LANCHCOUNT];
-        [userDefault synchronize];
-    }
     
     //初始化网络管理
     [self netWorkingSeting];
@@ -141,11 +56,85 @@
     //配置统计
     [self umengSetting];
     
-    //初始化全屏广告管理
-    [self initAdmobManager];
-    
     //检测更新
     [self checkVersion];
+    
+    NSArray *modelsArray = [[NSBundle mainBundle]pathsForResourcesOfType:@"jpg" inDirectory:@"Type"];
+    modelsArray = [modelsArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                  {
+                      NSString *obj1String = [[[[obj1 lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
+                      NSString *obj2String = [[[[obj2 lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
+                      NSInteger obj1Num = [[obj1String substringFromIndex:4] integerValue];
+                      NSInteger obj2Num = [[obj2String substringFromIndex:4] integerValue];
+                      
+                      if (obj1Num > obj2Num)
+                      {
+                          return NSOrderedDescending;
+                      }
+                      if (obj1Num < obj2Num) {
+                          return NSOrderedAscending;
+                      }
+                      return NSOrderedSame;
+                  }];
+    
+    [PRJ_Global shareStance].modelArray = modelsArray;
+    // Override point for customization after application launch.
+    
+    SCHomeViewController *homeVc = [[SCHomeViewController alloc]init];
+    UINavigationController *modelNav = [[UINavigationController alloc]initWithRootViewController:homeVc];
+    modelNav.navigationBar.translucent = NO;
+    
+    [SliderViewController sharedSliderController].LeftVC = [[SCAboutViewController alloc]init];
+    [SliderViewController sharedSliderController].MainVC = homeVc;
+    [SliderViewController sharedSliderController].RightVC = nil;
+    [SliderViewController sharedSliderController].LeftSContentOffset=270;
+    //    [SliderViewController sharedSliderController].RightSContentScale=0.68;
+    [SliderViewController sharedSliderController].LeftSJudgeOffset=270;
+    
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[SliderViewController sharedSliderController]];
+    [nav setNavigationBarHidden:YES animated:NO];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
+    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    nav.navigationBar.backgroundColor = [UIColor clearColor];
+    self.window.rootViewController = nav;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+
+    
+    //4次启动弹窗评价
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    int lanchCount = [[userDefault objectForKey:LANCHCOUNT] intValue];
+    if (lanchCount != -1)
+    {
+        lanchCount++;
+        if((lanchCount >= 4) && lanchCount % 2 == 0)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:LocalizedString(@"comment_message_default", nil)
+                                                           delegate:self
+                                                  cancelButtonTitle:LocalizedString(@"rc_feedback", @"")
+                                                  otherButtonTitles:LocalizedString(@"rate_now", nil), LocalizedString(@"attention_later", nil), nil];
+            alert.tag = 11;
+            [alert show];
+        }
+        
+        [userDefault setObject:@(lanchCount) forKey:LANCHCOUNT];
+        [userDefault synchronize];
+    }
+    
+    //判断首次安装第一次启动
+    if ([userDefault objectForKey:isFirstLaunch] == nil)
+    {
+        [userDefault setObject:[NSNumber numberWithBool:YES] forKey:isFirstLaunch];
+        [userDefault synchronize];
+    }
+    else
+    {
+        [userDefault setObject:[NSNumber numberWithBool:NO] forKey:isFirstLaunch];
+        [userDefault synchronize];
+    }
     
     return YES;
 }
@@ -523,6 +512,9 @@ void uncaughtExceptionHandler(NSException *exception)
         if(buttonIndex == 1)
         {//马上评
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppStoreURL]];
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            [userDefault setObject:[NSString stringWithFormat:@"%d",-1] forKey:LANCHCOUNT];
+            [userDefault synchronize];
         }
         if (buttonIndex == 0)
         {
@@ -593,12 +585,29 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [Pic_AdMobShowTimesManager PrefetcherURLs:changeMoreTurnArray(self.moreAPPSArray)];
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    
+    [[SDWebImagePrefetcher sharedImagePrefetcher] cancelPrefetching];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:isFirstLaunch];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.moreAPPSArray removeAllObjects];
+    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    //    self.appsArray = [[FONT_SQLiteMassager shareStance] getAllAppInfoData];
+    self.moreAPPSArray = [[NSMutableArray alloc]initWithArray:[[PRJ_SQLiteMassager shareStance] getAllAppsInfoData]];
+    if (self.moreAPPSArray)
+    {
+        self.moreAPPSArray = changeMoreTurnArray(self.moreAPPSArray);
+    }
+    
     self.isbecomeActivity = YES;
     UINavigationController *rootNav = (UINavigationController *)self.window.rootViewController;
     UIViewController *presentVC = [self.window.rootViewController presentedViewController];
@@ -625,6 +634,8 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithBool:NO] forKey:isFirstLaunch];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

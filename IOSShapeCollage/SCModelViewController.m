@@ -38,11 +38,11 @@
 {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [[SliderViewController sharedSliderController].navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES];
     
 }
 
-- (void)getPhotos
+- (BOOL)getPhotos
 {
     if (self.assetsLibrary == nil) {
         _assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -52,6 +52,19 @@
     } else {
         [self.photoGroupArray removeAllObjects];
     }
+    
+    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+    if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                        message:LocalizedString(@"user_library_step", @"")
+                                                       delegate:self
+                                              cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"")
+                                              otherButtonTitles:nil];
+        [alert show];
+        return NO;
+    }
+
     
     // setup our failure view controller in case enumerateGroupsWithTypes fails
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
@@ -82,30 +95,17 @@
     // enumerate only photos
     NSUInteger groupTypes = ALAssetsGroupAll/*ALAssetsGroupLibrary|ALAssetsGroupAlbum|ALAssetsGroupSavedPhotos*/;
     [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
+    return YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    if (app.isbecomeActivity)
-    {
-        if ([Pic_AdMobShowTimesManager canShowCustomAds])
-        {
-            [Pic_AdMobShowTimesManager presentViewCompletion:^
-             {
-                 [Pic_AdMobShowTimesManager showCustomSeccess];
-                 app.isbecomeActivity = NO;
-             }];
-        }
-    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self getPhotos];
     
     self.view.backgroundColor = colorWithHexString(@"#202020");
     
@@ -122,16 +122,19 @@
     [navView addSubview:titleLabel];
     
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftItemButton setFrame:CGRectMake(10, 7, 30, 30)];
-    [leftItemButton setBackgroundImage:[UIImage imageNamed:@"pattern_slide"] forState:UIControlStateNormal];
+    [leftItemButton setFrame:CGRectMake(0, 0, 44, 44)];
+//    [leftItemButton setBackgroundImage:[UIImage imageNamed:@"gallery_back"] forState:UIControlStateNormal];
+    [leftItemButton setImage:[UIImage imageNamed:@"gallery_back"] forState:UIControlStateNormal];
+    leftItemButton.contentMode = UIViewContentModeCenter;
+    leftItemButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 14);
     [leftItemButton addTarget:self action:@selector(leftItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:leftItemButton];
     
-    UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightItemButton.frame = CGRectMake(kScreen_Width-30-10, 7, 30, 30);
-    [rightItemButton setBackgroundImage:[UIImage imageNamed:@"pattern_moreapps"] forState:UIControlStateNormal];
-    [rightItemButton addTarget:self action:@selector(rightItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [navView addSubview:rightItemButton];
+//    UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightItemButton.frame = CGRectMake(kScreen_Width-30-10, 7, 30, 30);
+//    [rightItemButton setBackgroundImage:[UIImage imageNamed:@"pattern_moreapps"] forState:UIControlStateNormal];
+//    [rightItemButton addTarget:self action:@selector(rightItemButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [navView addSubview:rightItemButton];
     
     SCCustomScrollView *scrollView = [[SCCustomScrollView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height-44)];
     scrollView.backgroundColor = [UIColor clearColor];
@@ -164,22 +167,27 @@
 - (void)leftItemButtonPressed:(id)sender
 {
     [self event:@"home" label:@"home_menu"];
-    [[SliderViewController sharedSliderController]showLeftViewController];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)rightItemButtonPressed:(id)sender
-{
-    [self event:@"home" label:@"home_more"];
-//    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]initWithNibName:@"ME_MoreAppViewController" bundle:nil];
-    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:moreApp];
-    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
-    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    nav.navigationBar.backgroundColor = [UIColor clearColor];
-    [[SliderViewController sharedSliderController] presentViewController:nav animated:YES completion:nil];
-}
+//- (void)rightItemButtonPressed:(id)sender
+//{
+//    [self event:@"home" label:@"home_more"];
+//    ME_MoreAppViewController *moreApp = [[ME_MoreAppViewController alloc]init];
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:moreApp];
+//    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
+//    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+//    nav.navigationBar.backgroundColor = [UIColor clearColor];
+//    [[SliderViewController sharedSliderController] presentViewController:nav animated:YES completion:nil];
+//}
 
 - (void)modelChooseButtonPressed:(id)sender
 {
+    if (![self getPhotos])
+    {
+        return;
+    }
+    
     UIButton *tempButton = (UIButton *)sender;
     NSString *directory = [[[[[[PRJ_Global shareStance].modelArray objectAtIndex:tempButton.tag-10] lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
     
@@ -198,23 +206,11 @@
     
     [PRJ_Global shareStance].MHImagePickerdelegate = imagePickerMutilSelector;
     
-//    UIImagePickerController* picker=[[UIImagePickerController alloc] init];
-//    picker.navigationController.delegate=imagePickerMutilSelector;
-//    picker.delegate = imagePickerMutilSelector;//将UIImagePi cker的代理指向
-//    [picker setAllowsEditing:NO];
-//    picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-//    picker.modalTransitionStyle= UIModalTransitionStyleCoverVertical;
-//    imagePickerMutilSelector.imagePicker=picker;//使imagePickerMutilSelector得知其控制的UIImagePicker实例，为释放时需要。
-//    //将UIImagePicker的导航代理指向到imagePickerMutilSelector
-//    [self presentViewController:picker animated:YES completion:nil];
-    
-    
-    
     SCMulImagePickerViewController *mulImagePiker = [[SCMulImagePickerViewController alloc]init];
     UINavigationController *presentNav = [[UINavigationController alloc]initWithRootViewController:mulImagePiker];
     presentNav.delegate = imagePickerMutilSelector;
     mulImagePiker.photoGroupArray = self.photoGroupArray;
-    [[SliderViewController sharedSliderController] presentViewController:presentNav animated:YES completion:nil];
+    [self presentViewController:presentNav animated:YES completion:nil];
     
 }
 
@@ -222,7 +218,7 @@
 {
     [editControll setEditImageArray:imageArray];
 
-    [[SliderViewController sharedSliderController].navigationController pushViewController:editControll animated:YES];
+    [self.navigationController pushViewController:editControll animated:YES];
 }
 
 #pragma mark 事件统计

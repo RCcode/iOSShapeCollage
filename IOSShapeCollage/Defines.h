@@ -221,6 +221,7 @@ typedef id  (^IDBlock_id)  (id);
 #define KEditArea(scaleW,scaleH) (CGSizeMake(kContent_Width, kContent_Width*scaleW/scaleH))
 
 #define ANIMATIONDURATION 0.5
+#define isFirstLaunch @"firstLaunch"
 
 
 static NSString *FONTNAMESTRING = @"HelveticaNeue-Medium";
@@ -233,7 +234,7 @@ static NSString *kFollwUsURL = @"http://www.instagram.com/CollageShape";
 static NSString *kFeedbackEmail = @"rcplatform.help@gmail.com";
 static NSString *kShareHotTags = @"（Made with @CollageShape) #CollageShape";
 static NSString *instagramFollowString = @"instagram://user?username=CollageShape";
-static int moreAppID = 20073;
+static int moreAppID = 20074;
 
 static NSString *DEVICE_TOKEN = @"deviceToken";
 

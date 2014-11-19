@@ -414,22 +414,25 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
     _tableType = AppInfo;
     _isMoreApp = YES;
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-	if ([self openDB]) {
+	if ([self openDB])
+    {
 		_isMoreApp = NO;
         int i = 0;
-        while (i < 2) {
             sqlite3_stmt *statement = nil;
             
-            char *sql = "SELECT appCate ,appComment ,appId ,appName ,bannerUrl ,downUrl ,iconUrl, packageName, price, openUrl, isHave ,appDesc FROM appsInfoTable where isHave = ?";
+            char *sql = "SELECT appCate ,appComment ,appId ,appName ,bannerUrl ,downUrl ,iconUrl, packageName, price, openUrl, isHave ,appDesc FROM appsInfoTable";
             
             if (sqlite3_prepare_v2(_database, sql, -1, &statement, NULL) != SQLITE_OK)
             {
                 return NO;
-            }else {
+            }
+            else
+            {
                 //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值。
                 sqlite3_bind_int(statement, 1, i);
                 
-                while (sqlite3_step(statement) == SQLITE_ROW) {
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
                     ME_AppInfo* appInfo = [[ME_AppInfo alloc] init] ;
                     
                     char* appCate  = (char*)sqlite3_column_text(statement, 0);
@@ -469,11 +472,8 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
                 }
                 sqlite3_finalize(statement);
             }
-            i++;
-        }
-		
-		sqlite3_close(_database);
-	}
+        sqlite3_close(_database);
+    }
 	
 	return array;
 }

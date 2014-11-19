@@ -17,6 +17,7 @@
 
 
 #define ACTIONBARINITRECT (CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, self.view.frame.size.height-44-(maskTouchView.frame.origin.y+maskTouchView.frame.size.height)))
+
 #define ALPHACOLOR colorWithHexString(@"#2d2d2d")
 
 #define kToMorePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.jpg"]
@@ -225,8 +226,8 @@
     negativeSpacer.width = -5;
     
     leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftItemButton];
+    self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,leftItem, nil];
-    
     rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightItemButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,rightItem, nil];
     
@@ -248,7 +249,7 @@
         {
             UIButton *modelChooseButton = [UIButton buttonWithType:UIButtonTypeCustom];
             modelChooseButton.frame = CGRectMake(5+15*i+80*i, 0, 80, 80);
-            [modelChooseButton addTarget:self action:@selector(modelChooseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [modelChooseButton addTarget:self action:@selector(modelChooseButtonPressed:) forControlEvents:UIControlEventTouchDown];
             modelChooseButton.tag = i+10;
             modelChooseButton.center = CGPointMake(modelChooseButton.center.x, modelChooseScroll.frame.size.height/2);
             [modelChooseButton setBackgroundImage:[UIImage imageWithContentsOfFile:[modelChooseIconArray objectAtIndex:i]] forState:UIControlStateNormal];
@@ -380,13 +381,30 @@
 #pragma mark - 更换模板
 - (void)modelChooseButtonPressed:(id)sender
 {
+    UIButton *tempButton = (UIButton *)sender;
     UIButton *tempselecedButton = (UIButton *)[modelChooseScroll viewWithTag:selectedTag];
+    
+    if (tempButton.tag == selectedTag)
+    {
+        return;
+    }
     tempselecedButton.frame = CGRectMake(tempselecedButton.frame.origin.x+5, tempselecedButton.frame.origin.y+5, 80, 80);
+    
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    [MBProgressHUD showHUDAddedTo:app.window animated:YES];
+    
     
     CGRect maskTouchViewRect = maskTouchView.frame;
     [maskTouchView removeFromSuperview];
+    maskTouchView = nil;
+    for (UIView *tempView in maskTouchView.subviews)
+    {
+        [tempView removeFromSuperview];
+        maskImageArray = nil;
+        imageRectArray = nil;
+    }
     
-    UIButton *tempButton = (UIButton *)sender;
+    
     tempButton.frame = CGRectMake(tempButton.frame.origin.x-5, tempButton.frame.origin.y-5, 86, 86);
     modelChangeSelected.center = tempButton.center;
     selectedTag = tempButton.tag;
@@ -482,6 +500,8 @@
             self.navigationItem.hidesBackButton = YES;
             self.navigationItem.leftBarButtonItem = nil;
             self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItems = nil;
+            self.navigationItem.rightBarButtonItems = nil;
             
             [maskTouchView setwillShowBar:scaleViewActionBar andWillHideBar:modelBarView];
             [maskTouchView sendResponderViewToEdit];
