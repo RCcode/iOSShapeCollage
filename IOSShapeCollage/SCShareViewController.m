@@ -83,7 +83,6 @@
     saveImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    
     UIGraphicsEndImageContext();
     
     NSData *imageData = UIImageJPEGRepresentation(saveImage, 1);

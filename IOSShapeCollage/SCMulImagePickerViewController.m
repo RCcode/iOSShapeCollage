@@ -144,7 +144,6 @@ static CGSize AssetGridThumbnailSize;
     photoGroupTable.tag = 100;
     [photoGroupTable setRowHeight:100];
     [photoGroupTable setShowsVerticalScrollIndicator:NO];
-    [photoGroupTable setPagingEnabled:YES];
     [self.view addSubview:photoGroupTable];
     
     // Do any additional setup after loading the view.
