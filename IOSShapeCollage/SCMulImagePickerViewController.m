@@ -39,24 +39,33 @@ static CGSize AssetGridThumbnailSize;
     [super viewWillAppear:animated];
     if (iOS8)
     {
-        _photoResultArray = [[NSMutableArray alloc]init];
-        
-        PHFetchOptions *options = [[PHFetchOptions alloc] init];
-        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
-        [_photoResultArray addObject:fetchResult];
-        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
-        [_photoResultArray addObject:smartAlbums];
-        PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
-        [_photoResultArray addObject:topLevelUserCollections];
-        
-        PHFetchResult *shareAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumCloudShared options:nil];
-        [_photoResultArray addObject:shareAlbums];
-        
-        PHFetchResult *shareStream = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumMyPhotoStream options:nil];
-        [_photoResultArray addObject:shareStream];
-        
-        [self refreshalbums];
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied)
+            {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"user_library_step", @"") delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"") otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else if (status == PHAuthorizationStatusAuthorized)
+            {
+                _photoResultArray = [[NSMutableArray alloc]init];
+                PHFetchOptions *options = [[PHFetchOptions alloc] init];
+                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+                PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
+                [_photoResultArray addObject:fetchResult];
+                PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
+                [_photoResultArray addObject:smartAlbums];
+                PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
+                [_photoResultArray addObject:topLevelUserCollections];
+                
+                PHFetchResult *shareAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumCloudShared options:nil];
+                [_photoResultArray addObject:shareAlbums];
+                
+                PHFetchResult *shareStream = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumMyPhotoStream options:nil];
+                [_photoResultArray addObject:shareStream];
+                
+                [self refreshalbums];
+            }
+        }];
     }
 }
 
@@ -113,23 +122,27 @@ static CGSize AssetGridThumbnailSize;
             [tempPhototGroupArray addObject:collection];
         }
     }
+    NSLog(@"照片加载完成");
     self.photoGroupArray = tempPhototGroupArray;
 //    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    [photoGroupTable reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [photoGroupTable reloadData];
+    });
+    
 }
 
-//- (void)resetCachedAssets
-//{
-//    [self.imageManager stopCachingImagesForAllAssets];
-//}
+- (void)resetCachedAssets
+{
+    [self.imageManager stopCachingImagesForAllAssets];
+}
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    self.imageManager = [[PHCachingImageManager alloc] init];
-//    [self resetCachedAssets];
+    self.imageManager = [[PHCachingImageManager alloc] init];
+    [self resetCachedAssets];
     
     CGFloat scale = [UIScreen mainScreen].scale;
     AssetGridThumbnailSize = CGSizeMake(77*scale, 77*scale);
@@ -187,12 +200,14 @@ static CGSize AssetGridThumbnailSize;
             else
             {
                 tempCollection = (PHCollection *)[self.photoGroupArray objectAtIndex:indexPath.row];
+                NSLog(@"找图");
                 tempResult =[PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)tempCollection options:nil];
+                NSLog(@"找完");
                 cell.textLabel.text = tempCollection.localizedTitle;
                 asset = [tempResult lastObject];
             }
             
-            [[PHImageManager defaultManager] requestImageForAsset:asset
+            [self.imageManager requestImageForAsset:asset
                                          targetSize:AssetGridThumbnailSize
                                         contentMode:PHImageContentModeAspectFill
                                             options:nil

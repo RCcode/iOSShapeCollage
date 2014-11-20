@@ -53,6 +53,7 @@
         [self.photoGroupArray removeAllObjects];
     }
     
+    
     ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
     if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied)
     {
@@ -64,7 +65,6 @@
         [alert show];
         return NO;
     }
-
     
     // setup our failure view controller in case enumerateGroupsWithTypes fails
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
@@ -87,7 +87,6 @@
         if ([group numberOfAssets] > 0)
         {
             [self.photoGroupArray addObject:group];
-            NSLog(@"%@",self.photoGroupArray);
         }
         
     };
@@ -106,7 +105,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    if (!iOS8)
+    {
+        [self getPhotos];
+    }
     self.view.backgroundColor = colorWithHexString(@"#202020");
     
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -183,11 +185,6 @@
 
 - (void)modelChooseButtonPressed:(id)sender
 {
-    if (![self getPhotos])
-    {
-        return;
-    }
-    
     UIButton *tempButton = (UIButton *)sender;
     NSString *directory = [[[[[[PRJ_Global shareStance].modelArray objectAtIndex:tempButton.tag-10] lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
     
