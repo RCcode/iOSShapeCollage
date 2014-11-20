@@ -190,6 +190,12 @@ static CGSize AssetGridThumbnailSize;
         [[PHImageManager defaultManager]requestImageDataForAsset:asset options:nil resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info)
          {
              UIImage *image = [UIImage imageWithData:imageData];
+             if (image == nil)
+             {
+                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"rc_file_is_invalid", @"") delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"") otherButtonTitles:nil, nil];
+                 [alert show];
+                 return ;
+             }
              [delegate getChoosePhoto:image];
          }];
 
@@ -216,6 +222,12 @@ static CGSize AssetGridThumbnailSize;
         
         NSLog(@"获得图片");
         
+        if (image == nil)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"rc_file_is_invalid", @"") delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"") otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+        }
         [delegate getChoosePhoto:image];
     }
     

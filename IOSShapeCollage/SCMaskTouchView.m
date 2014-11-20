@@ -331,6 +331,7 @@
 #pragma mark -  替换图片方法
 - (void)changeEditImage:(UIImage *)img
 {
+    _responderView.newTransform = _responderView.initTransform;
     [_responderView setEditImage:img];
 }
 

@@ -87,7 +87,7 @@
 
 - (void)setEditImageArray:(NSArray *)imageArray
 {
-    editImageArray = [NSArray arrayWithArray:imageArray];
+    editImageArray = [NSMutableArray arrayWithArray:imageArray];
     [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
 }
 
@@ -249,7 +249,7 @@
         {
             UIButton *modelChooseButton = [UIButton buttonWithType:UIButtonTypeCustom];
             modelChooseButton.frame = CGRectMake(5+15*i+80*i, 0, 80, 80);
-            [modelChooseButton addTarget:self action:@selector(modelChooseButtonPressed:) forControlEvents:UIControlEventTouchDown];
+            [modelChooseButton addTarget:self action:@selector(modelChooseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             modelChooseButton.tag = i+10;
             modelChooseButton.center = CGPointMake(modelChooseButton.center.x, modelChooseScroll.frame.size.height/2);
             [modelChooseButton setBackgroundImage:[UIImage imageWithContentsOfFile:[modelChooseIconArray objectAtIndex:i]] forState:UIControlStateNormal];
@@ -260,7 +260,7 @@
                 selectedTag = modelChooseButton.tag;
             }
             [modelChooseScroll addSubview:modelChooseButton];
-            modelChooseScroll.contentSize = CGSizeMake(modelChooseButton.frame.size.width+modelChooseButton.frame.origin.x, modelChooseScroll.frame.size.height);
+            modelChooseScroll.contentSize = CGSizeMake(modelChooseButton.frame.size.width+modelChooseButton.frame.origin.x+5, modelChooseScroll.frame.size.height);
         }
     }
     
@@ -602,6 +602,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     [maskTouchView changeEditImage:image];
+    [editImageArray replaceObjectAtIndex:maskTouchView.responderView.tag-10 withObject:image];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -16,7 +16,7 @@
 {
     NSArray *maskImageArray;
     NSArray *imageRectArray;
-    NSArray *editImageArray;
+    NSMutableArray *editImageArray;
     
     SCMaskTouchView *maskTouchView;
     

@@ -121,7 +121,7 @@
         tempEditImageViewSize = CGSizeMake(editShowView.frame.size.height*scalePicture, editShowView.frame.size.height);
     }
     
-    editImageView.frame = CGRectMake(editImageView.frame.origin.x, editImageView.frame.origin.y, tempEditImageViewSize.width, tempEditImageViewSize.height);
+    editImageView.frame = CGRectMake(editShowView.frame.origin.x, editShowView.frame.origin.y, tempEditImageViewSize.width, tempEditImageViewSize.height);
 
     editImageView.image = picture;
     startRect = editImageView.frame;

@@ -18,6 +18,7 @@
 #import "GADInterstitial.h"
 #import "RC_ShareTableViewCell.h"
 #import "SCMaskTouchView.h"
+#import "MBProgressHUD+Add.h"
 
 #define kTheBestImagePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.igo"]
 #define kToMorePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"shareImage.jpg"]
@@ -487,8 +488,8 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     if(error == nil)
     {
-//        [MBProgressHUD showSuccess:LocalizedString(@"image_save_to_album_already", @"")
-//                            toView:[UIApplication sharedApplication].keyWindow];
+        [MBProgressHUD showSuccess:LocalizedString(@"image_save_to_album_already", @"")
+                            toView:[UIApplication sharedApplication].keyWindow];
         
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         //4次启动弹窗评价
@@ -512,8 +513,8 @@
     }
     else
     {
-//        [MBProgressHUD showError:LocalizedString(@"save_failed", @"")
-//                          toView:[UIApplication sharedApplication].keyWindow];
+        [MBProgressHUD showError:LocalizedString(@"save_failed", @"")
+                          toView:[UIApplication sharedApplication].keyWindow];
     }
 }
 

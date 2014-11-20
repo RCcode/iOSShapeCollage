@@ -238,6 +238,8 @@
 		E8B6566F19D7F63F00CB056D /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B6566D19D7F63F00CB056D /* libGoogleAdMobAds.a */; };
 		E8B6567019D7F63F00CB056D /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = E8B6566E19D7F63F00CB056D /* README.txt */; };
 		E8C4D84319ECFF2C009F03DB /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C4D83E19ECFF17009F03DB /* libGPUImage.a */; };
+		E8D8ED8F1A1DDE12008FEAFF /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D8ED8D1A1DDE12008FEAFF /* MBProgressHUD+Add.m */; };
+		E8D8ED901A1DDE12008FEAFF /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E8D8ED8E1A1DDE12008FEAFF /* MBProgressHUD.bundle */; };
 		E8F31FBE1A1C3ABD007C8E18 /* Pic_AdMobShowTimesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E81B56D31A1C36D200F59E75 /* Pic_AdMobShowTimesManager.m */; };
 		E8FDFA9319D3B5C2009B88CB /* SCMulImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFA9219D3B5C2009B88CB /* SCMulImagePickerViewController.m */; };
 		E8FDFA9619D3B720009B88CB /* SCImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFA9519D3B720009B88CB /* SCImageCollectionViewController.m */; };
@@ -660,6 +662,9 @@
 		E8B6566D19D7F63F00CB056D /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		E8B6566E19D7F63F00CB056D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		E8C4D83719ECFF17009F03DB /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = IOSShapeCollage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		E8D8ED8C1A1DDE12008FEAFF /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
+		E8D8ED8D1A1DDE12008FEAFF /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
+		E8D8ED8E1A1DDE12008FEAFF /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		E8FDFA9119D3B5C2009B88CB /* SCMulImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMulImagePickerViewController.h; sourceTree = "<group>"; };
 		E8FDFA9219D3B5C2009B88CB /* SCMulImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMulImagePickerViewController.m; sourceTree = "<group>"; };
 		E8FDFA9419D3B720009B88CB /* SCImageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImageCollectionViewController.h; sourceTree = "<group>"; };
@@ -1280,6 +1285,9 @@
 			children = (
 				E87C93DE19C0291300DBA781 /* MBProgressHUD.h */,
 				E87C93DF19C0291300DBA781 /* MBProgressHUD.m */,
+				E8D8ED8C1A1DDE12008FEAFF /* MBProgressHUD+Add.h */,
+				E8D8ED8D1A1DDE12008FEAFF /* MBProgressHUD+Add.m */,
+				E8D8ED8E1A1DDE12008FEAFF /* MBProgressHUD.bundle */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -1624,6 +1632,7 @@
 				E8111EE319D9032500BE0C54 /* 反馈@2x.png in Resources */,
 				E816E9E719C7E25D002EAB92 /* Type in Resources */,
 				E844133719D93B0D00D6392C /* Type34 in Resources */,
+				E8D8ED901A1DDE12008FEAFF /* MBProgressHUD.bundle in Resources */,
 				E8111EE619D9032500BE0C54 /* 关注我们@2x.png in Resources */,
 				E8111ED219D8FAC500BE0C54 /* share_home@2x.png in Resources */,
 				E87C92EF19C021CB00DBA781 /* InfoPlist.strings in Resources */,
@@ -1740,6 +1749,7 @@
 				E80AC55119D7C1DF00791F74 /* SDWebImageManager.m in Sources */,
 				E838FE1D19D94749006D7191 /* NCF9Filter.m in Sources */,
 				E81B56D81A1C36D200F59E75 /* PopUpADView.m in Sources */,
+				E8D8ED8F1A1DDE12008FEAFF /* MBProgressHUD+Add.m in Sources */,
 				E80AC52519D7C0DD00791F74 /* AFHTTPSessionManager.m in Sources */,
 				E80AC55719D7C1DF00791F74 /* UIImageView+WebCache.m in Sources */,
 				E87C931519C0231C00DBA781 /* SCModelViewController.m in Sources */,
