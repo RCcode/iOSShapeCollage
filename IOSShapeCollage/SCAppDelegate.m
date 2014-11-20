@@ -32,7 +32,11 @@
     //初始化全屏广告管理
     [self initAdmobManager];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+
     //初始化网络管理
     [self netWorkingSeting];
     

@@ -112,7 +112,11 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:evaluateString]];
         }
             break;
-        case 2://反馈
+        case 2://关注我
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFollwUsURL]];
+            break;
+
+        case 3://反馈
         {
             [self event:@"home" label:@"home_menu_feedback"];
             
@@ -149,7 +153,7 @@
             [self presentViewController:picker animated:YES completion:nil];
         }
             break;
-        case 3://分享应用
+        case 4://分享应用
         {
             [self event:@"home" label:@"home_menu_share"];
             //需要分享的内容
@@ -170,9 +174,6 @@
         }
             
             break;
-            //        case 4://关注我
-            //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFollwUsURL]];
-            //            break;
         default:
             break;
     }

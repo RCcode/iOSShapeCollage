@@ -169,12 +169,12 @@
                   symbolName = "-[SCImageCollectionViewController photoLibraryDidChange:]"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438075760.795517"
+                  timestampString = "438143392.068399"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "228"
                   endingLineNumber = "228"
-                  offsetFromSymbolStart = "52">
+                  offsetFromSymbolStart = "50">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -183,12 +183,12 @@
                   symbolName = "__57-[SCImageCollectionViewController photoLibraryDidChange:]_block_invoke"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438075760.795708"
+                  timestampString = "438143392.068732"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "228"
                   endingLineNumber = "228"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
