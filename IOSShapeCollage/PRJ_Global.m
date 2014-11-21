@@ -9,7 +9,6 @@
 #import "PRJ_Global.h"
 #import "UIImage+SubImage.h"
 #import "MobClick.h"
-#import "Flurry.h"
 
 //#import "GAI.h"
 //#import "GAIDictionaryBuilder.h"
@@ -107,9 +106,7 @@ static PRJ_Global *_glo = nil;
 {
     //友盟
     [MobClick event:eventID label:label];
-    
-    //Flurry
-    [Flurry logEvent:eventID];
+
 }
 
 

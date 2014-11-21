@@ -210,15 +210,15 @@
     [MobClick startWithAppkey:umengAPPKey reportPolicy:SEND_ON_EXIT channelId:@"App Store"];
     [MobClick updateOnlineConfig];
     
-    [Flurry startSession:flurryAPPKey];
-    [Flurry setSessionReportsOnCloseEnabled:YES];
+//    [Flurry startSession:flurryAPPKey];
+//    [Flurry setSessionReportsOnCloseEnabled:YES];
 }
 
-#pragma mark flurry 推荐设置添加一个未捕获的异常监听器
-void uncaughtExceptionHandler(NSException *exception)
-{
-    [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
-}
+//#pragma mark flurry 推荐设置添加一个未捕获的异常监听器
+//void uncaughtExceptionHandler(NSException *exception)
+//{
+//    [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
+//}
 
 #pragma mark 注册通知
 

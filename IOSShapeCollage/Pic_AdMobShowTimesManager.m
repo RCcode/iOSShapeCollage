@@ -467,8 +467,6 @@ static Pic_AdMobShowTimesManager *picObject = nil;
     //友盟
     [MobClick event:eventID label:label];
     
-    //Flurry
-    [Flurry logEvent:eventID];
 }
 
 @end

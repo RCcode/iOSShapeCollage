@@ -72,7 +72,7 @@
     self.layer.masksToBounds = YES;
     
     editShowView = [[UIView alloc]initWithFrame:self.frame];
-    editShowView.backgroundColor = [UIColor grayColor];
+    editShowView.backgroundColor = [UIColor whiteColor];
     [self addSubview:editShowView];
     
     editImageView = [[UIImageView alloc]initWithFrame:self.frame];

@@ -12,7 +12,7 @@
 
 @class SCCustomScrollView;
 
-@interface SCEditViewController : UIViewController<maskTouchViewDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface SCEditViewController : UIViewController<maskTouchViewDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIAlertViewDelegate>
 {
     NSArray *maskImageArray;
     NSArray *imageRectArray;
@@ -44,6 +44,7 @@
     SCCustomScrollView *modelChooseScroll;
     
     BOOL isShare;
+    BOOL isSave;
 }
 
 @property (nonatomic) NSInteger modelPieces;

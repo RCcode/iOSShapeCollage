@@ -82,8 +82,10 @@ static CGSize AssetGridThumbnailSize;
     PHFetchResult *shareStream = [_photoResultArray objectAtIndex:4];
     
     NSMutableArray *tempPhototGroupArray = [[NSMutableArray alloc]init];
-    
-    [tempPhototGroupArray addObject:fetchResult];
+    if ([fetchResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] > 0)
+    {
+        [tempPhototGroupArray addObject:fetchResult];
+    }
     
     for (int i = 0 ; i < [smartAlbums count]; i++)
     {
@@ -126,7 +128,11 @@ static CGSize AssetGridThumbnailSize;
     self.photoGroupArray = tempPhototGroupArray;
 //    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [photoGroupTable reloadData];
+        if (self.photoGroupArray.count != 0)
+        {
+            [photoGroupTable reloadData];
+        }
+        
     });
     
 }

@@ -223,9 +223,9 @@
 {
     //友盟
     [MobClick event:eventID label:label];
-    
-    //Flurry
-    [Flurry logEvent:eventID];
+//    
+//    //Flurry
+//    [Flurry logEvent:eventID];
 }
 
 - (void)didReceiveMemoryWarning

@@ -54,6 +54,8 @@
         modelChangeSelectedName = type;
         modelChooseIconArray = [[NSMutableArray alloc]init];
 
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(photoIsSave) name:@"isSave" object:nil];
+
         for (NSString *tempString in [PRJ_Global shareStance].modelArray)
         {
             NSInteger pieces = [[[[[tempString lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:1] integerValue];
@@ -71,6 +73,10 @@
         // Custom initialization
     }
     return self;
+}
+- (void)photoIsSave
+{
+    isSave = YES;
 }
 
 - (void)setInfoDictionary:(NSDictionary *)infoDic
@@ -203,7 +209,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = colorWithHexString(@"#202020");
     self.title = @"CollageShape";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: colorWithHexString(@"#28d8c9"),NSFontAttributeName:[UIFont fontWithName:FONTNAMESTRING size:17]};
@@ -381,6 +387,8 @@
 #pragma mark - 更换模板
 - (void)modelChooseButtonPressed:(id)sender
 {
+    isSave = NO;
+    
     UIButton *tempButton = (UIButton *)sender;
     UIButton *tempselecedButton = (UIButton *)[modelChooseScroll viewWithTag:selectedTag];
     
@@ -585,7 +593,18 @@
 - (void)leftItemButtonPressed:(id)sender
 {
     [self event:@"edit" label:@"edit_back"];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (isSave)
+    {
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"isSave" object:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle: nil message:LocalizedString(@"rc_pictures_are_not_saved", nil) delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_negitive", nil) otherButtonTitles:LocalizedString(@"rc_custom_positive", nil), nil];
+        [alert show];
+    }
+    
+    
 //    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -616,14 +635,27 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isSave = NO;
+}
+#pragma mark UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        isSave = NO;
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 #pragma mark 事件统计
 - (void)event:(NSString *)eventID label:(NSString *)label;
 {
     //友盟
     [MobClick event:eventID label:label];
-    
-    //Flurry
-    [Flurry logEvent:eventID];
+//    
+//    //Flurry
+//    [Flurry logEvent:eventID];
 }
 
 

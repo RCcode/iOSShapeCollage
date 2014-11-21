@@ -57,12 +57,16 @@
         //解析数据
         NSDictionary *dic = responseObject;
         NSLog(@"%@",[dic objectForKey:@"message"]);
-        [self.delegate didReceivedData:dic withTag:requestTag];
+        if (_delegate != nil)
+        {
+            [_delegate didReceivedData:dic withTag:requestTag];
+        }
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        hideMBProgressHUD();
+//        hideMBProgressHUD();
         NSLog(@"error.......%@",error);
-        [self.delegate requestFailed:requestTag];
+//        [self.delegate requestFailed:requestTag];
     }];
 }
 

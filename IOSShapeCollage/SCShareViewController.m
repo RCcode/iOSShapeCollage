@@ -490,26 +490,26 @@
     {
         [MBProgressHUD showSuccess:LocalizedString(@"image_save_to_album_already", @"")
                             toView:[UIApplication sharedApplication].keyWindow];
-        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"isSave" object:nil];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        //4次启动弹窗评价
-        int lanchCount = [[userDefault objectForKey:LANCHCOUNT] intValue];
-        if (lanchCount != -1)
-        {
-            if(lanchCount % 2 == 0)
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                                message:LocalizedString(@"comment_message_default", nil)
-                                                               delegate:self
-                                                      cancelButtonTitle:LocalizedString(@"feedback", nil)
-                                                      otherButtonTitles:LocalizedString(@"rate_now", nil), LocalizedString(@"attention_later", nil), nil];
-                alert.tag = 11;
-                [alert show];
-            }
-            lanchCount++;
-            [userDefault setObject:@(lanchCount) forKey:LANCHCOUNT];
-            [userDefault synchronize];
-        }
+//        //4次启动弹窗评价
+//        int lanchCount = [[userDefault objectForKey:LANCHCOUNT] intValue];
+//        if (lanchCount != -1)
+//        {
+//            if(lanchCount % 2 == 0)
+//            {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                                message:LocalizedString(@"comment_message_default", nil)
+//                                                               delegate:self
+//                                                      cancelButtonTitle:LocalizedString(@"feedback", nil)
+//                                                      otherButtonTitles:LocalizedString(@"rate_now", nil), LocalizedString(@"attention_later", nil), nil];
+//                alert.tag = 11;
+//                [alert show];
+//            }
+//            lanchCount++;
+//            [userDefault setObject:@(lanchCount) forKey:LANCHCOUNT];
+//            [userDefault synchronize];
+//        }
     }
     else
     {
@@ -629,8 +629,6 @@
     //友盟
     [MobClick event:eventID label:label];
     
-    //Flurry
-    [Flurry logEvent:eventID];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
