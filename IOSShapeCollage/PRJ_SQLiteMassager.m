@@ -159,7 +159,7 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
 {
 //    NSLog(@"createAppsInfoTable");
     
-    char *sql = "create table if not exists appsInfoTable(ID INTEGER PRIMARY KEY AUTOINCREMENT, appCate text,appComment int,appId int,appName text,bannerUrl text,downUrl text,iconUrl text,packageName text,price text,openUrl text,isHave int,appDesc text)";
+    char *sql = "create table if not exists appsInfoTable(ID INTEGER PRIMARY KEY AUTOINCREMENT, appCate text,appComment int,appId int,appName text,bannerUrl text,downUrl text,iconUrl text,packageName text,price text,openUrl text,isHave int,appDesc text, state int)";
     
 	sqlite3_stmt *statement;
 	//sqlite3_prepare_v2 接口把一条SQL语句解析到statement结构里去. 使用该接口访问数据库是当前比较好的的一种方法
