@@ -93,8 +93,8 @@
 
 - (void)setEditImageArray:(NSArray *)imageArray
 {
-    editImageArray = [NSMutableArray arrayWithArray:imageArray];
-    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
+    [PRJ_Global shareStance].editImageArray = [NSMutableArray arrayWithArray:imageArray];
+    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:[PRJ_Global shareStance].editImageArray];
 }
 
 #pragma mark - 转换坐标原图至显示区大小
@@ -407,10 +407,6 @@
     }
     tempselecedButton.frame = CGRectMake(tempselecedButton.frame.origin.x+5, tempselecedButton.frame.origin.y+5, 80, 80);
     
-    
-    
-
-    
     CGRect maskTouchViewRect = maskTouchView.frame;
     [maskTouchView removeFromSuperview];
     maskTouchView = nil;
@@ -445,7 +441,7 @@
     imageRectArray = [self transitionImageRectToEditRect:[NSArray arrayWithArray:[infoDic objectForKey:@"imageRect"]]];
     
     
-    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:editImageArray];
+    [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:[PRJ_Global shareStance].editImageArray];
 }
 
 #pragma mark - maskViewDelegate
@@ -630,7 +626,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     [maskTouchView changeEditImage:image];
-    [editImageArray replaceObjectAtIndex:maskTouchView.responderView.tag-10 withObject:image];
+    [[PRJ_Global shareStance].editImageArray replaceObjectAtIndex:maskTouchView.responderView.tag-10 withObject:image];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

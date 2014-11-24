@@ -320,6 +320,7 @@
 
 - (void)exchangeEditImageEnd
 {
+    isExchangeImage = NO;
     [UIView animateWithDuration:ANIMATIONDURATION animations:^
      {
          willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y+willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
@@ -377,6 +378,10 @@
                 [_responderView.subviews.lastObject removeFromSuperview];
                 [_responderView setEditImage:tempView.editImageView.image];
                 [tempView setEditImage:tempImage];
+                
+                [[PRJ_Global shareStance].editImageArray replaceObjectAtIndex:tempView.tag-10 withObject:tempView.editImageView.image];
+                [[PRJ_Global shareStance].editImageArray replaceObjectAtIndex:_responderView.tag-10 withObject:_responderView.editImageView.image];
+                
                 [self exchangeEditImageEnd];
                 return nil;
             }
