@@ -298,11 +298,9 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
 
 - (BOOL)insertAppInfo:(NSMutableArray *)appsInfo
 {
-    _tableType = AppInfo;
-    _isMoreApp = YES;
     //先判断数据库是否打开
-	if ([self openDB]) {
-        _isMoreApp = NO;
+    if ([self openDB]) {
+        
         char *zErrorMsg;
         int ret;
         ret = sqlite3_exec(_database, "begin transaction" , 0 , 0 , &zErrorMsg);
@@ -313,7 +311,7 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
             sqlite3_stmt *statement;
             
             //这个 sql 语句特别之处在于 values 里面有个? 号。在sqlite3_prepare函数里，?号表示一个未定的值，它的值等下才插入。
-            char *sql = "INSERT INTO appsInfoTable(appCate, appComment ,appId ,appName , bannerUrl, downUrl, iconUrl, packageName, price, openUrl, isHave ,appDesc) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            char *sql = "INSERT INTO appsInfoTable(appCate, appComment ,appId ,appName , bannerUrl, downUrl, iconUrl, packageName, price, openUrl, isHave ,appDesc,state) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             //准备语句：第三个参数是从zSql中读取的字节数的最大值
             int success2 = sqlite3_prepare_v2(_database, sql, -1, &statement, NULL);
@@ -336,7 +334,7 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
             sqlite3_bind_text(statement, 10, [appInfo.openUrl UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_int (statement, 11, appInfo.isHave);
             sqlite3_bind_text(statement, 12, [appInfo.appDesc UTF8String], -1, SQLITE_TRANSIENT);
-            
+            sqlite3_bind_int(statement, 13, appInfo.state);
             //执行插入语句
             success2 = sqlite3_step(statement);
             //释放statement
@@ -353,11 +351,11 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
         }
         
         ret = sqlite3_exec(_database , "commit transaction" , 0 , 0 , & zErrorMsg);
-		sqlite3_close(_database);
+        sqlite3_close(_database);
         
-		return YES;
-	}
-	return NO;
+        return YES;
+    }
+    return NO;
     
 }
 
@@ -411,71 +409,65 @@ static PRJ_SQLiteMassager *prj_Sqlite_Massager = nil;
 
 - (NSMutableArray *)getAllAppsInfoData
 {
-    _tableType = AppInfo;
-    _isMoreApp = YES;
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-	if ([self openDB])
-    {
-		_isMoreApp = NO;
-        int i = 0;
-            sqlite3_stmt *statement = nil;
+    if ([self openDB]) {
+        sqlite3_stmt *statement = nil;
+        
+        char *sql = "SELECT appCate ,appComment ,appId ,appName ,bannerUrl ,downUrl ,iconUrl, packageName, price, openUrl, isHave ,appDesc,state FROM appsInfoTable";
+        
+        if (sqlite3_prepare_v2(_database, sql, -1, &statement, NULL) != SQLITE_OK)
+        {
+            return NO;
+        }else {
+            //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值。
             
-            char *sql = "SELECT appCate ,appComment ,appId ,appName ,bannerUrl ,downUrl ,iconUrl, packageName, price, openUrl, isHave ,appDesc FROM appsInfoTable";
-            
-            if (sqlite3_prepare_v2(_database, sql, -1, &statement, NULL) != SQLITE_OK)
-            {
-                return NO;
-            }
-            else
-            {
-                //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值。
-                sqlite3_bind_int(statement, 1, i);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ME_AppInfo* appInfo = [[ME_AppInfo alloc] init] ;
                 
-                while (sqlite3_step(statement) == SQLITE_ROW)
-                {
-                    ME_AppInfo* appInfo = [[ME_AppInfo alloc] init] ;
-                    
-                    char* appCate  = (char*)sqlite3_column_text(statement, 0);
-                    appInfo.appCate = [NSString stringWithUTF8String:appCate];
-                    
-                    appInfo.appComment  = sqlite3_column_int(statement,1);
-                    
-                    appInfo.appId  = sqlite3_column_int(statement,2);
-                    
-                    char* appName  = (char*)sqlite3_column_text(statement, 3);
-                    appInfo.appName = [NSString stringWithUTF8String:appName];
-                    
-                    char* bannerUrl  = (char*)sqlite3_column_text(statement, 4);
-                    appInfo.bannerUrl = [NSString stringWithUTF8String:bannerUrl];
-                    
-                    char* downUrl  = (char*)sqlite3_column_text(statement, 5);
-                    appInfo.downUrl = [NSString stringWithUTF8String:downUrl];
-                    
-                    char* iconUrl  = (char*)sqlite3_column_text(statement, 6);
-                    appInfo.iconUrl = [NSString stringWithUTF8String:iconUrl];
-                    
-                    char* packageName  = (char*)sqlite3_column_text(statement, 7);
-                    appInfo.packageName = [NSString stringWithUTF8String:packageName];
-                    
-                    char* price  = (char*)sqlite3_column_text(statement, 8);
-                    appInfo.price = [NSString stringWithUTF8String:price];
-                    
-                    char* openUrl  = (char*)sqlite3_column_text(statement, 9);
-                    appInfo.openUrl = [NSString stringWithUTF8String:openUrl];
-                    
-                    appInfo.isHave  = sqlite3_column_int(statement,10);
-                    
-                    char* appDesc  = (char*)sqlite3_column_text(statement, 11);
-                    appInfo.appDesc = [NSString stringWithUTF8String:appDesc];
-                    
-                    [array addObject:appInfo];
-                }
-                sqlite3_finalize(statement);
+                char* appCate  = (char*)sqlite3_column_text(statement, 0);
+                appInfo.appCate = [NSString stringWithUTF8String:appCate];
+                
+                appInfo.appComment  = sqlite3_column_int(statement,1);
+                
+                appInfo.appId  = sqlite3_column_int(statement,2);
+                
+                char* appName  = (char*)sqlite3_column_text(statement, 3);
+                appInfo.appName = [NSString stringWithUTF8String:appName];
+                
+                char* bannerUrl  = (char*)sqlite3_column_text(statement, 4);
+                appInfo.bannerUrl = [NSString stringWithUTF8String:bannerUrl];
+                
+                char* downUrl  = (char*)sqlite3_column_text(statement, 5);
+                appInfo.downUrl = [NSString stringWithUTF8String:downUrl];
+                
+                char* iconUrl  = (char*)sqlite3_column_text(statement, 6);
+                appInfo.iconUrl = [NSString stringWithUTF8String:iconUrl];
+                
+                char* packageName  = (char*)sqlite3_column_text(statement, 7);
+                appInfo.packageName = [NSString stringWithUTF8String:packageName];
+                
+                char* price  = (char*)sqlite3_column_text(statement, 8);
+                appInfo.price = [NSString stringWithUTF8String:price];
+                
+                char* openUrl  = (char*)sqlite3_column_text(statement, 9);
+                appInfo.openUrl = [NSString stringWithUTF8String:openUrl];
+                
+                appInfo.isHave  = sqlite3_column_int(statement,10);
+                
+                char* appDesc  = (char*)sqlite3_column_text(statement, 11);
+                appInfo.appDesc = [NSString stringWithUTF8String:appDesc];
+                
+                appInfo.state = sqlite3_column_int(statement, 12);
+                
+                [array addObject:appInfo];
             }
+            sqlite3_finalize(statement);
+        }
+        
         sqlite3_close(_database);
     }
-	
-	return array;
+    
+    return array;
 }
 
 //- (NSMutableArray *)getAllTypeFaces

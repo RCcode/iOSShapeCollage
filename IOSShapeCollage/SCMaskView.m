@@ -17,6 +17,7 @@
 @synthesize initTransform;
 @synthesize editShowView;
 @synthesize startRect;
+@synthesize startCenter;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -125,6 +126,7 @@
 
     editImageView.image = picture;
     startRect = editImageView.frame;
+    startCenter = editImageView.center;
     _newTransform = editImageView.transform;
     initTransform = editImageView.transform;
 }

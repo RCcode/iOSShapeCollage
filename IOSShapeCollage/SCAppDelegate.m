@@ -483,7 +483,7 @@
             
             self.moreAPPSArray = changeMoreTurnArray(sqlArray);
             [PRJ_Global shareStance].appsArray = changeMoreTurnArray(sqlArray);
-            
+            [Pic_AdMobShowTimesManager PrefetcherURLs:self.moreAPPSArray];
             [Pic_AdMobShowTimesManager updateStateWithKey:kRequestMoreAppDateKey];
         }
             break;

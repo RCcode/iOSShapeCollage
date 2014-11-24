@@ -252,17 +252,25 @@
 - (void)maskViewOriginEdit
 {
     [UIView animateWithDuration:ANIMATIONDURATION animations:^{
+        CGAffineTransform currentTransform = CGAffineTransformScale(responderTransform, 1, 1);
+        _responderView.transform = currentTransform;
+        
         _responderView.newTransform = _responderView.initTransform;
-        _responderView.editImageView.frame = _responderView.startRect;
+        _responderView.editImageView.center = _responderView.startCenter;
     }];
 }
 - (void)maskViewCancelEdit
 {
     [UIView animateWithDuration:ANIMATIONDURATION animations:
      ^{
+//         _responderView.newTransform = _responderView.editImageView.transform;
+//         _responderView.editImageView.frame = _responderView.startRect;
+         
+         _responderView.newTransform = responderEditStartTransform;
+         _responderView.editImageView.center = startCenter;
+         
          CGAffineTransform currentTransform = CGAffineTransformScale(responderTransform, 1, 1);
          _responderView.transform = currentTransform;
-         _responderView.newTransform = responderEditStartTransform;
 
          willShowBar.frame = CGRectMake(willShowBar.frame.origin.x, willShowBar.frame.origin.y+willShowBar.frame.size.height, willShowBar.frame.size.width, willShowBar.frame.size.height);
          
@@ -270,13 +278,12 @@
      {
          [UIView animateWithDuration:ANIMATIONDURATION animations:
           ^{
-              _responderView.transform = responderStartTransform;
-              _responderView.frame = responderStartRect;
-              
-//              _responderView.newTransform = responderEditStartTransform;
-//              _responderView.editImageView.frame = responderEditImageRect;
+
             CGAffineTransform currentTransform = CGAffineTransformScale(showTransform, 1, 1);
               showView.transform = currentTransform;
+              
+              _responderView.frame = responderStartRect;
+              _responderView.transform = responderStartTransform;
               
               willHideBar.frame = CGRectMake(willHideBar.frame.origin.x, willHideBar.frame.origin.y-willHideBar.frame.size.height, willHideBar.frame.size.width, willHideBar.frame.size.height);
               
@@ -336,6 +343,7 @@
     _responderView = responderView;
     responderStartRect = responderView.frame;
     responderEditStartTransform = responderView.newTransform;
+    startCenter = responderView.editImageView.center;
 }
 
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event

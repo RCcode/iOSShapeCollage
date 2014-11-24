@@ -24,6 +24,7 @@
 @property (nonatomic, strong) CALayer *mask;
 @property (nonatomic, strong) UIView *editShowView;
 @property (nonatomic) CGRect startRect;
+@property (nonatomic) CGPoint startCenter;
 
 @property (nonatomic) NCFilterType filterType;
 

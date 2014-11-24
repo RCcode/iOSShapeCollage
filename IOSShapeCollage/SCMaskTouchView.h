@@ -26,6 +26,7 @@
     CGAffineTransform showTransform;//
     CGAffineTransform responderTransform;
     CGAffineTransform responderStartTransform;
+    CGPoint startCenter;
     CGAffineTransform responderEditStartTransform;
     CGRect responderStartRect;
     CGRect responderEditImageRect;
