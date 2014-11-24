@@ -46,6 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(haveNewApp) name:@"addMoreImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noNewApp) name:@"removeMoreImage" object:nil];
+    
     [self showAds];
     
     UIImageView *backImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
@@ -70,7 +73,7 @@
     [modelChooseButton setBackgroundImage:[UIImage imageNamed:@"home_template"] forState:UIControlStateNormal];
     [buttonView addSubview:modelChooseButton];
     
-    UIButton *moreAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    moreAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
     moreAppButton.frame = CGRectMake(0, 139, 169, 49);
     moreAppButton.center = CGPointMake(self.view.center.x, moreAppButton.center.y);
     [moreAppButton addTarget:self action:@selector(moreAppButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,8 +94,22 @@
     
     [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{buttonView.frame = CGRectMake(0, buttonView.frame.origin.y-buttonView.frame.size.height, buttonView.frame.size.width, buttonView.frame.size.height);} completion:nil];
     
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"MoreAPP"] isEqualToString:@"1"])
+    {
+        [self haveNewApp];
+    }
     
     // Do any additional setup after loading the view.
+}
+
+- (void)haveNewApp
+{
+    [moreAppButton setBackgroundImage:[UIImage imageNamed:@"home_spread_update.png"] forState:UIControlStateNormal];
+}
+
+- (void)noNewApp
+{
+    [moreAppButton setBackgroundImage:[UIImage imageNamed:@"home_spread.png"] forState:UIControlStateNormal];
 }
 
 #pragma mark - 导航按扭方法

@@ -213,7 +213,7 @@
             {
                 UIImageView *tempImageView = (UIImageView *)[cell viewWithTag:indexPath.row+10];
                 tempImageView.userInteractionEnabled = YES;
-                tempImageView.contentMode = UIViewContentModeScaleAspectFit;
+                tempImageView.contentMode = UIViewContentModeScaleAspectFill;
                 tempImageView.image = [pics objectAtIndex:indexPath.row];
                 
                 UIButton*   btn_delete=[UIButton buttonWithType:UIButtonTypeRoundedRect];

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MHImagePickerMutilSelector.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 @class SCEditViewController;
 
@@ -20,6 +19,5 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *photoGroupArray;
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
 @end

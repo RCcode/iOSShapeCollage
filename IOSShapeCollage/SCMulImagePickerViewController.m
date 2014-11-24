@@ -28,7 +28,8 @@ static CGSize AssetGridThumbnailSize;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -74,6 +75,71 @@ static CGSize AssetGridThumbnailSize;
 //                });
             }
         }];
+    }
+    else
+    {
+        if (self.assetsLibrary == nil) {
+            _assetsLibrary = [[ALAssetsLibrary alloc] init];
+        }
+        if (self.photoGroupArray == nil) {
+            photoGroupArray = [[NSMutableArray alloc] init];
+        } else {
+            [photoGroupArray removeAllObjects];
+        }
+        
+        
+        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:LocalizedString(@"user_library_step", @"")
+                                                           delegate:self
+                                                  cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"")
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        // setup our failure view controller in case enumerateGroupsWithTypes fails
+        ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
+            
+            NSString *errorMessage = nil;
+            switch ([error code]) {
+                case ALAssetsLibraryAccessUserDeniedError:
+                case ALAssetsLibraryAccessGloballyDeniedError:
+                    errorMessage = @"The user has declined access to it.";
+                    break;
+                default:
+                    errorMessage = @"Reason unknown.";
+                    break;
+            }
+            
+        };
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+            [group setAssetsFilter:onlyPhotosFilter];
+            
+            NSLog(@"groupname = %@",[group valueForProperty:ALAssetsGroupPropertyName]);
+            
+            if ([group numberOfAssets] > 0)
+            {
+                [self.photoGroupArray addObject:group];
+            }
+            if ([group valueForProperty:ALAssetsGroupPropertyName] == nil)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.photoGroupArray.count != 0)
+                    {
+                        [photoGroupTable reloadData];
+                    }
+                });
+            }
+            
+        };
+        
+        // enumerate only photos
+        NSUInteger groupTypes = ALAssetsGroupAll/*ALAssetsGroupLibrary|ALAssetsGroupAlbum|ALAssetsGroupSavedPhotos*/;
+        [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
     }
 }
 

@@ -488,10 +488,10 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     if(error == nil)
     {
-        [MBProgressHUD showSuccess:LocalizedString(@"image_save_to_album_already", @"")
+        [MBProgressHUD showSuccess:LocalizedString(@"rc_image_save_to_album_already", @"")
                             toView:[UIApplication sharedApplication].keyWindow];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"isSave" object:nil];
-        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+//        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 //        //4次启动弹窗评价
 //        int lanchCount = [[userDefault objectForKey:LANCHCOUNT] intValue];
 //        if (lanchCount != -1)
@@ -513,7 +513,7 @@
     }
     else
     {
-        [MBProgressHUD showError:LocalizedString(@"save_failed", @"")
+        [MBProgressHUD showError:LocalizedString(@"rc_save_failed", @"")
                           toView:[UIApplication sharedApplication].keyWindow];
     }
 }

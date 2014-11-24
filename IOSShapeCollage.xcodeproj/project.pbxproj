@@ -50,6 +50,7 @@
 		E8111EE719D9032500BE0C54 /* 评分@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8111EE119D9032500BE0C54 /* 评分@2x.png */; };
 		E8111EE819D9032500BE0C54 /* aboutUsBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8111EE219D9032500BE0C54 /* aboutUsBG@2x.png */; };
 		E816E9E719C7E25D002EAB92 /* Type in Resources */ = {isa = PBXBuildFile; fileRef = E816E9E619C7E25D002EAB92 /* Type */; };
+		E81859C01A231EB100580EC7 /* home_spread_update@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E81859BF1A231EB100580EC7 /* home_spread_update@2x.png */; };
 		E81B56D81A1C36D200F59E75 /* PopUpADView.m in Sources */ = {isa = PBXBuildFile; fileRef = E81B56D51A1C36D200F59E75 /* PopUpADView.m */; };
 		E81B56D91A1C36D200F59E75 /* PopUpADView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E81B56D61A1C36D200F59E75 /* PopUpADView.xib */; };
 		E8220D8019D117F700F6A799 /* edit_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8220D7E19D117F700F6A799 /* edit_back@2x.png */; };
@@ -351,6 +352,7 @@
 		E8111EE119D9032500BE0C54 /* 评分@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "评分@2x.png"; sourceTree = "<group>"; };
 		E8111EE219D9032500BE0C54 /* aboutUsBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aboutUsBG@2x.png"; sourceTree = "<group>"; };
 		E816E9E619C7E25D002EAB92 /* Type */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Type; sourceTree = "<group>"; };
+		E81859BF1A231EB100580EC7 /* home_spread_update@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_spread_update@2x.png"; sourceTree = "<group>"; };
 		E81B56D21A1C36D200F59E75 /* Pic_AdMobShowTimesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pic_AdMobShowTimesManager.h; sourceTree = "<group>"; };
 		E81B56D31A1C36D200F59E75 /* Pic_AdMobShowTimesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pic_AdMobShowTimesManager.m; sourceTree = "<group>"; };
 		E81B56D41A1C36D200F59E75 /* PopUpADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUpADView.h; sourceTree = "<group>"; };
@@ -1137,6 +1139,7 @@
 				E856D75119FFA62100699E34 /* home_moreapps@2x.png */,
 				E856D75219FFA62100699E34 /* home_slide@2x.png */,
 				E856D75319FFA62100699E34 /* home_spread@2x.png */,
+				E81859BF1A231EB100580EC7 /* home_spread_update@2x.png */,
 				E856D75419FFA62100699E34 /* home_template@2x.png */,
 			);
 			name = homeView;
@@ -1667,6 +1670,7 @@
 				E838FE5319D94749006D7191 /* NCF11Map.png in Resources */,
 				E844132219D93B0D00D6392C /* Type13 in Resources */,
 				E844131F19D93B0D00D6392C /* Type10 in Resources */,
+				E81859C01A231EB100580EC7 /* home_spread_update@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

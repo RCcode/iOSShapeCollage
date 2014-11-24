@@ -61,10 +61,6 @@
                            tempImage = [tempImage rescaleImageToSize:self.frame.size];
                            [maskImageArray addObject:tempImage];
                        }
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
-                           [MBProgressHUD hideAllHUDsForView:app.window animated:YES];
-                       });
                    });
     
     for (int i = 0; i < [maskArray count]; i ++)
@@ -448,6 +444,11 @@
     NSLog(@".....");
     maskImageArray = nil;
     showView = nil;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+        [MBProgressHUD hideAllHUDsForView:app.window animated:YES];
+    });
 }
 
 /*

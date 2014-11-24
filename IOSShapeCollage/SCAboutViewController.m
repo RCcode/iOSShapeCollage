@@ -113,7 +113,15 @@
         }
             break;
         case 2://关注我
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFollwUsURL]];
+        {
+            [self event:@"home" label:@"home_menu_followus"];
+            NSURL *instagramURL = [NSURL URLWithString:instagramFollowString];
+            if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+                [[UIApplication sharedApplication] openURL:instagramURL];
+            }else {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFollwUsURL]];
+            }
+        }
             break;
 
         case 3://反馈
@@ -146,7 +154,7 @@
             MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
             if(!picker) break;
             picker.mailComposeDelegate =self;
-            NSString *subject = [NSString stringWithFormat:@"%@ %@ (iOS)",LocalizedString(@"app_name", nil), LocalizedString(@"feedback", nil)];
+            NSString *subject = [NSString stringWithFormat:@"%@ %@ (iOS)",app_Name, LocalizedString(@"feedback", nil)];
             [picker setSubject:subject];
             [picker setToRecipients:@[kFeedbackEmail]];
             [picker setMessageBody:diveceInfo isHTML:NO];

@@ -389,18 +389,27 @@
 {
     isSave = NO;
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+        [MBProgressHUD showHUDAddedTo:app.window animated:YES];
+    });
+    
     UIButton *tempButton = (UIButton *)sender;
     UIButton *tempselecedButton = (UIButton *)[modelChooseScroll viewWithTag:selectedTag];
     
     if (tempButton.tag == selectedTag)
     {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+            [MBProgressHUD hideAllHUDsForView:app.window animated:YES];
+        });
         return;
     }
     tempselecedButton.frame = CGRectMake(tempselecedButton.frame.origin.x+5, tempselecedButton.frame.origin.y+5, 80, 80);
     
-    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
-    [MBProgressHUD showHUDAddedTo:app.window animated:YES];
     
+    
+
     
     CGRect maskTouchViewRect = maskTouchView.frame;
     [maskTouchView removeFromSuperview];

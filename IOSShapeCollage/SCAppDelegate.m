@@ -497,7 +497,7 @@
         default:
             break;
     }
-    hideMBProgressHUD();
+//    hideMBProgressHUD();
 }
 - (void)requestFailed:(NSInteger)tag
 {

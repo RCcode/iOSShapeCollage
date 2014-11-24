@@ -42,60 +42,59 @@
     
 }
 
-- (BOOL)getPhotos
-{
-    if (self.assetsLibrary == nil) {
-        _assetsLibrary = [[ALAssetsLibrary alloc] init];
-    }
-    if (self.photoGroupArray == nil) {
-        _photoGroupArray = [[NSMutableArray alloc] init];
-    } else {
-        [self.photoGroupArray removeAllObjects];
-    }
-    
-    
-    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-    if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                        message:LocalizedString(@"user_library_step", @"")
-                                                       delegate:self
-                                              cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"")
-                                              otherButtonTitles:nil];
-        [alert show];
-        return NO;
-    }
-    
-    // setup our failure view controller in case enumerateGroupsWithTypes fails
-    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
-        
-        NSString *errorMessage = nil;
-        switch ([error code]) {
-            case ALAssetsLibraryAccessUserDeniedError:
-            case ALAssetsLibraryAccessGloballyDeniedError:
-                errorMessage = @"The user has declined access to it.";
-                break;
-            default:
-                errorMessage = @"Reason unknown.";
-                break;
-        }
-        
-    };
-    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-        [group setAssetsFilter:onlyPhotosFilter];
-        if ([group numberOfAssets] > 0)
-        {
-            [self.photoGroupArray addObject:group];
-        }
-        
-    };
-    
-    // enumerate only photos
-    NSUInteger groupTypes = ALAssetsGroupAll/*ALAssetsGroupLibrary|ALAssetsGroupAlbum|ALAssetsGroupSavedPhotos*/;
-    [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
-    return YES;
-}
+//- (void)getPhotos
+//{
+//    if (self.assetsLibrary == nil) {
+//        _assetsLibrary = [[ALAssetsLibrary alloc] init];
+//    }
+//    if (self.photoGroupArray == nil) {
+//        _photoGroupArray = [[NSMutableArray alloc] init];
+//    } else {
+//        [self.photoGroupArray removeAllObjects];
+//    }
+//    
+//    
+//    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+//    if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied)
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                        message:LocalizedString(@"user_library_step", @"")
+//                                                       delegate:self
+//                                              cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"")
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
+//    
+//    // setup our failure view controller in case enumerateGroupsWithTypes fails
+//    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
+//        
+//        NSString *errorMessage = nil;
+//        switch ([error code]) {
+//            case ALAssetsLibraryAccessUserDeniedError:
+//            case ALAssetsLibraryAccessGloballyDeniedError:
+//                errorMessage = @"The user has declined access to it.";
+//                break;
+//            default:
+//                errorMessage = @"Reason unknown.";
+//                break;
+//        }
+//        
+//    };
+//    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+//        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+//        [group setAssetsFilter:onlyPhotosFilter];
+//        if ([group numberOfAssets] > 0)
+//        {
+//            [self.photoGroupArray addObject:group];
+//        }
+//        
+//    };
+//    
+//    // enumerate only photos
+//    NSUInteger groupTypes = ALAssetsGroupAll/*ALAssetsGroupLibrary|ALAssetsGroupAlbum|ALAssetsGroupSavedPhotos*/;
+//    [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
+//}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -105,10 +104,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!iOS8)
-    {
-        [self getPhotos];
-    }
+
     self.view.backgroundColor = colorWithHexString(@"#202020");
     
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];

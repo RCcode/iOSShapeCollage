@@ -79,7 +79,6 @@ NSString* stringForInteger(int value)
 
 void cancleAllRequests()
 {
-    hideMBProgressHUD();
     SCAppDelegate *appDelegate = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate.manager.operationQueue cancelAllOperations];
 }

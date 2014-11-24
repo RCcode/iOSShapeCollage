@@ -74,9 +74,9 @@
     
     if (app.moreAPPSArray.count == 0)
     {
-        MBProgressHUD *hud = showMBProgressHUD(nil, YES);
-        hud.userInteractionEnabled = NO;
-        hud.color = [UIColor blackColor];
+//        MBProgressHUD *hud = showMBProgressHUD(nil, YES);
+//        hud.userInteractionEnabled = NO;
+//        hud.color = [UIColor blackColor];
         
         //查看数据库中是否存在
         [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
@@ -105,7 +105,7 @@
             app.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
             app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
         }
-        hideMBProgressHUD();
+//        hideMBProgressHUD();
     }
 //    for (ME_AppInfo* appInfo in app.appsArray)
 //    {
@@ -152,9 +152,6 @@
 
 - (void)leftItemButtonPressed:(id)sender
 {
-    
-    cancleAllRequests();
-    hideMBProgressHUD();
     [[NSNotificationCenter defaultCenter] postNotificationName:@"restartTimer" object:nil];
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"MoreAPP"];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -185,11 +182,10 @@
     cell.delegate = self;
     
     ME_AppInfo *appInfo = [[(SCAppDelegate *)[[UIApplication sharedApplication] delegate] moreAPPSArray] objectAtIndex:indexPath.row];
-    NSLog(@"%@",appInfo.appName);
     CGSize appNameSize = getTextLabelRectWithContentAndFont(appInfo.appName, [UIFont fontWithName:FONTNAMESTRING size:14]).size;
     if (appNameSize.height < 20.f)
     {
-        [cell.titleLabel setFrame:CGRectMake(cell.typeLabel.frame.origin.x, cell.typeLabel.frame.origin.y - appNameSize.height - 6, appNameSize.width+5, appNameSize.height)];
+        [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.typeLabel.frame.origin.y - appNameSize.height - 6, appNameSize.width+5, appNameSize.height)];
     }
     else
     {
@@ -296,7 +292,7 @@
     app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
     
     [appInfoTableView reloadData];
-    hideMBProgressHUD();
+//    hideMBProgressHUD();
 }
 
 - (void)requestFailed:(NSInteger)tag

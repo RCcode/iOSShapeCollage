@@ -45,6 +45,8 @@
     
     SCAppDelegate *appDelegate = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
     
+    [MBProgressHUD showHUDAddedTo:appDelegate.window animated:YES];
+    
     appDelegate.manager.requestSerializer = requestSerializer;
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingMutableContainers];
@@ -57,6 +59,7 @@
         //解析数据
         NSDictionary *dic = responseObject;
         NSLog(@"%@",[dic objectForKey:@"message"]);
+        [MBProgressHUD hideAllHUDsForView:appDelegate.window animated:YES];
         if (_delegate != nil)
         {
             [_delegate didReceivedData:dic withTag:requestTag];
@@ -66,6 +69,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        hideMBProgressHUD();
         NSLog(@"error.......%@",error);
+        [MBProgressHUD hideAllHUDsForView:appDelegate.window animated:YES];
 //        [self.delegate requestFailed:requestTag];
     }];
 }
@@ -133,7 +137,7 @@
     if (![self checkNetWorking]){
         showMBProgressHUD(LocalizedString(@"no_network_toast_string", nil), NO);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            hideMBProgressHUD();
+//            hideMBProgressHUD();
         });
         return;
     }
