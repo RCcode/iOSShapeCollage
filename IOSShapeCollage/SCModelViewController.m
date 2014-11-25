@@ -210,8 +210,8 @@
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray *)imageArray
 {
     [editControll setEditImageArray:imageArray];
-
-    [[SliderViewController sharedSliderController].navigationController pushViewController:editControll animated:YES];
+    
+    [self.navigationController pushViewController:editControll animated:YES];
 }
 
 #pragma mark 事件统计

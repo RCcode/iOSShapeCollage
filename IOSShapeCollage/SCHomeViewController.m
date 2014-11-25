@@ -127,7 +127,7 @@
     [nav.navigationBar setBarTintColor:colorWithHexString(@"#2d2d2d")];
     nav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: colorWithHexString(@"#28d8c9"),NSFontAttributeName:[UIFont fontWithName:FONTNAMESTRING size:17]};
     nav.navigationBar.translucent = NO;
-    [self presentViewController:nav animated:YES completion:nil];
+    [[SliderViewController sharedSliderController] presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)moreAppButtonPressed:(UIButton *)sender
