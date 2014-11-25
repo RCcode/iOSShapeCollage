@@ -11,8 +11,8 @@
 	</array>
 	<key>imageRect</key>
 	<array>
-		<string>{{0, 0}, {1200, 790}}</string>
-		<string>{{0, 524}, {1200,676}}</string>
+		<string>{{0, 602}, {1200, 790}}</string>
+		<string>{{0, 0}, {1200,602}}</string>
 	</array>
 </dict>
 </plist>

@@ -12,9 +12,9 @@
 	</array>
 	<key>imageRect</key>
 	<array>
-		<string>{{60, 30}, {1110, 556}}</string>
-		<string>{{20, 624}, {556, 556}}</string>
-		<string>{{624, 624}, {518, 518}}</string>
+		<string>{{60, 614}, {1110, 556}}</string>
+		<string>{{586, 20}, {556, 556}}</string>
+		<string>{{20, 58}, {518, 518}}</string>
 	</array>
 </dict>
 </plist>

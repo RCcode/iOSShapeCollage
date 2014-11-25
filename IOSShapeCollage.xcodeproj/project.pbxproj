@@ -49,7 +49,6 @@
 		E8111EE619D9032500BE0C54 /* 关注我们@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8111EE019D9032500BE0C54 /* 关注我们@2x.png */; };
 		E8111EE719D9032500BE0C54 /* 评分@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8111EE119D9032500BE0C54 /* 评分@2x.png */; };
 		E8111EE819D9032500BE0C54 /* aboutUsBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8111EE219D9032500BE0C54 /* aboutUsBG@2x.png */; };
-		E816E9E719C7E25D002EAB92 /* Type in Resources */ = {isa = PBXBuildFile; fileRef = E816E9E619C7E25D002EAB92 /* Type */; };
 		E81859C01A231EB100580EC7 /* home_spread_update@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E81859BF1A231EB100580EC7 /* home_spread_update@2x.png */; };
 		E81B56D81A1C36D200F59E75 /* PopUpADView.m in Sources */ = {isa = PBXBuildFile; fileRef = E81B56D51A1C36D200F59E75 /* PopUpADView.m */; };
 		E81B56D91A1C36D200F59E75 /* PopUpADView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E81B56D61A1C36D200F59E75 /* PopUpADView.xib */; };
@@ -351,7 +350,6 @@
 		E8111EE019D9032500BE0C54 /* 关注我们@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关注我们@2x.png"; sourceTree = "<group>"; };
 		E8111EE119D9032500BE0C54 /* 评分@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "评分@2x.png"; sourceTree = "<group>"; };
 		E8111EE219D9032500BE0C54 /* aboutUsBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aboutUsBG@2x.png"; sourceTree = "<group>"; };
-		E816E9E619C7E25D002EAB92 /* Type */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Type; sourceTree = "<group>"; };
 		E81859BF1A231EB100580EC7 /* home_spread_update@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_spread_update@2x.png"; sourceTree = "<group>"; };
 		E81B56D21A1C36D200F59E75 /* Pic_AdMobShowTimesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pic_AdMobShowTimesManager.h; sourceTree = "<group>"; };
 		E81B56D31A1C36D200F59E75 /* Pic_AdMobShowTimesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pic_AdMobShowTimesManager.m; sourceTree = "<group>"; };
@@ -862,7 +860,6 @@
 				E844131319D93B0D00D6392C /* Type33 */,
 				E844131419D93B0D00D6392C /* Type34 */,
 				E844131519D93B0D00D6392C /* Type35 */,
-				E816E9E619C7E25D002EAB92 /* Type */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -1620,7 +1617,6 @@
 				E82419D519EBF01000BC0EDB /* Icon.png in Resources */,
 				E8111ED119D8FAC500BE0C54 /* share_back@2x.png in Resources */,
 				E8111EE319D9032500BE0C54 /* 反馈@2x.png in Resources */,
-				E816E9E719C7E25D002EAB92 /* Type in Resources */,
 				E844133719D93B0D00D6392C /* Type34 in Resources */,
 				E8D8ED901A1DDE12008FEAFF /* MBProgressHUD.bundle in Resources */,
 				E8111EE619D9032500BE0C54 /* 关注我们@2x.png in Resources */,
