@@ -366,7 +366,7 @@
     
     [hideButton addSubview:actionBar];
     
-    tipBarView.frame = CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, 44);
+    tipBarView.frame = CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, 88);
     UIView *tipViewBarAlpha = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tipBarView.frame.size.width, tipBarView.frame.size.height)];
     tipViewBarAlpha.backgroundColor = ALPHACOLOR;
     tipViewBarAlpha.alpha = 0.9;
@@ -376,6 +376,8 @@
 //    tipLabel.text = LocalizedString(@"", @"");
     tipLabel.text = LocalizedString(@"switch_hint_string", nil);
     tipLabel.textColor = [UIColor whiteColor];
+    tipLabel.numberOfLines = 0;
+    tipLabel.lineBreakMode = NSLineBreakByWordWrapping;
     tipLabel.font = [UIFont fontWithName:FONTNAMESTRING size:14];
     tipLabel.backgroundColor = [UIColor clearColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;

@@ -252,9 +252,6 @@
 - (void)maskViewOriginEdit
 {
     [UIView animateWithDuration:ANIMATIONDURATION animations:^{
-        CGAffineTransform currentTransform = CGAffineTransformScale(responderTransform, 1, 1);
-        _responderView.transform = currentTransform;
-        
         _responderView.newTransform = _responderView.initTransform;
         _responderView.editImageView.center = _responderView.startCenter;
     }];
