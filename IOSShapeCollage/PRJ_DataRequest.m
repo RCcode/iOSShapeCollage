@@ -45,7 +45,7 @@
     
     SCAppDelegate *appDelegate = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    [MBProgressHUD showHUDAddedTo:appDelegate.window animated:YES];
+//    [MBProgressHUD showHUDAddedTo:appDelegate.window animated:YES];
     
     appDelegate.manager.requestSerializer = requestSerializer;
     
