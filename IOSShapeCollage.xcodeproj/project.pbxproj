@@ -239,6 +239,7 @@
 		E8C4D84319ECFF2C009F03DB /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C4D83E19ECFF17009F03DB /* libGPUImage.a */; };
 		E8D8ED8F1A1DDE12008FEAFF /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D8ED8D1A1DDE12008FEAFF /* MBProgressHUD+Add.m */; };
 		E8D8ED901A1DDE12008FEAFF /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E8D8ED8E1A1DDE12008FEAFF /* MBProgressHUD.bundle */; };
+		E8ECB41B1A24800C00FD7C8C /* Type in Resources */ = {isa = PBXBuildFile; fileRef = E8ECB41A1A24800C00FD7C8C /* Type */; };
 		E8F31FBE1A1C3ABD007C8E18 /* Pic_AdMobShowTimesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E81B56D31A1C36D200F59E75 /* Pic_AdMobShowTimesManager.m */; };
 		E8FDFA9319D3B5C2009B88CB /* SCMulImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFA9219D3B5C2009B88CB /* SCMulImagePickerViewController.m */; };
 		E8FDFA9619D3B720009B88CB /* SCImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFA9519D3B720009B88CB /* SCImageCollectionViewController.m */; };
@@ -662,6 +663,7 @@
 		E8D8ED8C1A1DDE12008FEAFF /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
 		E8D8ED8D1A1DDE12008FEAFF /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
 		E8D8ED8E1A1DDE12008FEAFF /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		E8ECB41A1A24800C00FD7C8C /* Type */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Type; sourceTree = "<group>"; };
 		E8FDFA9119D3B5C2009B88CB /* SCMulImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMulImagePickerViewController.h; sourceTree = "<group>"; };
 		E8FDFA9219D3B5C2009B88CB /* SCMulImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMulImagePickerViewController.m; sourceTree = "<group>"; };
 		E8FDFA9419D3B720009B88CB /* SCImageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImageCollectionViewController.h; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 		E816E9E319C7E1F8002EAB92 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				E8ECB41A1A24800C00FD7C8C /* Type */,
 				E84412F319D93B0D00D6392C /* Type1 */,
 				E84412F419D93B0D00D6392C /* Type2 */,
 				E84412F519D93B0D00D6392C /* Type3 */,
@@ -1540,6 +1543,7 @@
 				E84C8DB11A1EECC600D8F0C4 /* README.txt in Resources */,
 				E838FE6419D94749006D7191 /* NCF5Vignette.png in Resources */,
 				E838FE6C19D94749006D7191 /* NCF8Metal.png in Resources */,
+				E8ECB41B1A24800C00FD7C8C /* Type in Resources */,
 				E8111ED519D8FAC500BE0C54 /* share_share-to-fb@2x.png in Resources */,
 				E82419D319EBF01000BC0EDB /* Icon-Small.png in Resources */,
 				E81B56D91A1C36D200F59E75 /* PopUpADView.xib in Resources */,
