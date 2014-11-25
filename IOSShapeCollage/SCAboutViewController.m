@@ -45,11 +45,11 @@
 //    [self.view addSubview:backImage];
     _tableImageArray = [[NSArray alloc]initWithObjects:@"更新",@"评分",@"关注我们",@"反馈",@"分享", nil];
     _tableNameArray = [[NSArray alloc]initWithObjects:
-                       LocalizedString(@"update", nil),
-                       LocalizedString(@"rate", nil),
-                       LocalizedString(@"follow", nil),
-                       LocalizedString(@"feedback", nil),
-                       LocalizedString(@"share", nil),
+                       LocalizedString(@"rc_update", nil),
+                       LocalizedString(@"rc_rate", nil),
+                       LocalizedString(@"rc_follow", nil),
+                       LocalizedString(@"rc_feedback", nil),
+                       LocalizedString(@"rc_share_app", nil),
                        nil];
     
     _tabbleView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, 260, self.view.frame.size.height) style:UITableViewStylePlain];

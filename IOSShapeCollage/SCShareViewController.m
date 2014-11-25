@@ -57,7 +57,7 @@
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 16, 46, 44)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.text = LocalizedString(@"share", @"");
+        titleLabel.text = LocalizedString(@"rc_share", @"");
         titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22];
         titleLabel.textColor = colorWithHexString(@"#28d8c9");
         self.navigationItem.titleView = titleLabel;
@@ -403,7 +403,7 @@
             BOOL canOpne = [_documetnInteractionController presentOpenInMenuFromRect:CGRectMake(0, 0, 0, 0) inView:self.view animated:YES];
             if (canOpne == NO)
             {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"no_instagram", @"") delegate:self cancelButtonTitle:LocalizedString(@"conform", @"") otherButtonTitles:nil, nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"rc_no_instagram", @"") delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_positive", @"") otherButtonTitles:nil, nil];
                 [alert show];
             }
         }
