@@ -166,7 +166,6 @@
     {
         [appInfoTableView reloadData];
     }
-    [appInfoTableView reloadData];
 }
 
 - (void)leftItemButtonPressed:(id)sender

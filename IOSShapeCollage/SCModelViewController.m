@@ -211,7 +211,7 @@
 {
     [editControll setEditImageArray:imageArray];
 
-    [self.navigationController pushViewController:editControll animated:YES];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:editControll animated:YES];
 }
 
 #pragma mark 事件统计
