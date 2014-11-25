@@ -151,7 +151,21 @@
 //    [[SDImageCache sharedImageCache] clearMemory];
 }
 
-- (void)updateState{
+- (void)updateState
+{
+    SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
+    [app.moreAPPSArray removeAllObjects];
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+    app.moreAPPSArray = [[NSMutableArray alloc]initWithArray:[[PRJ_SQLiteMassager shareStance] getAllAppInfoData]];
+    if (app.moreAPPSArray)
+    {
+        app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
+    }
+    
+    if (app.moreAPPSArray.count != 0)
+    {
+        [appInfoTableView reloadData];
+    }
     [appInfoTableView reloadData];
 }
 

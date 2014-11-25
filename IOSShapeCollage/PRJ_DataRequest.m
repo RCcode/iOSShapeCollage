@@ -58,7 +58,6 @@
     [appDelegate.manager POST:token? kPushURL:url parameters:self.valuesDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析数据
         NSDictionary *dic = responseObject;
-        NSLog(@"%@",[dic objectForKey:@"message"]);
         [MBProgressHUD hideAllHUDsForView:appDelegate.window animated:YES];
         if (_delegate != nil)
         {
