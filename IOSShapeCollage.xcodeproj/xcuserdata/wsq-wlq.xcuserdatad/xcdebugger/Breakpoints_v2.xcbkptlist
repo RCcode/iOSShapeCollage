@@ -57,22 +57,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOSShapeCollage/ME_MoreAppViewController.m"
-            timestampString = "435752175.486432"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "IOSShapeCollage/SCShareViewController.m"
             timestampString = "438166292.606927"
             startingColumnNumber = "9223372036854775807"
@@ -105,7 +89,7 @@
                   symbolName = "-[SCImageCollectionViewController photoLibraryDidChange:]"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438519410.336771"
+                  timestampString = "438582079.771037"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "240"
@@ -119,7 +103,7 @@
                   symbolName = "__57-[SCImageCollectionViewController photoLibraryDidChange:]_block_invoke"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438519410.3371"
+                  timestampString = "438582079.771222"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "240"
@@ -200,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOSShapeCollage/ME_MoreAppViewController.m"
-            timestampString = "438514562.629736"
+            timestampString = "438580656.269838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -238,6 +222,54 @@
             startingLineNumber = "380"
             endingLineNumber = "380"
             landmarkName = "-hitTest:withEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOSShapeCollage/SCAppDelegate.m"
+            timestampString = "438581828.787847"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "-didReceivedData:withTag:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOSShapeCollage/SCAppDelegate.m"
+            timestampString = "438581828.787847"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOSShapeCollage/SCAppDelegate.m"
+            timestampString = "438581912.438334"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "-applicationWillEnterForeground:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

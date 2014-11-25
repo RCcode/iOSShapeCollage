@@ -207,8 +207,8 @@
     if ([PRJ_Global shareStance].appsArray.count == 0)
     {
         //查看数据库中是否存在
-        [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-        if ([[PRJ_SQLiteMassager shareStance] getAllAppsInfoData].count == 0)
+        [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+        if ([[PRJ_SQLiteMassager shareStance] getAllAppInfoData].count == 0)
         {
             //Bundle Id
             NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
@@ -229,7 +229,7 @@
         }
         else
         {
-            [PRJ_Global shareStance].appsArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+            [PRJ_Global shareStance].appsArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
             [PRJ_Global shareStance].appsArray = changeMoreTurnArray([PRJ_Global shareStance].appsArray);
         }
     }
@@ -574,7 +574,7 @@
     
     NSArray *infoArray = [dic objectForKey:@"list"];
     //判断是否有新应用
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
     
     NSMutableArray *sqlArray = [[NSMutableArray alloc]init];
     for (NSMutableDictionary *infoDic in infoArray)
@@ -584,8 +584,8 @@
     }
     
     //判断是否有新应用
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-    NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+    NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
     for (ME_AppInfo *app in sqlArray)
     {
         BOOL isHave = NO;
@@ -604,11 +604,11 @@
             break;
         }
     }
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
     [[PRJ_SQLiteMassager shareStance] deleteAllAppInfoData];
     [[PRJ_SQLiteMassager shareStance] insertAppInfo:sqlArray];
     
-    app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
+    app.moreAPPSArray = changeMoreTurnArray(sqlArray);
     [appMoretableView reloadData];
 }
 

@@ -41,16 +41,14 @@
     [self netWorkingSeting];
     
     
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-    [PRJ_Global shareStance].appsArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
-    self.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
-    if ([PRJ_Global shareStance].appsArray)
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+    self.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
+    if (self.moreAPPSArray)
     {
-        [PRJ_Global shareStance].appsArray = changeMoreTurnArray([PRJ_Global shareStance].appsArray);
         self.moreAPPSArray = changeMoreTurnArray(self.moreAPPSArray);
     }
     //加载moreApp数据
-    if([Pic_AdMobShowTimesManager canRequstDataWithKey:kRequestMoreAppDateKey] || [PRJ_Global shareStance].appsArray.count == 0)
+    if([Pic_AdMobShowTimesManager canRequstDataWithKey:kRequestMoreAppDateKey] || self.moreAPPSArray.count == 0)
     {
         [self downLoadAppsInfo];
     }
@@ -413,7 +411,6 @@
 #pragma mark WebRequestDelegate
 - (void)didReceivedData:(NSDictionary *)dic withTag:(NSInteger)tag
 {
-    NSLog(@"dic........%@",dic);
     switch (tag) {
         case 10:
         {
@@ -456,8 +453,8 @@
                 [sqlArray addObject:appInfo];
             }
             //判断是否有新应用
-            [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-            NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+            [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+            NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
             
             for (ME_AppInfo *app in sqlArray)
             {
@@ -477,7 +474,7 @@
                     break;
                 }
             }
-            [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+            [PRJ_SQLiteMassager shareStance].tableType = moreApp;
             [[PRJ_SQLiteMassager shareStance] deleteAllAppInfoData];
             [[PRJ_SQLiteMassager shareStance] insertAppInfo:sqlArray];
             
@@ -604,9 +601,9 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.moreAPPSArray removeAllObjects];
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
     //    self.appsArray = [[FONT_SQLiteMassager shareStance] getAllAppInfoData];
-    self.moreAPPSArray = [[NSMutableArray alloc]initWithArray:[[PRJ_SQLiteMassager shareStance] getAllAppsInfoData]];
+    self.moreAPPSArray = [[NSMutableArray alloc]initWithArray:[[PRJ_SQLiteMassager shareStance] getAllAppInfoData]];
     if (self.moreAPPSArray)
     {
         self.moreAPPSArray = changeMoreTurnArray(self.moreAPPSArray);

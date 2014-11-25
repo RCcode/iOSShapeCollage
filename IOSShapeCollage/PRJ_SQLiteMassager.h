@@ -22,7 +22,7 @@ enum SqliteType
     PhotoMarkType = 1,
     TypeFaceType = 2,
     ColorMatrixType,
-    AppInfo,
+    moreApp,
 };
 
 @interface PRJ_SQLiteMassager : NSObject
@@ -40,29 +40,26 @@ enum SqliteType
 - (NSString *)dataFilePath;
 //创建数据库
 - (BOOL)createTable:(sqlite3 *)db;
-
-//创建数据库
-- (BOOL)createAppsInfoTable:(sqlite3 *)db;
-
 //插入数据
 - (BOOL)insertChatList:(NSArray *)photoMarkArray photoMarkType:(NSString *)type;
-- (BOOL)insertTypeFace:(PRJ_TypeFaceObject *)typeFaceObject;
+//- (BOOL)insertTypeFace:(FONT_fontTypeObject *)typeFaceObject;
 //获取全部数据
 - (NSMutableArray*)getAllData;
 - (NSMutableArray *)getAllTypeFaces;
 //删除数据：
-- (BOOL)deleteChatList:(PRJ_PhotoMarkObject *)photoMark;
-- (BOOL)deleteTypeFace:(PRJ_TypeFaceObject *)typeFaceObject;
+//- (BOOL)deleteChatList:(FONT_photoMarkObject *)photoMark;
+//- (BOOL)deleteTypeFace:(FONT_fontTypeObject *)typeFaceObject;
 //查询数据库，searchID为要查询数据的ID，返回数据为查询到的数据
 - (NSMutableArray *)searchTestList:(NSString *)type;
 //查询最大ID
 - (NSInteger)selectMaxId;
 - (BOOL)deleteAllDataForMarkType:(NSString *)markType;
-
+//moreApp
 - (BOOL)insertAppInfo:(NSMutableArray *)appsInfo;
-
-- (NSMutableArray *)getAllAppsInfoData;
 - (BOOL)updagteAppInfo:(int)appId withIsHaveDownLoad:(int)haveDownload;
+- (NSMutableArray *)getAllAppInfoData;
 - (BOOL)deleteAllAppInfoData;
+
+- (BOOL)deleteAllTypeFace;
 
 @end

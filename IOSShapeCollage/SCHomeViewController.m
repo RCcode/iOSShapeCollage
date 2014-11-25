@@ -138,7 +138,7 @@
     [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"title-bar.png"] forBarMetrics:UIBarMetricsDefault];
     nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     nav.navigationBar.backgroundColor = [UIColor clearColor];
-    [self presentViewController:nav animated:YES completion:nil];
+    [[SliderViewController sharedSliderController] presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark 事件统计

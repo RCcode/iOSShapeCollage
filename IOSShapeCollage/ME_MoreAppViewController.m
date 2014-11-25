@@ -15,6 +15,8 @@
 #import <StoreKit/StoreKit.h>
 #import "PRJ_SQLiteMassager.h"
 #import "SCAppDelegate.h"
+#import "SDWebImagePrefetcher.h"
+
 
 @interface ME_MoreAppViewController () <UITableViewDataSource,UITableViewDelegate,SKStoreProductViewControllerDelegate>
 {
@@ -49,6 +51,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[SDWebImagePrefetcher sharedImagePrefetcher] cancelPrefetching];
+    
     self.title = @"More Apps";
     
     if (iPhone5)
@@ -79,8 +84,8 @@
 //        hud.color = [UIColor blackColor];
         
         //查看数据库中是否存在
-        [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-        if ([[PRJ_SQLiteMassager shareStance] getAllAppsInfoData].count == 0)
+        [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+        if ([[PRJ_SQLiteMassager shareStance] getAllAppInfoData].count == 0)
         {
             //Bundle Id
             NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
@@ -102,7 +107,7 @@
         }
         else
         {
-            app.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+            app.moreAPPSArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
             app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
         }
 //        hideMBProgressHUD();
@@ -266,8 +271,8 @@
     }
     
     //判断是否有新应用
-    [PRJ_SQLiteMassager shareStance].tableType = AppInfo;
-    NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppsInfoData];
+    [PRJ_SQLiteMassager shareStance].tableType = moreApp;
+    NSMutableArray *dataArray = [[PRJ_SQLiteMassager shareStance] getAllAppInfoData];
     for (ME_AppInfo *app in sqlArray)
     {
         BOOL isHave = NO;
@@ -289,7 +294,7 @@
     [[PRJ_SQLiteMassager shareStance] deleteAllAppInfoData];
     [[PRJ_SQLiteMassager shareStance] insertAppInfo:sqlArray];
     
-    app.moreAPPSArray = changeMoreTurnArray(app.moreAPPSArray);
+    app.moreAPPSArray = changeMoreTurnArray(sqlArray);
     
     [appInfoTableView reloadData];
 //    hideMBProgressHUD();
