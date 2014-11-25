@@ -287,12 +287,10 @@
 
 -(void)getChoosePhoto:(UIImage *)image
 {
-    NSLog(@"原图");
     image = [image rescaleImageToPX:1200];
-    NSLog(@"压缩图");
     if (pics.count == maxImageCount)
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%d张图片",maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:LocalizedString(@"rc_max_photos_limit", nil),maxImageCount] delegate:self cancelButtonTitle:LocalizedString(@"rc_custom_positive", nil) otherButtonTitles:nil, nil];
         
         [alert show];
         
