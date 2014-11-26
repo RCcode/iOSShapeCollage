@@ -16,6 +16,7 @@
     MHImagePickerMutilSelector* imagePickerMutilSelector;
     SCEditViewController *editControll;
     
+    BOOL isChoose;
 }
 
 @property (nonatomic, strong) NSMutableArray *photoGroupArray;

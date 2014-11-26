@@ -106,6 +106,7 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = colorWithHexString(@"#202020");
+    isChoose = NO;
     
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     navView.backgroundColor = colorWithHexString(@"#2d2d2d");
@@ -181,6 +182,11 @@
 
 - (void)modelChooseButtonPressed:(id)sender
 {
+    if (isChoose)
+    {
+        return;
+    }
+    isChoose = YES;
     UIButton *tempButton = (UIButton *)sender;
     NSString *directory = [[[[[[PRJ_Global shareStance].modelArray objectAtIndex:tempButton.tag-10] lastPathComponent] stringByDeletingPathExtension] componentsSeparatedByString:@"_"] objectAtIndex:0];
     
@@ -203,7 +209,10 @@
     UINavigationController *presentNav = [[UINavigationController alloc]initWithRootViewController:mulImagePiker];
     presentNav.delegate = imagePickerMutilSelector;
     mulImagePiker.photoGroupArray = self.photoGroupArray;
-    [self presentViewController:presentNav animated:YES completion:nil];
+    [self presentViewController:presentNav animated:YES completion:^
+     {
+         isChoose = NO;
+     }];
     
 }
 
