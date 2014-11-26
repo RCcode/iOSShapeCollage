@@ -111,9 +111,10 @@
         btn_done=[UIButton buttonWithType:UIButtonTypeCustom];
         btn_done.frame = CGRectMake(self.view.frame.size.width-60-10, 0, 60, 30);
         btn_done.center = CGPointMake(btn_done.center.x, textlabel.center.y);
-        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK_not-available"] forState:UIControlStateNormal];
+        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK_not-available"] forState:UIControlStateDisabled];
         [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK"] forState:UIControlStateSelected];
         [btn_done addTarget:self action:@selector(doneHandler) forControlEvents:UIControlEventTouchUpInside];
+        btn_done.enabled = NO;
         [selectedPan addSubview:btn_done];
         
         
@@ -160,13 +161,13 @@
     {
         [self close];
     }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请选择%ld张图片",(long)maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        
-        [alert show];
-    }
-    
+//    else
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请选择%ld张图片",(long)maxImageCount] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        
+//        [alert show];
+//    }
+//    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -299,6 +300,10 @@
     {
         [pics addObject:image];
         [self updateTableView];
+        if (pics.count == maxImageCount)
+        {
+            btn_done.enabled = YES;
+        }
     }
 }
 

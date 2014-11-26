@@ -89,7 +89,7 @@
                   symbolName = "-[SCImageCollectionViewController photoLibraryDidChange:]"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438602684.858019"
+                  timestampString = "438664674.625176"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "240"
@@ -103,7 +103,7 @@
                   symbolName = "__57-[SCImageCollectionViewController photoLibraryDidChange:]_block_invoke"
                   moduleName = "IOSShapeCollage"
                   urlString = "file:///Users/wsq-wlq/Desktop/%EF%BC%B2%EF%BC%A3/iOSShapeCollage/IOSShapeCollage/SCImageCollectionViewController.m"
-                  timestampString = "438602684.858204"
+                  timestampString = "438664674.625371"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "240"
@@ -270,6 +270,22 @@
             startingLineNumber = "613"
             endingLineNumber = "613"
             landmarkName = "-applicationWillEnterForeground:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOSShapeCollage/SCAppDelegate.m"
+            timestampString = "438602796.908176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
+            landmarkName = "-applicationWillTerminate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
