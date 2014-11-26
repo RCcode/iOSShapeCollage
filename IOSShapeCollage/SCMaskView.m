@@ -116,7 +116,7 @@
     _filterAfterImage = picture;
     float scalePicture = picture.size.width/picture.size.height;
 
-    CGSize tempEditImageViewSize = CGSizeMake(editShowView.frame.size.width, editShowView.frame.size.width/scalePicture);
+    CGSize tempEditImageViewSize = CGSizeMake(editShowView.frame.size.width+1, editShowView.frame.size.width/scalePicture+1);
     if (tempEditImageViewSize.height < editShowView.frame.size.height)
     {
         tempEditImageViewSize = CGSizeMake(editShowView.frame.size.height*scalePicture, editShowView.frame.size.height);

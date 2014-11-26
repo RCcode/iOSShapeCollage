@@ -174,7 +174,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+//    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -511,7 +511,7 @@
         {
             //编辑
             [self event:@"edit" label:@"edit_revolved"];
-            self.title = @"Rotation";
+            self.title = @"CollageShape";
             self.navigationItem.hidesBackButton = YES;
             self.navigationItem.leftBarButtonItem = nil;
             self.navigationItem.rightBarButtonItem = nil;
@@ -566,7 +566,7 @@
 - (void)scaleViewBackButtonPressed:(id)sender
 {
     [maskTouchView maskViewCancelEdit];
-    self.title = @"ShapeCollage";
+    self.title = @"CollageShape";
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil action:nil];
@@ -581,7 +581,7 @@
 - (void)scaleViewSureButton:(id)sender
 {
     [maskTouchView maskViewEndEdit];
-    self.title = @"ShapeCollage";
+    self.title = @"CollageShape";
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil action:nil];
@@ -637,7 +637,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }

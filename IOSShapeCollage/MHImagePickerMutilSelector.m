@@ -48,10 +48,9 @@
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     viewController.navigationItem.leftBarButtonItem = nil;
     viewController.navigationItem.rightBarButtonItem = nil;
-    viewController.title = @"Gallery";
+    viewController.title = LocalizedString(@"rc_album", nil);
     [navigationController.navigationBar setBarTintColor:colorWithHexString(@"#2d2d2d")];
     navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: colorWithHexString(@"#28d8c9"),NSFontAttributeName:[UIFont fontWithName:FONTNAMESTRING size:17]};
     tempController = viewController;
@@ -142,6 +141,11 @@
         [pics removeAllObjects];
         
     }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 - (void)leftItemButtonPressed:(id)sender
 {
