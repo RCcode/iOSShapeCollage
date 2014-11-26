@@ -165,7 +165,7 @@
         {
             [self event:@"home" label:@"home_menu_share"];
             //需要分享的内容
-            NSString *shareContent = [NSString stringWithFormat:@"%@ http://bit.ly/1r0PhkE",LocalizedString(@"share_msg", @"")];
+            NSString *shareContent = [NSString stringWithFormat:@"%@ http://bit.ly/1vLhwsk",LocalizedString(@"share_msg", @"")];
             NSArray *activityItems = @[shareContent];
             
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];

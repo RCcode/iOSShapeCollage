@@ -16,6 +16,7 @@
 @synthesize delegate;
 @synthesize isFilterImage;
 @synthesize isScaleImage;
+@synthesize isExchangeImage;
 @synthesize showView;
 
 - (id)initWithFrame:(CGRect)frame

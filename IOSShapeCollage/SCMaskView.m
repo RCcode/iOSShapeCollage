@@ -116,13 +116,13 @@
     _filterAfterImage = picture;
     float scalePicture = picture.size.width/picture.size.height;
 
-    CGSize tempEditImageViewSize = CGSizeMake(editShowView.frame.size.width+1, editShowView.frame.size.width/scalePicture+1);
+    CGSize tempEditImageViewSize = CGSizeMake(editShowView.frame.size.width, editShowView.frame.size.width/scalePicture);
     if (tempEditImageViewSize.height < editShowView.frame.size.height)
     {
         tempEditImageViewSize = CGSizeMake(editShowView.frame.size.height*scalePicture, editShowView.frame.size.height);
     }
     
-    editImageView.frame = CGRectMake(editShowView.frame.origin.x, editShowView.frame.origin.y, tempEditImageViewSize.width, tempEditImageViewSize.height);
+    editImageView.frame = CGRectMake(editShowView.frame.origin.x, editShowView.frame.origin.y, tempEditImageViewSize.width+1, tempEditImageViewSize.height+1);
 
     editImageView.image = picture;
     startRect = editImageView.frame;

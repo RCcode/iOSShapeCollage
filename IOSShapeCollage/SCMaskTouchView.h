@@ -36,8 +36,6 @@
     UIView *willShowBar;
     UIView *willHideBar;
     
-    BOOL isScaleImage;
-    BOOL isFilterImage;
     BOOL isExchangeImage;
     
     BOOL ishit_test;
@@ -49,6 +47,7 @@
 @property (nonatomic, assign) id<maskTouchViewDelegate>delegate;
 @property (nonatomic) BOOL isScaleImage;
 @property (nonatomic) BOOL isFilterImage;
+@property (nonatomic) BOOL isExchangeImage;
 @property (nonatomic, strong) UIImageView *showView;
 
 

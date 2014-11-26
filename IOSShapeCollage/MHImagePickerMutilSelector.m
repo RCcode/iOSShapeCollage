@@ -111,7 +111,7 @@
         btn_done.frame = CGRectMake(self.view.frame.size.width-60-10, 0, 60, 30);
         btn_done.center = CGPointMake(btn_done.center.x, textlabel.center.y);
         [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK_not-available"] forState:UIControlStateDisabled];
-        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK"] forState:UIControlStateSelected];
+        [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK"] forState:UIControlStateNormal];
         [btn_done addTarget:self action:@selector(doneHandler) forControlEvents:UIControlEventTouchUpInside];
         btn_done.enabled = NO;
         [selectedPan addSubview:btn_done];
@@ -248,11 +248,11 @@
     textlabel.text=[NSString stringWithFormat:@"%lu/%ld",(unsigned long)pics.count,(long)maxImageCount];
     if (pics.count == maxImageCount)
     {
-        btn_done.selected = YES;
+        btn_done.enabled = YES;
     }
     if (pics.count < maxImageCount)
     {
-        btn_done.selected = NO;
+        btn_done.enabled = NO;
     }
     [tbv reloadData];
     

@@ -181,6 +181,21 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
+    if (isShare)
+    {
+        isShare = NO;
+        [self resetBarViewFrame];
+    }
+}
+
+- (void)resetBarViewFrame
+{
+    maskTouchView.isFilterImage = NO;
+    modelBarView.frame = CGRectMake(0, maskTouchView.frame.origin.y+maskTouchView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-maskTouchView.frame.origin.y-maskTouchView.frame.size.height);
+    scaleViewActionBar.frame = CGRectMake(0, modelBarView.frame.origin.y+modelBarView.frame.size.height, scaleViewActionBar.frame.size.width, scaleViewActionBar.frame.size.height);
+    filterBarView.frame = CGRectMake(0, modelBarView.frame.origin.y+modelBarView.frame.size.height, filterBarView.frame.size.width, filterBarView.frame.size.height);
+    tipBarView.frame = CGRectMake(0, modelBarView.frame.origin.y+modelBarView.frame.size.height, tipBarView.frame.size.width, tipBarView.frame.size.height);
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -199,9 +214,6 @@
                 
                 [app.intersitial presentFromRootViewController:self];
             }
-            //            [Pic_AdMobShowTimesManager presentViewCompletion:^{
-            //                [Pic_AdMobShowTimesManager showCustomSeccess];
-            //            }];
         }
     }
 }
@@ -617,11 +629,18 @@
 
 - (void)rightItemButtonPressed:(id)sender
 {
+    if (maskTouchView.isExchangeImage)
+    {
+        maskTouchView.isExchangeImage = NO;
+        UIView *tempView = (UIView *)maskTouchView.responderView.subviews.lastObject;
+        [tempView removeFromSuperview];
+    }
+    [actionBarView removeFromSuperview];
+    
     SCShareViewController *shareCV = [[SCShareViewController alloc]init];
     [shareCV getImageFromView:maskTouchView];
     [self.navigationController pushViewController:shareCV animated:YES];
     isShare = YES;
-    
 }
 
 #pragma mark - imagePickerDelegate
