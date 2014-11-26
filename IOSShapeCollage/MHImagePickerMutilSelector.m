@@ -48,6 +48,7 @@
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     viewController.navigationItem.leftBarButtonItem = nil;
     viewController.navigationItem.rightBarButtonItem = nil;
     viewController.title = LocalizedString(@"rc_album", nil);
@@ -150,10 +151,6 @@
     }
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-}
 - (void)leftItemButtonPressed:(id)sender
 {
     if (isGroup)
