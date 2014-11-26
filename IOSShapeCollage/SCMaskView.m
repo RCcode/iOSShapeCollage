@@ -242,7 +242,6 @@
     _filterBeforeImage = nil;
     _filterAfterImage = nil;
     _maskImage = nil;
-
 }
 
 /*

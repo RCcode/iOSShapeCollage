@@ -45,6 +45,7 @@ int kBannerViewH;
 
 @property (nonatomic, strong) NSArray *modelArray;
 @property (nonatomic, strong) NSMutableArray *editImageArray;
+@property (nonatomic) BOOL isChangeModel;
 
 + (PRJ_Global *)shareStance;
 - (MHImagePickerMutilSelector *)getSCCollectionViewDelegate;

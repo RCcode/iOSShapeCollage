@@ -113,7 +113,14 @@
         [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK_not-available"] forState:UIControlStateDisabled];
         [btn_done setBackgroundImage:[UIImage imageNamed:@"gallery_OK"] forState:UIControlStateNormal];
         [btn_done addTarget:self action:@selector(doneHandler) forControlEvents:UIControlEventTouchUpInside];
-        btn_done.enabled = NO;
+        if (pics.count == maxImageCount)
+        {
+            btn_done.enabled = YES;
+        }
+        if (pics.count < maxImageCount)
+        {
+            btn_done.enabled = NO;
+        }
         [selectedPan addSubview:btn_done];
         
         

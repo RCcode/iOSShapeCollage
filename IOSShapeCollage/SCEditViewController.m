@@ -14,6 +14,7 @@
 #import "SCMaskView.h"
 #import "Pic_AdMobShowTimesManager.h"
 #import "GADInterstitial.h"
+#import "PRJ_Global.h"
 
 
 #define ACTIONBARINITRECT (CGRectMake(0, self.view.frame.size.height-44, kScreen_Width, self.view.frame.size.height-44-(maskTouchView.frame.origin.y+maskTouchView.frame.size.height)))
@@ -402,7 +403,6 @@
 - (void)modelChooseButtonPressed:(id)sender
 {
     isSave = NO;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         SCAppDelegate *app = (SCAppDelegate *)[UIApplication sharedApplication].delegate;
         [MBProgressHUD showHUDAddedTo:app.window animated:YES];
@@ -431,7 +431,6 @@
         imageRectArray = nil;
     }
     
-    
     tempButton.frame = CGRectMake(tempButton.frame.origin.x-5, tempButton.frame.origin.y-5, 86, 86);
     modelChangeSelected.center = tempButton.center;
     selectedTag = tempButton.tag;
@@ -454,14 +453,16 @@
     maskImageArray = [self getMaskResourceWithNames:[NSArray arrayWithArray:[infoDic objectForKey:@"imageName"]]];
     imageRectArray = [self transitionImageRectToEditRect:[NSArray arrayWithArray:[infoDic objectForKey:@"imageRect"]]];
     
-    
     [maskTouchView setupWithMaskImageArray:maskImageArray andRectArray:imageRectArray andEditImageArray:[PRJ_Global shareStance].editImageArray];
+    
+    [actionBarView removeFromSuperview];
 }
 
 #pragma mark - maskViewDelegate
 - (void)showTheChooseBarAtPoint:(CGPoint)point
 {
-//    [actionBarView removeFromSuperview];
+    
+    [actionBarView removeFromSuperview];
     [self.view addSubview:actionBarView];
     
     actionBar.center = point;
