@@ -335,7 +335,7 @@
     NSDictionary *infoDic = [self deviceInfomation:token];
     
     PRJ_DataRequest *request = [[PRJ_DataRequest alloc] initWithDelegate:self];
-    [request registerToken:infoDic withTag:11];
+    [request registerToken:infoDic withTag:100];
     
 }
 
