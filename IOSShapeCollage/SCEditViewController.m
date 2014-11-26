@@ -627,6 +627,7 @@
 #pragma mark - imagePickerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    image = [image rescaleImageToPX:1200];
     [maskTouchView changeEditImage:image];
     [[PRJ_Global shareStance].editImageArray replaceObjectAtIndex:maskTouchView.responderView.tag-10 withObject:image];
     [picker dismissViewControllerAnimated:YES completion:nil];
