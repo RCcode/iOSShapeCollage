@@ -206,6 +206,7 @@
 - (void)umengSetting
 {
     [MobClick startWithAppkey:umengAPPKey reportPolicy:SEND_ON_EXIT channelId:@"App Store"];
+    [MobClick setAppVersion:XcodeAppVersion];
     [MobClick updateOnlineConfig];
     
 //    [Flurry startSession:flurryAPPKey];

@@ -184,7 +184,6 @@
     [self.navigationController setNavigationBarHidden:NO];
     if (isShare)
     {
-        isShare = NO;
         [self resetBarViewFrame];
     }
 }
