@@ -245,7 +245,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ME_AppInfo *appInfo = [[(SCAppDelegate *)[[UIApplication sharedApplication] delegate] moreAPPSArray] objectAtIndex:indexPath.row];
-    [self event:@"home" label:[NSString stringWithFormat:@"homeMoreApp_%d",appInfo.appId]];
+    [self event:@"C_MORE" label:[NSString stringWithFormat:@"c_more_%@",appInfo.appName]];
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:appInfo.openUrl]])
     {
